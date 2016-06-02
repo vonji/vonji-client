@@ -1,14 +1,15 @@
 package main
 
 import (
+	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
+
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"io/ioutil"
-	"io"
-	"strings"
 )
 
 //TODO better name
