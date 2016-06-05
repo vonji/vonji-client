@@ -59,7 +59,7 @@ class App extends Component {
           <div className="row">
             <div className="col-md-6">
               <div className="list-group">
-                {this.children}
+                {this.props.children}
               </div>
             </div>
           </div>

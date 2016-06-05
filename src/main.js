@@ -11,7 +11,6 @@ import { mainReducer } from './reducers/all';
 
 import Members from './comps/members';
 import App from './comps/app';
-
 const logger = createLogger();
 const store = createStore(
   mainReducer,

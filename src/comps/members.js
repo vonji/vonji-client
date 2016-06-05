@@ -20,17 +20,21 @@ class Members extends Component {
         </div>
       );
     }
-    return members.map((member) => (
-      <Member
-        key={member.ID}
-        vCoins={member.VCoins}
-        vReput={member.VReputation}
-        firstName={member.FirstName}
-        lastName={member.LastName}
-        description={member.Description}
-      />
-    ));
+    return (
+      <div>
+        {members.map((member) => (
+          <Member
+            key={member.ID}
+            vCoins={member.VCoins}
+            vReput={member.VReputation}
+            firstName={member.FirstName}
+            lastName={member.LastName}
+            description={member.Description}
+          />
+        ))}
+      </div>
+    );
   }
 }
 
-export default connect(state => state.members)(Members);
+export default connect(state => state)(Members);

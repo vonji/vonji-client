@@ -50,7 +50,7 @@ const members = (state = [], action) => {
 };
 
 export const mainReducer = (state = {}, action) => ({
-  routing: routerReducer(state, action),
+  routing: routerReducer(state.routing, action),
   members: members(state.members, action),
   alerts: alerts(state.alerts, action),
   username: username(state.username, action),

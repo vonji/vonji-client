@@ -14,7 +14,8 @@
   },
   "scripts": {
     "eslint": "./node_modules/.bin/eslint --fix --color src/**/*.js",
-    "start": "./node_modules/.bin/webpack-dev-server --progress --build"
+    "dev": "./node_modules/.bin/webpack-dev-server --progress --build",
+    "start": "node server.js"
   },
   "homepage": "https://github.com/Ephasme/vonji-client#readme",
   "devDependencies": {
