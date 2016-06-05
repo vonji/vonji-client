@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://git@github.com/Ephasme/vonji-client.git"
@@ -14,6 +11,10 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Ephasme/vonji-client/issues"
+  },
+  "scripts": {
+    "eslint": "./node_modules/.bin/eslint --fix --color src/**/*.js",
+    "start": "./node_modules/.bin/webpack-dev-server --progress --build"
   },
   "homepage": "https://github.com/Ephasme/vonji-client#readme",
   "devDependencies": {
