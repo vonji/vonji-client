@@ -3,17 +3,29 @@ import { Member } from './member';
 import { connect } from 'react-redux';
 
 import {
-  doGetMembers,
+  requestMembersAction,
+  alertAction,
 } from '../actions/all';
 
 class Members extends Component {
+
   componentDidMount() {
-    doGetMembers(this.props.dispatch);
+    const { dispatch, username } = this.props;
+    if (username !== '') {
+      dispatch(requestMembersAction())
+      .catch((err) => {
+        dispatch(alertAction("Can't retreive the members: " + err, 'error'));
+      });
+    }
+  }
+
+  componentWillReceiveProps() {
+
   }
 
   render() {
     const members = this.props.members;
-    if (members === 'fetching') {
+    if (members.isFetching) {
       return (
         <div className="well">
           Members are on their way...
@@ -22,7 +34,7 @@ class Members extends Component {
     }
     return (
       <div>
-        {members.map((member) => (
+        {members.list.map((member) => (
           <Member
             key={member.ID}
             vCoins={member.VCoins}

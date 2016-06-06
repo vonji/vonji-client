@@ -1,7 +1,7 @@
 import React from 'react';
 
-export const Alert = ({ type, message, guid, onDismissAlert }) => {
-  const alertType = `alert-${type === 'error' ? 'danger' : 'info'}`;
+export const Alert = ({ severity, message, guid, onDismissAlert }) => {
+  const alertType = `alert-${severity === 'error' ? 'danger' : 'info'}`;
   return (
     <div id={guid} className={['alert', alertType].join(' ')}>
       <button

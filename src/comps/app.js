@@ -5,10 +5,10 @@ import { Alert } from './alert';
 import { Navbar } from './navbar';
 
 import {
-  doLogin,
-  doLogout,
-  doRemoveAlert,
-  doAlert,
+  loginAction,
+  logoutAction,
+  removeAlertAction,
+  alertAction,
 } from '../actions/all';
 
 class App extends Component {
@@ -26,10 +26,10 @@ class App extends Component {
             {alerts.map((alert) => (
               <Alert
                 key={alert.guid}
-                type={alert.type}
+                severity={alert.severity}
                 message={alert.message}
                 guid={alert.guid}
-                onDismissAlert={() => doRemoveAlert(dispatch, alert.guid)}
+                onDismissAlert={() => dispatch(removeAlertAction(alert.guid))}
               />
             ))}
           </div>
@@ -46,12 +46,12 @@ class App extends Component {
         <Navbar
           isLogged={username !== ''}
           onLogin={(givenUsername) => {
-            doLogin(dispatch, givenUsername);
-            doAlert(dispatch, "Welcome back! You've logged in successfully!", 'info');
+            dispatch(loginAction(givenUsername));
+            dispatch(alertAction("Welcome back! You've logged in successfully!", 'info'));
           }}
           onLogout={() => {
-            doLogout(dispatch);
-            doAlert(dispatch, 'See you next time :)! Yo!', 'info');
+            dispatch(logoutAction());
+            dispatch(alertAction('See you next time :)! Yo!', 'info'));
           }}
         />
         <div className="container-fluid">

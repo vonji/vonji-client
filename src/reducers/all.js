@@ -1,6 +1,6 @@
 import {
   UDPATE_MEMBERS,
-  GET_MEMBERS,
+  REQUEST_MEMBERS,
   ISSUE_ALERT,
   REMOVE_ALERT,
   LOGIN,
@@ -18,7 +18,7 @@ const alerts = (state = [], action) => {
         {
           guid: action.guid,
           message: action.message,
-          type: action.alertType,
+          severity: action.severity,
         },
         ...state.splice(0, 2),
       ];
@@ -38,12 +38,20 @@ const username = (state = '', action) => {
   }
 };
 
-const members = (state = [], action) => {
+const members = (state = {
+  isFetching: false,
+  list: [],
+}, action) => {
   switch (action.type) {
-    case GET_MEMBERS:
-      return 'fetching';
+    case REQUEST_MEMBERS:
+      return {
+        isFetching: true,
+      };
     case UDPATE_MEMBERS:
-      return action.members;
+      return {
+        isFetching: false,
+        list: action.members,
+      };
     default:
       return state;
   }

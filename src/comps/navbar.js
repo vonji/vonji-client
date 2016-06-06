@@ -6,7 +6,7 @@ export const Navbar = ({ isLogged, onLogin, onLogout }) => (
   <nav className="navbar navbar-default">
     <div className="container-fluid">
       <div className="navbar-header">
-        <a className="navbar-brand" href="#">Vonji</a>
+        <Link className="navbar-brand" activeClassName="active" to={'/'}>Vonji</Link>
       </div>
       <ul className="nav navbar-nav">
         <li><Link activeClassName="active" to={'/members'}>Members</Link></li>

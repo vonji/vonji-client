@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import thunk from 'redux-thunk';
 import { Router, Route, browserHistory } from 'react-router';
 import { applyMiddleware, createStore } from 'redux';
 
@@ -15,6 +16,7 @@ const logger = createLogger();
 const store = createStore(
   mainReducer,
   applyMiddleware(
+    thunk,
     logger
   )
 );
