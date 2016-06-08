@@ -1,9 +1,3 @@
-<style>
-    #topbar {
-        margin-bottom: 70px;
-    }
-</style>
-
 <div class="row" id="form">
     <div class="col-md-3"></div>
     <div class="col-md-6">
@@ -16,15 +10,13 @@
             <button type="submit">Submit</button>
         </form>
     </div>
-    <div class="col-md-3">{{email}}</div>
+    <div class="col-md-3"></div>
 </div>
 
 <script src="/static/js/lib/jquery.serializejson.min.js"></script>
 
 <script type="text/javascript">
     $(function () {
-        Vue.config.debug = true;
-
         new Vue({
             el: '#form'
         });
@@ -32,13 +24,11 @@
         $('#user-registration-form').submit(function(e) {
             e.preventDefault();
             var data = JSON.stringify($('#user-registration-form').serializeJSON());
-            console.log(data);
             $.ajax({
                 url: 'http://localhost:1618/users',
                 contentType: 'application/json; charset=utf-8',
                 method: 'POST',
-                dataType: 'json',
-                data: data,//
+                data: data,
                 success: function () {
                     console.log("success");
                 },
