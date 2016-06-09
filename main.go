@@ -44,7 +44,6 @@ func main() {
 	r := mux.NewRouter()
 
 	r.PathPrefix("/static/").Handler(http.FileServer(http.Dir("")))
-	//	r.PathPrefix("/views/").Handler(http.FileServer(http.Dir("")))//todo THIS MAY NOT BE SECURE
 	r.PathPrefix("/views/").HandlerFunc(serveHTTP)
 
 	http.ListenAndServe(":8080", handlers.LoggingHandler(os.Stdout, r))

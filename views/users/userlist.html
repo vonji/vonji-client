@@ -50,6 +50,9 @@
 
 <div id="search"><div><span class="glyphicon glyphicon-search"></span></div><input id="search-bar" type="text" placeholder="Saissez un nom de membre, un lieu ou une compétence"></div>
 
+
+<!-- TODO PLURAL -->
+
 <div class="user-list row">
     <div class="col-md-2 col-sm-5 col-xs-6 user" v-for="user in users">
         <div class="row">
@@ -77,37 +80,16 @@
 
 <script type="text/javascript">
     $(function () {
-        function loadUsers() {
-            $.ajax({
-                url: 'http://localhost:1618/users',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                crossDomain: true,
-                success: function (res) {
-                    new Vue({
-                        el: '.user',
-                        data: {
-                            users: res
-                        },
-                        computed: {
-                            filtered: function () {
-                                var search = $('#search-bar').val();
-                                console.log(search);
-                                return this.users.filter(function (user) {
-                                    Object.keys(user).find(function (e, _) {
-                                        return true;//user[e].contains(search);
-                                    });
-                                })
-                            }
-                        }
-                    });
-                },
-                error: function (jqXHR, status, error) {
-                    console.error(error);
-                }
-            });
-        }
-
-        loadUsers();
+        vonji.get({
+            url: 'users',
+            success: function (data) {
+                new Vue({
+                    el: '.user',
+                    data: {
+                        users: data
+                    }
+                });
+            }
+        });
     });
 </script>

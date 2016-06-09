@@ -24,17 +24,9 @@
         $('#user-registration-form').submit(function(e) {
             e.preventDefault();
             var data = JSON.stringify($('#user-registration-form').serializeJSON());
-            $.ajax({
+            vonji.post({
                 url: 'http://localhost:1618/users',
-                contentType: 'application/json; charset=utf-8',
-                method: 'POST',
-                data: data,
-                success: function () {
-                    console.log("success");
-                },
-                error: function (jqXHR, status, error) {
-                    console.error(error);
-                }
+                data: data
             });
         });
     });
