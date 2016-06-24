@@ -35,10 +35,6 @@
 </template>
 
 <script>
-	import vonji from '../../utils/ajax'
-
-	let $ = require('jquery');
-
 	export default {
 		data() {
 			return {
@@ -46,9 +42,8 @@
 			};
 		},
 		route: {
-			data ({ to }) {
+			data() {
 				return {
-					//users: vonji.get({ url: 'users' })
 					users: this.$http.get('http://localhost:1618/users').then(function ({data}) {
 						return data
 					})
