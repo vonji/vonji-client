@@ -1,22 +1,11 @@
 <template>
-  <navbar :is-logged="sharedState"></navbar>
+  <!--<navbar :is-logged="sharedState"></navbar>-->
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-      </div>
-    </div>
+    <a v-link="'/'">HOME</a>
+    <router-view>
+    </router-view>
+    <br/>
+    <a v-link="'/users/add'">User Add</a>
+    <a v-link="'/users/list'">User List</a>
   </div>
 </template>
-
-<script>
-import Navbar from './Navbar.vue';
-import store from '../vuex/store';
-
-export default {
-  data() { return { }; },
-  components: {
-    Navbar,
-  },
-  store,
-}
-</script>

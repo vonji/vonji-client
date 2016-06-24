@@ -26,15 +26,15 @@
       },
       buttonClass() {
         return this.isDisabled ? 'btn-default' : 'btn-primary';
-      },
+      }
     },
     vuex: {
       actions: {
         submit({ dispatch }, e) {
           login({ dispatch }, this.username, this.password);
-        },
-      },
-    },
+        }
+      }
+    }
   }
 </script>
 
