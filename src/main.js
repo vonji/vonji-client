@@ -8,6 +8,8 @@ import Navbar from './components/Navbar.vue'
 import UserAdd from './components/users/UserAdd.vue'
 import UserList from './components/users/UserList.vue'
 
+import Request from './components/requests/Request.vue'
+
 global.jQuery = require('jquery');
 require('bootstrap-loader');
 
@@ -24,6 +26,9 @@ router.map({
     },
     '/users/list': {
         component: UserList
+    },
+    '/requests/:id': {
+        component: Request
     }
 });
 
