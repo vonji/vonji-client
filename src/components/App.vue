@@ -1,6 +1,6 @@
 <template>
   <!--<navbar :is-logged="sharedState"></navbar>-->
-  <div class="container-fluid">
+  <div class="container">
     <a v-link="'/'">HOME</a>
     <router-view>
     </router-view>

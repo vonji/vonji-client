@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 const state = {
   user: '',
-  token: '',
+  token: ''
 };
 
 const mutations = {
@@ -26,5 +26,5 @@ const mutations = {
 
 export default new Vuex.Store({
   state,
-  mutations,
+  mutations
 });
