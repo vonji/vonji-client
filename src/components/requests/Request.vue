@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-8">
             <a v-link="'/requests/edit/' + request.ID">edit</a>
-            <a href="#" v-on:click="deleteRequest">delete</a>
+            <a v-on:click="deleteRequest">delete</a>
         </div>
         <user-info class="col-md-2" :user="request.User"></user-info>
     </div>
@@ -35,8 +35,8 @@
                 Value: {{response.Value}} vCoin
             </div>
             <div class="col-md-6">
-                <a v-link="'responses/edit/' + response.ID">edit</a>
-                <a v-on:click="deleteResponse(response.ID)" href="#">delete</a>
+                <a v-link="'/responses/edit/' + response.ID">edit</a>
+                <a v-on:click="deleteResponse(response.ID)">delete</a>
             </div>
             <user-info class="col-md-2" :user="response.User"></user-info>
         </div>
@@ -45,7 +45,7 @@
         </div>
     </template>
     <div class="row">
-        <textarea v-model="responseContent" name="response-content"></textarea>
+        <textarea v-model="responseContent" title="response-content"></textarea>
         <input v-model="responseValue" title="response-value" type="number">
         <button v-on:click="respond">Respond</button>
     </div>
@@ -102,7 +102,7 @@
             deleteRequest: function () {
                 vonji.delete({//
                     url: 'requests/' + id,
-                    redirect: 'requests/requestlist.html'
+                    //redirect: 'requests/requestlist.html'
                 });
             },
             deleteResponse: function (responseId) {
@@ -121,5 +121,11 @@
     }
     .response-accepted {
         background-color: forestgreen;
+    }
+</style>
+
+<style scoped>
+    a {
+        cursor: pointer;
     }
 </style>

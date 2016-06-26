@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <div class="col-md-12">
-                <input type="text" v-model="request.Title" title="title">
+                <input type="text" title="title" v-model="request.Title">
             </div>
         </div>
         <hr>

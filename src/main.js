@@ -9,7 +9,11 @@ import UserAdd from './components/users/UserAdd.vue'
 import UserList from './components/users/UserList.vue'
 
 import Request from './components/requests/Request.vue'
+import RequestAdd from './components/requests/RequestAdd.vue'
 import RequestEdit from './components/requests/RequestEdit.vue'
+import RequestList from './components/requests/RequestList.vue'
+import ResponseEdit from './components/requests/ResponseEdit.vue'
+
 
 global.jQuery = require('jquery');
 require('bootstrap-loader');
@@ -17,9 +21,11 @@ require('bootstrap-loader');
 Vue.use(Router);
 Vue.use(Resource);
 
-Vue.http.options.root = 'http://localhost:1618/';
+Vue.http.options.root = 'http://localhost:1618/';//TODO make this work
 
-let router = new Router();
+let router = new Router({
+    hashbang: false
+});
 
 //TODO subrouter
 router.map({
@@ -29,11 +35,20 @@ router.map({
     '/users/list': {
         component: UserList
     },
-    '/requests/:id': {
-        component: Request
+    '/requests': {
+        component: RequestList
+    },
+    '/requests/add/': {
+        component: RequestAdd
     },
     '/requests/edit/:id': {
         component: RequestEdit
+    },
+    '/requests/view/:id': {
+        component: Request
+    },
+    '/responses/edit/:id': {//'requests/:requestId/responses/edit/:id'??
+        component: ResponseEdit
     }
 });
 
