@@ -10,7 +10,7 @@
 
 <script type="text/babel">
 
-    import Vonij from '../../utils/ajax'
+    import Resources from '../../utils/resources'
 
     export default {
         data() {
@@ -21,16 +21,15 @@
         route: {
             data({ to: { params: { id } }}) {
                 return {
-                    requests: this.$http.get('http://localhost:1618/responses/' + id).then(({data}) => data)
+                    requests: Resources.response.get({ id: id })
                 }
             }
         },
         methods: {
             save: function () {
-                vonji.put({
-                    url: 'responses',
+                Resources.response.put({
                     data: JSON.stringify(this.request),
-                    //redirect: 'requests/requestlist.html'
+                    redirect: '/requests'
                 });
             }
         }

@@ -16,6 +16,9 @@
 </template>
 
 <script type="text/babel">
+
+    import Resources from '../../utils/resources'
+
     export default {
         data() {
             return {
@@ -25,16 +28,15 @@
         route: {
             data({ to: {params: { id } } }) {
                 return {
-                    request: this.$http.get('http://localhost:1618/requests/' + id).then(({data}) => data)
+                    request: Resources.request.get({ id: id })
                 }
             }
         },
         methods: {
             save: function () {
-                vonji.put({
-                    url: 'requests',
+                Resources.request.put({
                     data: JSON.stringify(this.request),
-                    //redirect: 'requests/request.html?id=' + id
+                    redirect: '/requests/view/' + this.request.ID
                 });
             }
         }

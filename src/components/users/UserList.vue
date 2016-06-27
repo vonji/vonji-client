@@ -34,7 +34,10 @@
 	</div>
 </template>
 
-<script>
+<script type="text/babel">
+
+	import Resources from '../../utils/resources'
+
 	export default {
 		data() {
 			return {
@@ -44,9 +47,7 @@
 		route: {
 			data() {
 				return {
-					users: this.$http.get('http://localhost:1618/users').then(function ({data}) {
-						return data
-					})
+					users: Resources.user.get()
 				}
 			}
 		}

@@ -19,6 +19,8 @@
 
 <script type="text/babel">
 
+    import Resources from '../../utils/resources'
+
     export default {
         data() {
             return {
@@ -28,7 +30,7 @@
         route: {
             data() {
                 return {
-                    requests: this.$http.get('http://localhost:1618/requests').then(({data}) => data)
+                    requests: Resources.request.get()
                 }
             }
         }

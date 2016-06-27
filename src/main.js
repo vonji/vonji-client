@@ -21,8 +21,6 @@ require('bootstrap-loader');
 Vue.use(Router);
 Vue.use(Resource);
 
-Vue.http.options.root = 'http://localhost:1618/';//TODO make this work
-
 let router = new Router({
     hashbang: false
 });
@@ -51,5 +49,7 @@ router.map({
         component: ResponseEdit
     }
 });
+
+//export Router router;
 
 router.start(App, '#app');

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-	import vonji from '../../utils/ajax';
+	import vonji from '../../utils/resources';
 
 	let $ = require('jquery');
 
