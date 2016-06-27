@@ -29,7 +29,7 @@
             save: function () {
                 Resources.response.put({
                     data: JSON.stringify(this.request),
-                    redirect: '/requests'
+                    redirect: '/requests/view/' + this.request.RequestID
                 });
             }
         }
