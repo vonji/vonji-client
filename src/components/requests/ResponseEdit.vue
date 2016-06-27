@@ -15,21 +15,21 @@
     export default {
         data() {
             return {
-                requests: []
+                response: {}
             };
         },
         route: {
             data({ to: { params: { id } }}) {
                 return {
-                    requests: Resources.response.get({ id: id })
+                    response: Resources.response.get({ id: id })
                 }
             }
         },
         methods: {
             save: function () {
                 Resources.response.put({
-                    data: JSON.stringify(this.request),
-                    redirect: '/requests/view/' + this.request.RequestID
+                    data: JSON.stringify(this.response),
+                    redirect: '/requests/view/' + this.response.RequestID
                 });
             }
         }
