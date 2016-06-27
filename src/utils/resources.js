@@ -1,6 +1,7 @@
 //Vue.http.options.root = 'http://localhost:1618/';//TODO make this work
 
 import Vue from 'vue';
+import { router } from '../main'
 
 export default {
     user: new Resource('users'),
@@ -11,7 +12,7 @@ export default {
 function Resource(resourceName) {
     "use strict";
 
-    let options = {};
+    this.options = {};
 
 //  let resource = Vue.resource(resourceName + '{/id}'); // does not work because Vue is not intialized when the object is exported
     let resourceUrl = 'http://localhost:1618/' + resourceName + '/';
@@ -26,8 +27,7 @@ function Resource(resourceName) {
         if (this.options.reload)
             window.location.reload(true);
         if (this.options.redirect)
-            ;//todo router.go(o.redirect);
-
+            router.go(this.options.redirect);
         return response.data
     };
 
