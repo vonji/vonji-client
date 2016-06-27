@@ -8,9 +8,9 @@
 				<input name="email" type="email" v-model="email" placeholder="email">
 				<input name="password" type="password" placeholder="password">
 				-->
-				<input name="FirstName" type="text" placeholder="Prenom">
-				<input name="LastName" type="text" placeholder="Nom">
-				<input name="Description" type="text" placeholder="Description">
+				<input type="text" placeholder="Prenom" v-model="user.FirstName">
+				<input type="text" placeholder="Nom" v-model="user.LastName">
+				<input type="text" placeholder="Description" v-model="User.Description">
 				<button type="submit">Submit</button>
 			</form>
 		</div>
@@ -19,26 +19,24 @@
 </template>
 
 <script>
-	import vonji from '../../utils/resources';
+	import Resources from '../../utils/resources';
 
 	let $ = require('jquery');
 
 	export default {
 		data() {
-			return {};
+			return {
+				user: {}
+			};
 		}
 	}
 
 	$(function() {
 		$('#user-registration-form').submit(function(e) {
 	        e.preventDefault();
-	        vonji.post({
-	            url: 'users',
-	            data: JSON.stringify({//TODO USE FUCKING VUE
-					FirstName: $('input[name=FirstName]').val(),
-					LastName: $('input[name=LastName]').val(),
-					Description: $('input[name=Description]').val()
-				})
+	        Resources.user.post({
+	            data: JSON.stringify(this.user),
+				redirect: '/users'
 	        });
 	    });
 	});
