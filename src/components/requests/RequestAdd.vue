@@ -15,7 +15,7 @@
 
 <script type="text/babel">
 
-    import vonji from '../../utils/ajax'
+    import Resources from '../../utils/resources'
 
     export default {
         data() {
@@ -25,10 +25,9 @@
         },
         methods: {
             save: function () {
-                vonji.post({
-                    url: 'requests',
+                Resources.request.post({
                     data: JSON.stringify(this.request),
-                    //redirect: 'requests/request.html?id=' + id
+                    redirect: '/requests'
                 });
             }
         }

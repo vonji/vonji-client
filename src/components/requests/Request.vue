@@ -56,7 +56,7 @@
 
     import UserInfo from '../users/UserInfo.vue'
 
-    import vonji from '../../utils/ajax'//temp
+    import Resources from '../../utils/resources'
 
     export default {
         components: {
@@ -74,42 +74,31 @@
         route: {
             data({ to: { params: { id } } }) {
                 return {
-                    request: this.$http.get('http://localhost:1618/requests/' + id).then(({data}) => data)
+                    request: Resources.request.get({id: id})
                 }
             }
         },
         methods: {
             toggleResponseAcceptance: function (response) {
                 response.Accepted = !response.Accepted;
-
-                vonji.put({//
-                    url: 'responses',
-                    data: JSON.stringify(response)
-                });
+                Resources.response.put({ data: JSON.stringify(response) });
             },
             respond: function () {
-                vonji.post({//
-                    url: 'responses',
-                    reload: true,
+                Resources.response.post({
                     data: JSON.stringify({
                         RequestID: this.request.ID,
                         UserID: parseInt(localStorage.userID),
                         Content: this.responseContent,
                         Value: parseInt(this.responseValue)
-                    })
+                    }),
+                    reload: true
                 });
             },
             deleteRequest: function () {
-                vonji.delete({//
-                    url: 'requests/' + id,
-                    //redirect: 'requests/requestlist.html'
-                });
+                Resources.request.delete({ id: id, redirect: '/requests' });
             },
             deleteResponse: function (responseId) {
-                vonji.delete({//
-                    url: 'responses/' + responseId,
-                    reload: true
-                });
+                Resources.response.delete({ id: responseId, reload: true });
             }
         }
     }
