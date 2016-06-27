@@ -50,6 +50,6 @@ router.map({
     }
 });
 
-//export Router router;
-
 router.start(App, '#app');
+
+export { router };
