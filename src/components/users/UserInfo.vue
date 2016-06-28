@@ -1,6 +1,6 @@
 <template>
     <div class="user-info">
-        <div>Responded 2s ago</div>
+        <slot></slot>
         <img src="https://placehold.it/50x50" alt="avatar">
         {{user.FirstName}}
     </div>
@@ -9,9 +9,10 @@
 <script>
     export default {
         data() {
-            return {}
+            return {
+            }
         },
-        props: ['user']
+        props: ['user', 'content-date']
     }
 </script>
 
