@@ -15,7 +15,7 @@
             <a v-link="'/requests/edit/' + request.ID">edit</a>
             <a v-on:click="deleteRequest">delete</a>
         </div>
-        <user-info class="col-md-2" :user="request.User"></user-info>
+        <user-info class="col-md-2" :user="request.User">asked {{ moment(request.UpdatedAt).fromNow() }}</user-info>
     </div>
 
     <template v-for="response in request.Responses">
@@ -38,7 +38,7 @@
                 <a v-link="'/responses/edit/' + response.ID">edit</a>
                 <a v-on:click="deleteResponse(response.ID)">delete</a>
             </div>
-            <user-info class="col-md-2" :user="response.User"></user-info>
+            <user-info class="col-md-2" :user="response.User">posted {{ moment(response.UpdatedAt).fromNow() }}</user-info>
         </div>
         <div class="row response-accepted" v-if="response.Accepted">
             Accepted
@@ -68,7 +68,8 @@
                     User: {}//fix warning when page is loaded but data are not yet loaded
                 },
                 responseContent: "",
-                responseValue: 0
+                responseValue: 0,
+                moment: require('moment')
             };
         },
         route: {

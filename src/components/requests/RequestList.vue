@@ -7,7 +7,7 @@
                 <h3><a v-link="'requests/view/' + request.ID">{{ request.Title }}</a></h3>
             </div>
             <div class="col-sm-2">
-                asked 1s ago by {{ request.User.FirstName }}
+                asked {{ moment(request.UpdatedAt).fromNow() }} by {{ request.User.FirstName }}
             </div>
         </div>
     </div>
@@ -24,7 +24,8 @@
     export default {
         data() {
             return {
-                requests: []
+                requests: [],
+                moment: require('moment')
             };
         },
         route: {
