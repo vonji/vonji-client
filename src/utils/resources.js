@@ -37,7 +37,7 @@ function Resource(resourceName) {
             this.options.error(response);
     };
 
-    this.get = (o) => { this.options = o = (o || {}); return Vue.http.get(resourceUrl + o.id).then(success, error); };
+    this.get = (o) => { this.options = o = (o || {}); return Vue.http.get(resourceUrl + (o.id || '')).then(success, error); };
     this.post = (o) => { this.options = o = (o || {}); return Vue.http.post(resourceUrl, o.data).then(success, error); };
     this.put = (o) => { this.options = o = (o || {}); return Vue.http.put(resourceUrl, o.data).then(success, error); };
     this.delete = (o) => { this.options = o = (o || {}); return Vue.http.delete(resourceUrl + o.id).then(success, error); };
