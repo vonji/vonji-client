@@ -1,21 +1,21 @@
 <template lang="html">
-  <navbar brand-name="Vonji" link="'/'">
+  <bs-navbar brand-name="Vonji" link="'/'">
     <login-form v-if="isGuest"></login-form>
     <logout-form v-else></logout-form>
-  </navbar>
+  </bs-navbar>
 </template>
 
 <script type="text/babel">
     import LoginForm from './LoginForm.vue';
     import LogoutForm from './LogoutForm.vue';
-    import Navbar from '../bootstrap/Navbar.vue';
+    import BsNavbar from '../bootstrap/BsNavbar.vue';
 
     export default {
         data() {
             return {};
         },
         components: {
-            Navbar,
+            BsNavbar,
             LoginForm,
             LogoutForm,
         },

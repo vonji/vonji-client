@@ -1,11 +1,8 @@
 <template>
   <topbar></topbar>
     <div class="container">
-        <a v-link="'/'">HOME</a>
-        <router-view>
-        </router-view>
+        <router-view></router-view>
         <br/>
-        <a v-link="'/users/add'">User add</a>
         <a v-link="'/users/list'">User list</a>
         <br>
         <a v-link="'/requests'">Requests list</a>
