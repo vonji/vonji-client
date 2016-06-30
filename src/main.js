@@ -1,9 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Resource from 'vue-resource'
-import App from './components/App.vue';
 
-import Navbar from './components/Navbar.vue'
+import App from './components/App.vue';
 
 import UserAdd from './components/users/UserAdd.vue'
 import UserList from './components/users/UserList.vue'
