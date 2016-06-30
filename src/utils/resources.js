@@ -28,7 +28,8 @@ function Resource(resourceName) {
             window.location.reload(true);
         if (this.options.redirect)
             router.go(this.options.redirect);
-        return JSON.parse(response.data)
+        if (response.data)
+            return JSON.parse(response.data)
     };
 
     let error = (response) => {
