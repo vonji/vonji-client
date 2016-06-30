@@ -24,13 +24,6 @@
 
 <script type="text/javascript">
   export default {
-    data() {
-      return {
-      };
-    },
-    props: [
-      'brand-name',
-      'link',
-    ],
+    props: [ 'brand-name', 'link', ],
   }
 </script>

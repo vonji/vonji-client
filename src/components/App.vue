@@ -1,14 +1,10 @@
 <template>
-  <topbar></topbar>
+  <div>
+    <topbar></topbar>
     <div class="container">
-        <router-view></router-view>
-        <br/>
-        <a v-link="'/users/list'">User list</a>
-        <br>
-        <a v-link="'/requests'">Requests list</a>
-        <a v-link="'/requests/add'">Request add</a>
-        <br>
+      <router-view></router-view>
     </div>
+  </div>
 </template>
 
 <script type="text/babel">
