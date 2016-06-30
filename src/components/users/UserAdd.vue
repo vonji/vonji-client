@@ -10,7 +10,7 @@
 				-->
 				<input type="text" placeholder="Prenom" v-model="user.FirstName">
 				<input type="text" placeholder="Nom" v-model="user.LastName">
-				<input type="text" placeholder="Description" v-model="User.Description">
+				<input type="text" placeholder="Description" v-model="user.Description">
 				<button type="submit">Submit</button>
 			</form>
 		</div>
