@@ -96,7 +96,7 @@
                 });
             },
             deleteRequest: function () {
-                Resources.request.delete({ id: id, redirect: '/requests' });
+                Resources.request.delete({ id: this.request.ID, redirect: '/requests' });
             },
             deleteResponse: function (responseId) {
                 Resources.response.delete({ id: responseId, reload: true });
