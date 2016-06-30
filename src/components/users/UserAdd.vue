@@ -2,12 +2,9 @@
 	<div class="row">
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
-			<form id="user-registration-form">
-				<!--
-				TODO
-				<input name="email" type="email" v-model="email" placeholder="email">
-				<input name="password" type="password" placeholder="password">
-				-->
+			<form @submit.prevent="submit">
+				<input type="email" placeholder="email" v-model="user.Email">
+				<input type="password" placeholder="password" v-model="user.Password">
 				<input type="text" placeholder="Prenom" v-model="user.FirstName">
 				<input type="text" placeholder="Nom" v-model="user.LastName">
 				<input type="text" placeholder="Description" v-model="user.Description">
@@ -21,23 +18,19 @@
 <script>
 	import Resources from '../../utils/resources';
 
-	let $ = require('jquery');
-
 	export default {
 		data() {
 			return {
 				user: {}
 			};
-		}
+		},
+        methods: {
+            submit: function () {
+                Resources.user.post({
+                    data: JSON.stringify(this.user),
+                    redirect: '/users'
+                });
+            }
+        }
 	}
-
-	$(function() {
-		$('#user-registration-form').submit(function(e) {
-	        e.preventDefault();
-	        Resources.user.post({
-	            data: JSON.stringify(this.user),
-				redirect: '/users'
-	        });
-	    });
-	});
 </script>
