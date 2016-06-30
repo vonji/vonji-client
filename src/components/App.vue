@@ -1,6 +1,6 @@
 <template>
+  <topbar></topbar>
     <div class="container">
-        <topbar></topbar>
         <a v-link="'/'">HOME</a>
         <router-view>
         </router-view>
@@ -27,3 +27,6 @@
         }
     }
 </script>
+
+<style type="scss">
+</style>
