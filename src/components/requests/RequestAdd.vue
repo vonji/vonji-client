@@ -1,35 +1,35 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
-    <div class="row">
-        <div class="col-md-12">
-            <input type="text" title="title" v-model="request.Title">
-        </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <request-edit-partial
+        :title="Title"
+        :content="Content"
+      ></request-edit-partial>
     </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-12">
-            <textarea title="content" v-model="request.Content"></textarea>
-        </div>
-    </div>
-    <button v-on:click="save">Post request</button>
+  </div>
 </template>
 
 <script type="text/babel">
+import Resources from '../../utils/resources'
+import RequestEditPartial from './RequestEditPartial.vue';
 
-    import Resources from '../../utils/resources'
-
-    export default {
-        data() {
-            return {
-                request: {}
-            };
-        },
-        methods: {
-            save: function () {
-                Resources.request.post({
-                    data: JSON.stringify(this.request),
-                    redirect: '/requests'
-                });
-            }
-        }
-    }
+export default {
+  data() {
+    return {
+      Title: '',
+      Content: '',
+    };
+  },
+  components: {
+    RequestEditPartial,
+  },
+  events: {
+    'on-save': function (Title, Content) {
+      Resources.request.post({
+        data: JSON.stringify({ Title, Content }),
+        redirect: '/requests'
+      });
+    },
+  },
+}
 </script>

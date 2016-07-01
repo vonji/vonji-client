@@ -1,9 +1,16 @@
 <template>
-    <form @submit.prevent="submit">
-        <input v-model="email" type="email" class="form-control" placeholder="Login">
-        <input v-model="password" type="password" class="form-control" placeholder="Password">
-        <button type="submit" class="btn {{ isDisabled ? 'btn-default' : 'btn-primary' }}" disabled="{{ isDisabled }}">Login</button>
-    </form>
+  <div class="navbar-form navbar-right">
+    <div class="form-group">
+      <input v-model="email" type="email" class="form-control" placeholder="Login" />
+    </div>
+    <div class="form-group">
+      <input v-model="password" type="password" class="form-control" placeholder="Password" />
+    </div>
+    <button type="submit" @click="submit" class="btn {{ isDisabled ? 'btn-default' : 'btn-primary' }}" disabled="{{ isDisabled }}">
+      Login
+    </button>
+    <a class="btn btn-primary" v-link="'/users/add'">Sign in</a>
+  </div>
 </template>
 
 <script>
