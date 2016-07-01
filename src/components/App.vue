@@ -2,19 +2,12 @@
     <div class="container alert-container" style="z-index: 10">
         <alerts></alerts>
     </div>
+  <div>
+    <topbar></topbar>
     <div class="container">
-        <topbar></topbar>
-        <a v-link="'/'">HOME</a>
-        <router-view>
-        </router-view>
-        <br/>
-        <a v-link="'/users/add'">User add</a>
-        <a v-link="'/users/list'">User list</a>
-        <br>
-        <a v-link="'/requests'">Requests list</a>
-        <a v-link="'/requests/add'">Request add</a>
-        <br>
+      <router-view></router-view>
     </div>
+  </div>
 </template>
 
 <script type="text/babel">
@@ -35,8 +28,7 @@
         actions//
     }
 </script>
-
-<style>
+<style type="scss">
     .alert-container {
         position: fixed;
         top: 0;

@@ -7,7 +7,7 @@
                 <h3><a v-link="'requests/view/' + request.ID">{{ request.Title }}</a></h3>
             </div>
             <div class="col-sm-2">
-                asked {{ moment(request.UpdatedAt).fromNow() }} by {{ request.User.FirstName }}
+                asked {{ request.UpdatedAt | fromNow }} by {{ request.User.FirstName }}
             </div>
         </div>
     </div>
@@ -18,14 +18,12 @@
 </div>
 
 <script type="text/babel">
-
-    import Resources from '../../utils/resources'
+    import Resources from '../../utils/resources';
 
     export default {
         data() {
             return {
                 requests: [],
-                moment: require('moment')
             };
         },
         route: {

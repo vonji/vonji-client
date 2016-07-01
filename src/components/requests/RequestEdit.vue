@@ -1,44 +1,48 @@
-<template xmlns:v-on="http://www.w3.org/1999/xhtml">
-    <div>
-        <div class="row">
-            <div class="col-md-12">
-                <input type="text" title="title" v-model="request.Title">
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <textarea title="content" v-model="request.Content"></textarea>
-            </div>
-        </div>
-        <button v-on:click="save">Save edits</button>
+<template lang="html">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <request-edit-partial
+        :title="Title"
+        :content="Content"
+        :id="ID"
+      ></request-edit-partial>
     </div>
+  </div>
 </template>
 
-<script type="text/babel">
+<script>
+import Resources from '../../utils/resources';
+import RequestEditPartial from './RequestEditPartial.vue';
 
-    import Resources from '../../utils/resources'
-
-    export default {
-        data() {
-            return {
-                request: {}
-            };
-        },
-        route: {
-            data({ to: {params: { id } } }) {
-                return {
-                    request: Resources.request.get({ id: id })
-                }
-            }
-        },
-        methods: {
-            save: function () {
-                Resources.request.put({
-                    data: JSON.stringify(this.request),
-                    redirect: '/requests/view/' + this.request.ID
-                });
-            }
-        }
-    }
+export default {
+  data() {
+    return {
+      Title: '',
+      Content: '',
+      ID: '',
+    };
+  },
+  events: {
+    'on-save': function(Title, Content, ID) {
+      Resources.request.put({
+        data: JSON.stringify({ Title, Content, ID }),
+        redirect: '/requests/view/' + ID,
+      });
+    },
+  },
+  route: {
+    data({ to: {params: { id } } }) {
+      return Resources.request
+      .get({ id: id })
+      .then(result => ({
+        Title: result.Title,
+        Content: result.Content,
+        ID: result.ID,
+      }));
+    },
+  },
+  components: {
+    RequestEditPartial,
+  },
+}
 </script>

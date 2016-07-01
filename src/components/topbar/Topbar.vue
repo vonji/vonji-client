@@ -1,31 +1,28 @@
 <template lang="html">
-    <nav class="navbar navbar-default">
-        <div>
-            <div class="navbar-header">
-                <a v-link="'/'" class="navbar-brand">Vonji</a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <div class="navbar-form navbar-right" role="login">
-                    <login-form v-if="isGuest"></login-form>
-                    <logout-form v-else></logout-form>
-                </div>
-            </div>
-        </div>
-    </nav>
+  <bs-navbar brand-name="Vonji" link="'/'">
+    <ul class="nav navbar-nav">
+      <li><a v-link="'/users/list'">User list</a></li>
+      <li><a v-link="'/requests'">Requests list</a></li>
+      <li><a v-link="'/requests/add'">Request add</a></li>
+    </ul>
+    <login-form v-if="isGuest"></login-form>
+    <logout-form v-else></logout-form>
+  </bs-navbar>
 </template>
 
 <script type="text/babel">
     import LoginForm from './LoginForm.vue';
     import LogoutForm from './LogoutForm.vue';
+    import BsNavbar from '../bootstrap/BsNavbar.vue';
 
     export default {
         data() {
             return {};
         },
         components: {
+            BsNavbar,
             LoginForm,
-            LogoutForm
+            LogoutForm,
         },
         vuex: {
             getters: {
