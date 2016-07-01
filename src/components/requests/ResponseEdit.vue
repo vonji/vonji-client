@@ -1,11 +1,11 @@
-<template xmlns:v-on="http://www.w3.org/1999/xhtml">
+<template>
     <div class="row">
         <div class="col-md-12">
             <textarea title="content" v-model="response.Content"></textarea>
             <input type="number" title="value" v-model="response.Value">
         </div>
     </div>
-    <button v-on:click="save">Save edits</button>
+    <button @click="save">Save edits</button>
 </template>
 
 <script type="text/babel">

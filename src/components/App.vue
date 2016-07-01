@@ -1,36 +1,36 @@
 <template>
-    <div class="container alert-container" style="z-index: 10">
-        <alerts></alerts>
-    </div>
-  <div>
-    <topbar></topbar>
-    <div class="container">
-      <router-view></router-view>
-    </div>
-  </div>
+	<div class="container alert-container" style="z-index: 10">
+		<alerts></alerts>
+	</div>
+	<div>
+		<topbar></topbar>
+		<div class="container">
+			<router-view></router-view>
+		</div>
+	</div>
 </template>
 
 <script type="text/babel">
-    import store from './../vuex/store';
+	import store from './../vuex/store';
 
-    import Topbar from './topbar/Topbar.vue'
-    import Alerts from './Alerts.vue'
+	import Topbar from './topbar/Topbar.vue'
+	import Alerts from './Alerts.vue'
 
-    import * as actions from '../vuex/actions'
+	import * as actions from '../vuex/actions'
 
-    export default {
-        name: 'App',
-        store: store,
-        components: {
-            Topbar,
-            Alerts
-        },
-        actions//
-    }
+	export default {
+		name: 'App',
+		store: store,
+		components: {
+			Topbar,
+			Alerts
+		},
+		actions//
+	}
 </script>
 <style type="scss">
-    .alert-container {
-        position: fixed;
-        top: 0;
-    }
+	.alert-container {
+		position: fixed;
+		top: 0;
+	}
 </style>

@@ -15,7 +15,7 @@
 	</div>
 </template>
 
-<script>
+<script type="text/babel">
 	import Resources from '../../utils/resources';
 
 	export default {
@@ -24,13 +24,13 @@
 				user: {}
 			};
 		},
-        methods: {
-            submit: function () {
-                Resources.user.post({
-                    data: JSON.stringify(this.user),
-                    redirect: '/users'
-                });
-            }
-        }
+		methods: {
+			submit: function () {
+				Resources.user.post({
+					data: JSON.stringify(this.user),
+					redirect: '/users'
+				});
+			}
+		}
 	}
 </script>
