@@ -26,7 +26,7 @@ module.exports = {
 
   vue: {
     loaders: {
-      scss: 'css!sass',
+      scss: 'vue-style!css!sass',
     },
   },
 }

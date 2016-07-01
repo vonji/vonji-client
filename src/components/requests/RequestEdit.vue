@@ -13,7 +13,7 @@
 	export default {
 		data() {
 			return {
-				request: {}
+				request: {},
 			};
 		},
 		events: {
@@ -26,7 +26,9 @@
 		},
 		route: {
 			data({ to: { params: { id } } }) {
-				Resources.request.get({ id: id })
+				return Resources.request
+					.get({ id: id })
+					.then(request => ({ request }));
 			}
 		},
 		components: {

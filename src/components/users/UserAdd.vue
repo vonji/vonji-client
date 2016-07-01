@@ -16,21 +16,21 @@
 </template>
 
 <script type="text/babel">
-	import Resources from '../../utils/resources';
+import Resources from '../../utils/resources';
 
-	export default {
-		data() {
-			return {
-				user: {}
-			};
-		},
-		methods: {
-			submit: function () {
-				Resources.user.post({
-					data: JSON.stringify(this.user),
-					redirect: '/users'
-				});
-			}
+export default {
+	data() {
+		return {
+			user: {}
+		};
+	},
+	methods: {
+		submit: function () {
+			Resources.user.post({
+				data: JSON.stringify(this.user),
+				redirect: '/users'
+			});
 		}
 	}
+}
 </script>

@@ -1,12 +1,14 @@
 <template>
-	<div class="container alert-container" style="z-index: 10">
-		<alerts></alerts>
-	</div>
 	<div>
-		<topbar></topbar>
-		<div class="container">
-			<router-view></router-view>
+		<div class="container alert-container" style="z-index: 10">
+			<alerts></alerts>
 		</div>
+		<div>
+			<topbar></topbar>
+			<div class="container">
+				<router-view></router-view>
+			</div>
+		</div>		
 	</div>
 </template>
 
