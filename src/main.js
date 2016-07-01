@@ -18,39 +18,39 @@ global.jQuery = require('jquery');
 require('bootstrap-loader');
 
 Vue.filter('fromNow', input => {
-  return moment(input).fromNow();
+	return moment(input).fromNow();
 })
 
 Vue.use(Router);
 Vue.use(Resource);
 
 let router = new Router({
-    hashbang: false
+	hashbang: false
 });
 
 //TODO subrouter
 router.map({
-    '/users/add': {
-        component: UserAdd
-    },
-    '/users/list': {
-        component: UserList
-    },
-    '/requests': {
-        component: RequestList
-    },
-    '/requests/add/': {
-        component: RequestAdd
-    },
-    '/requests/edit/:id': {
-        component: RequestEdit
-    },
-    '/requests/view/:id': {
-        component: Request
-    },
-    '/responses/edit/:id': {//'requests/:requestId/responses/edit/:id'??
-        component: ResponseEdit
-    }
+	'/users/add': {
+		component: UserAdd
+	},
+	'/users/list': {
+		component: UserList
+	},
+	'/requests': {
+		component: RequestList
+	},
+	'/requests/add/': {
+		component: RequestAdd
+	},
+	'/requests/edit/:id': {
+		component: RequestEdit
+	},
+	'/requests/view/:id': {
+		component: Request
+	},
+	'/responses/edit/:id': {//'requests/:requestId/responses/edit/:id'??
+		component: ResponseEdit
+	}
 });
 
 router.start(App, '#app');

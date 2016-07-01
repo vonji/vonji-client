@@ -1,24 +1,23 @@
 <template>
-    <div class="user-info">
-        <slot></slot>
-        <img src="https://placehold.it/50x50" alt="avatar">
-        {{user.FirstName}}
-    </div>
+	<div class="user-info">
+		<slot></slot>
+		<img src="https://placehold.it/50x50" alt="avatar">
+		{{user.FirstName}}
+	</div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-            }
-        },
-        props: ['user', 'content-date']
-    }
+	export default {
+		data() {
+			return {}
+		},
+		props: ['user', 'content-date']
+	}
 </script>
 
 <style>
-    .user-info {
-        background-color: blanchedalmond;
-        height: 100px;
-    }
+	.user-info {
+		background-color: blanchedalmond;
+		height: 100px;
+	}
 </style>
