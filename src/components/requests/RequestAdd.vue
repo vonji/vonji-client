@@ -7,6 +7,7 @@
 
 <script type="text/babel">
 import Resources from '../../utils/resources'
+import RequestEditPartial from './RequestEditPartial.vue';
 
 export default {
   data() {
@@ -14,6 +15,9 @@ export default {
       Title: '',
       Content: '',
     };
+  },
+  components: {
+    RequestEditPartial,
   },
   events: {
     'on-save': function (Title, Content) {
