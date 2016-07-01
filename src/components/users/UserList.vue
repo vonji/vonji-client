@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<div class="row v-user-view">
-			<div class="col-md-3" v-for="user in users">
+			<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users">
 				<div class="media">
 					<div class="media-left">
 						<a href="#">
@@ -42,7 +42,9 @@
 </template>
 
 <script type="text/babel">
-	import Resources from '../../utils/resources';
+	import {
+		usersApi,
+	} from '../../utils/resources';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 
 	export default {
@@ -57,14 +59,18 @@
 		route: {
 			data() {
 				return {
-					users: Resources.user.get()
-				}
-			}
-		}
+					users: usersApi.get().then(users => users.json()),
+				};
+			},
+		},
 	}
 </script>
 
-<style>
+<style lang="scss">
+	.v-user-box {
+		margin-top: 1em;
+	}
+
 	.v-user-view {
 		margin-top: 1.2em;
 	}

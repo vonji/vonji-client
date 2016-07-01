@@ -1,7 +1,7 @@
 <template>
 	<div class="form">
 		<div class="form-group">
-			<label for="#{{ id }}-request-title">Request title</label>
+			<label for="#{{ request.ID }}-request-title">Request title</label>
 			<input
 				type="text" id="{{ request.ID }}-request-title"
 				v-model="request.Title"
@@ -10,11 +10,11 @@
 			/>
 		</div>
 		<div class="form-group">
-			<label for="#{{ id }}-request-content">Description of your task</label>
-      		<textarea
+			<label for="#{{ request.ID }}-request-content">Description of your task</label>
+			<textarea
 				id="{{ request.ID }}-request-content"
 				rows="10"
-				v-model="content"
+				v-model="request.Content"
 				class="form-control"
 				placeholder="Describe your request..."
 			></textarea>
@@ -24,18 +24,23 @@
 </template>
 
 <script type="text/babel">
-	export default {
-		props: ['request'],
-		methods: {
-			save() {
-				this.$dispatch('on-save', this.request);
-			}
+export default {
+	props: {
+		request: {
+			type: Object,
+			default: () => ({}),
+		},
+	},
+	methods: {
+		save() {
+			this.$dispatch('on-save', this.request);
 		}
 	}
+}
 </script>
 
 <style>
-	textarea {
-		resize: vertical;
-	}
+textarea {
+	resize: vertical;
+}
 </style>
