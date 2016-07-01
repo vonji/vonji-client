@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
+    alerts: [],
     user: localStorage.user
 };
 
@@ -17,6 +18,13 @@ const mutations = {
         state.user = undefined;
         localStorage.user = '';//maybe undefine ?
     },
+    ALERT (state, type, message) {
+        "use strict";
+        state.alerts.push({type: type, message: message});
+    },
+    ALERT_DISMISS (state, index) {
+        "use strict";
+        state.alerts.splice(index, index + 1);
     }
 };
 
