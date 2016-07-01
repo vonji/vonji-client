@@ -1,9 +1,13 @@
 <template lang="html">
-  <request-edit-partial
-    :title="Title"
-    :content="Content"
-    :id="ID"
-  ></request-edit-partial>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <request-edit-partial
+        :title="Title"
+        :content="Content"
+        :id="ID"
+      ></request-edit-partial>
+    </div>
+  </div>
 </template>
 
 <script>

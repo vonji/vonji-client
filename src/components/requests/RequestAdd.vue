@@ -1,8 +1,12 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
-  <request-edit-partial
-    :title="Title"
-    :content="Content"
-  ></request-edit-partial>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <request-edit-partial
+        :title="Title"
+        :content="Content"
+      ></request-edit-partial>
+    </div>
+  </div>
 </template>
 
 <script type="text/babel">
