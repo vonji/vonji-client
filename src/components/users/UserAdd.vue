@@ -16,7 +16,9 @@
 </template>
 
 <script type="text/babel">
-import Resources from '../../utils/resources';
+import {
+	usersApi,
+} from '../../utils/resources';
 
 export default {
 	data() {
@@ -26,10 +28,8 @@ export default {
 	},
 	methods: {
 		submit: function () {
-			Resources.user.post({
-				data: JSON.stringify(this.user),
-				redirect: '/users'
-			});
+			usersApi.save(this.user)
+			.then(() => this.$router.go('/users/list'));
 		}
 	}
 }

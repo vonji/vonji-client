@@ -18,7 +18,9 @@
 </div>
 
 <script type="text/babel">
-	import Resources from '../../utils/resources';
+	import {
+		requestsApi,
+	} from '../../utils/resources';
 
 	export default {
 		data() {
@@ -29,7 +31,7 @@
 		route: {
 			data() {
 				return {
-					requests: Resources.request.get()
+					requests: requestsApi.get().then(result => result.json()),
 				}
 			}
 		}

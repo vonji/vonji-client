@@ -11,7 +11,7 @@
 		</div>
 		<div class="form-group">
 			<label for="#{{ request.ID }}-request-content">Description of your task</label>
-      <textarea
+			<textarea
 				id="{{ request.ID }}-request-content"
 				rows="10"
 				v-model="request.Content"
@@ -26,7 +26,10 @@
 <script type="text/babel">
 export default {
 	props: {
-		request: { type: Object, default: () => ({}) }
+		request: {
+			type: Object,
+			default: () => ({}),
+		},
 	},
 	methods: {
 		save() {

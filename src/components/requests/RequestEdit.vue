@@ -7,7 +7,9 @@
 </template>
 
 <script type="text/babel">
-	import Resources from '../../utils/resources';
+	import {
+		requestsApi,
+	} from '../../utils/resources';
 	import RequestEditPartial from './RequestEditPartial.vue';
 
 	export default {
@@ -18,21 +20,24 @@
 		},
 		events: {
 			'on-save': function (request) {
-				Resources.request.put({
-					data: JSON.stringify(request),
-					redirect: '/requests/view/' + request.ID
+				requestsApi.update({ id: this.request.ID }, {
+						Title: request.Title,
+						Content: request.Content,
+				})
+				.then(() => {
+					this.$router.go('/requests/view/' + this.request.ID);
 				});
 			}
 		},
 		route: {
 			data({ to: { params: { id } } }) {
-				return Resources.request
-					.get({ id: id })
-					.then(request => ({ request }));
+				return requestsApi.get({ id })
+					.then(fetchedRequest => ({ request: fetchedRequest.json() }))
+					.catch(console.error);
 			}
 		},
 		components: {
 			RequestEditPartial
-		}
+		},
 	}
 </script>

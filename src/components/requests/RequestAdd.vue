@@ -2,33 +2,28 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <request-edit-partial
-        :title="Title"
-        :content="Content"
       ></request-edit-partial>
     </div>
   </div>
 </template>
 
 <script type="text/babel">
-import Resources from '../../utils/resources'
 import RequestEditPartial from './RequestEditPartial.vue';
+import {
+	requestsApi,
+} from '../../utils/resources';
 
 export default {
-  data() {
-    return {
-      Title: '',
-      Content: '',
-    };
-  },
   components: {
     RequestEditPartial,
   },
   events: {
-    'on-save': function (Title, Content) {
-      Resources.request.post({
-        data: JSON.stringify({ Title, Content }),
-        redirect: '/requests'
-      });
+    'on-save': function(request) {
+      requestsApi.save({
+				Title: request.Title,
+				Content: request.Content,
+			})
+			.then(() => this.$router.go('/requests'));
     },
   },
 }
