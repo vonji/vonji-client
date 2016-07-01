@@ -4,16 +4,19 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-    user: undefined
+    user: localStorage.user
 };
 
 const mutations = {
     LOGIN (state, user) {
         state.user = user;
+        localStorage.user = user;
     },
     LOGOUT (state) {
         "use strict";
         state.user = undefined;
+        localStorage.user = '';//maybe undefine ?
+    },
     }
 };
 
