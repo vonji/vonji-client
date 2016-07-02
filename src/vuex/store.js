@@ -1,5 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as acts from './actions';
+import {
+	LOGIN_SUCCESS,
+	LOGIN_FAILURE,
+	LOGOUT,
+	ALERT,
+	ALERT_DISMISS,
+} from './actionTypes';
 
 Vue.use(Vuex);
 
@@ -9,23 +17,24 @@ const state = {
 };
 
 const mutations = {
-	LOGIN (state, user) {
-		state.user = user;
-		localStorage.user = user;
+	[LOGIN_SUCCESS] (state, user) {
+		state.userID = user.ID;
+		localStorage.userID = user.ID;
 	},
-	LOGOUT (state) {
-		"use strict";
-		state.user = undefined;
-		localStorage.user = '';//maybe undefine ?
+	[LOGIN_FAILURE] (state) {
+		state.userID = null;
+		localStorage.userID = null;//maybe undefine ?
 	},
-	ALERT (state, type, message) {
-		"use strict";
+	[LOGOUT] (state) {
+		state.userID = null;
+		localStorage.userID = null;//maybe undefine ?
+	},
+	[ALERT] (state, type, message) {
 		state.alerts.push({ type: type, message: message });
 	},
-	ALERT_DISMISS (state, index) {
-		"use strict";
+	[ALERT_DISMISS] (state, index) {
 		state.alerts.splice(index, index + 1);
-	}
+	},
 };
 
 export default new Vuex.Store({

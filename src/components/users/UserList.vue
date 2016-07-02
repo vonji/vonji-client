@@ -1,38 +1,40 @@
 <template>
 	<div class="row">
-		<div class="row">
-			<div class="col-md-12">
-				<bs-page-header title="Users"></bs-page-header>
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12">
+					<bs-page-header title="Users"></bs-page-header>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<ul class="nav nav-tabs">
-					<li class="active"><a>Réputation</a></li>
-					<li><a>New users</a></li>
-					<li><a>Voters</a></li>
-					<li><a>Editors</a></li>
-					<li><a>Moderators</a></li>
-				</ul>
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav nav-tabs">
+						<li class="active"><a>Réputation</a></li>
+						<li><a>New users</a></li>
+						<li><a>Voters</a></li>
+						<li><a>Editors</a></li>
+						<li><a>Moderators</a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-		<div class="row v-user-view">
-			<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users">
-				<div class="media">
-					<div class="media-left">
-						<a href="#">
-							<img class="media-object" src="https://placekitten.com/60/60" alt="Avatar">
-						</a>
-					</div>
-					<div class="media-body">
-						<div class="v-user-heading">
-							<div class="v-user-name">{{ user.FirstName }} {{ user.LastName }}</div>
-							<div class="v-user-reput">{{ user.VReputation || 0 }} VR</div>
+			<div class="row v-user-view">
+				<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users">
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object" src="https://placekitten.com/60/60" alt="Avatar">
+							</a>
 						</div>
-						<p>{{ user.Description }}</p>
-						<div></div>
-						<div>
-							<div v-for="tag in user.Tags" class="label label-default">{{ tag.Name }}</div>
+						<div class="media-body">
+							<div class="v-user-heading">
+								<div class="v-user-name">{{ user.FirstName }} {{ user.LastName }}</div>
+								<div class="v-user-reput">{{ user.VReputation || 0 }} VR</div>
+							</div>
+							<p>{{ user.Description }}</p>
+							<div></div>
+							<div>
+								<div v-for="tag in user.Tags" class="label label-default">{{ tag.Name }}</div>
+							</div>
 						</div>
 					</div>
 				</div>

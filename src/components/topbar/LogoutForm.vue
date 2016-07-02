@@ -1,18 +1,18 @@
 <template>
-  <div class="navbar-form navbar-right">
-    <button @click="logout()" class="btn btn-default">Logout</button>
-  </div>
+	<div class="navbar-form navbar-right">
+		<button @click="logout()" class="btn btn-default">Logout</button>
+	</div>
 </template>
 
 <script>
-    import * as actions from '../../vuex/actions';
+import * as actions from '../../vuex/actions';
 
-    export default {
-        data() {
-            return {};
-        },
-        vuex: {
-            actions
-        }
-    }
+export default {
+	data() {
+		return {};
+	},
+	vuex: {
+		actions
+	}
+}
 </script>

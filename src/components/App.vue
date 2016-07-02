@@ -1,14 +1,16 @@
 <template>
 	<div>
-		<div class="container alert-container" style="z-index: 10">
-			<alerts></alerts>
-		</div>
 		<div>
 			<topbar></topbar>
 			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<alerts></alerts>
+					</div>
+				</div>
 				<router-view></router-view>
 			</div>
-		</div>		
+		</div>
 	</div>
 </template>
 
@@ -30,9 +32,3 @@
 		actions//
 	}
 </script>
-<style type="scss">
-	.alert-container {
-		position: fixed;
-		top: 0;
-	}
-</style>

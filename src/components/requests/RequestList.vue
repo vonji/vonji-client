@@ -1,13 +1,15 @@
 <template>
-	<div class="requests-list row">
-		<div class="request row" v-for="request in requests">
-			<div class="col-sm-4">
-			</div>
-			<div class="col-sm-6">
-				<h3><a v-link="'requests/view/' + request.ID">{{ request.Title }}</a></h3>
-			</div>
-			<div class="col-sm-2">
-				asked {{ request.UpdatedAt | fromNow }} by {{ request.User.FirstName }}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row" v-for="request in requests">
+				<div class="col-sm-4">
+				</div>
+				<div class="col-sm-6">
+					<h3><a v-link="'requests/view/' + request.ID">{{ request.Title }}</a></h3>
+				</div>
+				<div class="col-sm-2">
+					asked {{ request.UpdatedAt | fromNow }} by {{ request.User.FirstName }}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -37,13 +39,3 @@
 		}
 	}
 </script>
-
-<style>
-	.request {
-		border-top: 1px solid black;
-	}
-
-	a {
-		color: black;
-	}
-</style>
