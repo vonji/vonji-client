@@ -1,91 +1,93 @@
 <template>
 	<div class="row">
-		<div class="row">
-			<div class="col-md-12">
-				<bs-page-header :title="request.Title"></bs-page-header>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-9">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="row">
-							<div class="col-md-1">
-								<button class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Delete</button>
-							</div>
-							<div class="col-md-11">
-								<content-viewer
-									:content="request"
-									:edit-Link="`/requests/edit/${request.ID}`"
-									@on-content-edit="requestContentChanged"
-								></content-viewer>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<h4>{{ request.Responses.length }} Réponses</h4>
-					</div>
-					<div v-for="response in request.Responses" class="col-md-12">
-						<hr />
-						<div class="row">
-							<div class="col-md-1">
-								<div class="btn-group-vertical">
-									<button type="button" class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}" @click="toggleResponseAcceptance(response)">
-										Accept
-									</button>
-									<button type="button" class="btn btn-sm btn-danger" @click="deleteResponse(response.ID)">
-										Delete
-									</button>
-								</div>
-							</div>
-							<div class="col-md-11">
-								<content-viewer
-									:content="response"
-									:edit-link="`/responses/edit/${response.ID}`"
-									@on-content-edit="responseContentChanged"
-								></content-viewer>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<h4>Your proposal</h4>
-					</div>
-					<div class="col-md-12">
-						<hr />
-						<form v-on:submit.prevent="submitResponse">
-							<div class="form-group">
-								<label for="#new-answer-description">Give a description of what you can do</label>
-								<textarea
-									id="new-answer-description"
-									class="form-control"
-									v-model="newResponse.Content"
-									name="newResponse"
-									rows="8"
-								></textarea>
-							</div>
-							<div class="form-group">
-								<label for="#new-answer-vcoin">How many vCoin do you charge for this?</label>
-								<input
-									id="new-answer-vcoin"
-									v-model="newResponse.Value"
-									class="form-control"
-									type="number"
-									min="0"
-								/>
-							</div>
-							<div class="form-group">
-								<button class="btn btn-primary">Répondre</button>
-							</div>
-						</form>
-					</div>
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12">
+					<bs-page-header :title="request.Title"></bs-page-header>
 				</div>
 			</div>
-			<div class="col-md-3">
-				<ul class="list-unstyled">
-					<li><strong>asked</strong> {{ request.CreatedAt | fromNow }}</li>
-					<li><strong>viewed</strong> {{ request.Views }} times</li>
-					<li><strong>active</strong> {{ request.UpdatedAt | fromNow }}</li>
-				</ul>
+			<div class="row">
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-2">
+									<button class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Delete</button>
+								</div>
+								<div class="col-md-10">
+									<content-viewer
+										:content="request"
+										:edit-Link="`/requests/edit/${request.ID}`"
+										@on-content-edit="requestContentChanged"
+									></content-viewer>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<h4>{{ request.Responses.length }} Réponses</h4>
+						</div>
+						<div v-for="response in request.Responses" class="col-md-12">
+							<hr />
+							<div class="row">
+								<div class="col-md-2">
+									<div class="btn-group-vertical">
+										<button type="button" class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}" @click="toggleResponseAcceptance(response)">
+											Accept
+										</button>
+										<button type="button" class="btn btn-sm btn-danger" @click="deleteResponse(response.ID)">
+											Delete
+										</button>
+									</div>
+								</div>
+								<div class="col-md-10">
+									<content-viewer
+										:content="response"
+										:edit-link="`/responses/edit/${response.ID}`"
+										@on-content-edit="responseContentChanged"
+									></content-viewer>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<h4>Your proposal</h4>
+						</div>
+						<div class="col-md-12">
+							<hr />
+							<form v-on:submit.prevent="submitResponse">
+								<div class="form-group">
+									<label for="#new-answer-description">Give a description of what you can do</label>
+									<textarea
+										id="new-answer-description"
+										class="form-control"
+										v-model="newResponse.Content"
+										name="newResponse"
+										rows="8"
+									></textarea>
+								</div>
+								<div class="form-group">
+									<label for="#new-answer-vcoin">How many vCoin do you charge for this?</label>
+									<input
+										id="new-answer-vcoin"
+										v-model="newResponse.Value"
+										class="form-control"
+										type="number"
+										min="0"
+									/>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-primary">Répondre</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<ul class="list-unstyled">
+						<li><strong>asked</strong> {{ request.CreatedAt | fromNow }}</li>
+						<li><strong>viewed</strong> {{ request.Views }} times</li>
+						<li><strong>active</strong> {{ request.UpdatedAt | fromNow }}</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,10 +1,10 @@
 <template xmlns:v-on="http://www.w3.org/1999/xhtml">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <request-edit-partial
-      ></request-edit-partial>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+	    <request-edit-partial
+	    ></request-edit-partial>
+	  </div>
+	</div>
 </template>
 
 <script type="text/babel">
@@ -22,8 +22,14 @@ export default {
       requestsApi.save({
 				Title: request.Title,
 				Content: request.Content,
+				UserID: Number(localStorage.userID),
 			})
-			.then(() => this.$router.go('/requests'));
+			.then((obj) => {
+				console.log(obj);
+				return obj;
+			})
+			.then(() => this.$router.go('/requests'))
+			.catch(console.error);
     },
   },
 }

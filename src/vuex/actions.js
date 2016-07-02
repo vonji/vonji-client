@@ -1,28 +1,47 @@
 import Vue from 'vue'
+import {
+	usersApi
+} from '../utils/resources';
+import {
+	LOGIN_SUCCESS,
+	LOGIN_FAILURE,
+	LOGOUT,
+	ALERT,
+	ALERT_DISMISS,
+} from './actionTypes';
+
 
 export const login = ({ dispatch }, email, password) => {
-	Vue.http.get('http://localhost:1618/users/' + email).then((result) => {
-		"use strict";
-		if (JSON.parse(result.data).Password == password) {
-			dispatch('LOGIN', email, password);
-			dispatch('ALERT', 'info', 'Logged in');
+	usersApi.get({ email })
+	.then(result => result.json())
+	.then(user => {
+		if (user.Password === password) {
+			dispatch(LOGIN_SUCCESS, user);
+			dispatch(ALERT, 'info', 'Logged in');
 		}
-		else
-			console.error('Bad password: ' + password);
-	});
+		else {
+			dispatch(ALERT, 'danger', 'Login failure');
+			dispatch(LOGIN_FAILURE);
+		}
+	})
+	.catch(error => {
+		console.error(error);
+		dispatch(ALERT, 'danger', 'Login failure');
+		dispatch(LOGIN_FAILURE);
+	})
 };
 
 export const logout = ({ dispatch }) => {
-	dispatch('LOGOUT');
-	dispatch('ALERT', 'info', 'Logged out');
+	dispatch(LOGOUT);
+	dispatch(ALERT, 'info', 'Logged out');
 };
 
 export const alert = ({ dispatch }, type, message) => {
 	"use strict";
-	dispatch('ALERT');
+	dispatch(ALERT);
 };
 
 export const alertDismiss = ({ dispatch }, index) => {
 	"use strict";
-	dispatch('ALERT_DISMISS', index);
+	dispatch(ALERT_DISMISS, index);
 };
