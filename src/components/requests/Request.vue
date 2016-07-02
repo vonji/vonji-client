@@ -16,7 +16,8 @@
 							<div class="col-md-11">
 								<content-viewer
 									:content="request"
-									:edit-link="`/requests/edit/${request.ID}`"
+									:edit-Link="`/requests/edit/${request.ID}`"
+									@on-content-edit="requestContentChanged"
 								></content-viewer>
 							</div>
 						</div>
@@ -41,6 +42,7 @@
 								<content-viewer
 									:content="response"
 									:edit-link="`/responses/edit/${response.ID}`"
+									@on-content-edit="responseContentChanged"
 								></content-viewer>
 							</div>
 						</div>
@@ -114,6 +116,21 @@ export default {
 		},
 	},
 	methods: {
+		requestContentChanged(id, content) {
+			requestsApi.update({ id }, _.assign({}, this.request, {
+				Content: content,
+			}))
+			.then(() => requestsApi.get({ id }))
+			.then(newRequest => this.request = newRequest.json());
+		},
+		responseContentChanged(id, content) {
+			const oldResponse = this.request.Responses.find(r => r.ID === id);
+			responsesApi.update({ id }, _.assign({}, oldResponse, {
+				Content: content,
+			}))
+			.then(() => responsesApi.get({ id }))
+			.then(newResponse => oldResponse.Content = newResponse.json().Content);
+		},
 		toggleResponseAcceptance(targetResponse) {
 			// I create a new copy of the given response and I merge it
 			// with an object which has a different value for the key Accepted.

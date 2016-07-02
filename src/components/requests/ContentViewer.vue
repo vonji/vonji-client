@@ -1,6 +1,19 @@
 <template lang="html">
   <div id="v-content-{{ content.ID }}" class="v-content-viewer">
-		<div class="v-content-body">
+		<form v-if="isWriteMode">
+			<div class="form-group">
+				<textarea
+					v-model="newContent"
+					class="form-control"
+					style="width:100%;"
+				></textarea>
+			</div>
+			<div class="btn-group">
+				<button @click="save" class="btn btn-primary">Save</button>
+				<button @click="cancel" class="btn btn-default">Cancel</button>
+			</div>
+		</form>
+		<div class="v-content-body" v-else @click="edit">
 			{{ content.Content }}
 		</div>
 		<div v-if="content.Tags" class="v-content-tags">
@@ -10,7 +23,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<a>share</a>
-					<a v-link="editLink">improve this content</a>
+					<a href="#" @click.prevent="edit">improve this content</a>
 				</div>
 				<div class="col-md-8">
 					<div class="v-content-usercards">
@@ -30,6 +43,31 @@
 <script>
 import UserCard from '../users/UserCard.vue';
 export default {
+	data() {
+		return {
+			mode: 'read',
+			newContent: '',
+		};
+	},
+	methods: {
+		edit() {
+			this.newContent = this.content.Content;
+			this.mode = 'write';
+		},
+		cancel() {
+			this.newContent = '';
+			this.mode = 'read';
+		},
+		save() {
+			this.$dispatch('on-content-edit', this.content.ID, this.newContent);
+			this.mode = 'read';
+		},
+	},
+	computed: {
+		isWriteMode() {
+			return this.mode === 'write';
+		},
+	},
 	props: {
 		content: {
 			type: Object,
