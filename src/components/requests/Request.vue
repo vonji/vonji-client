@@ -12,7 +12,7 @@
 						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-2">
-									<button class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Delete</button>
+									<button class="btn btn-danger btn-sm" v-confirm :callback="deleteRequest" :params="request.ID">Delete</button>
 								</div>
 								<div class="col-md-10">
 									<content-viewer

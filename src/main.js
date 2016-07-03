@@ -19,6 +19,26 @@ Vue.use(VueRouter);
 
 const router = new VueRouter();
 
+Vue.directive('confirm', {
+	params: ['callback', 'params'],
+	bind: function () {
+		require('bootstrap-confirmation2');
+		let $ = require('jquery');
+
+		let self = this;
+		$(function () {
+			"use strict";
+			$(self.el).confirmation({
+				singleton: true,
+				onConfirm: function() {
+					"use strict";
+					self.params.callback(self.params.params);
+				}
+			});
+		});
+	}
+});//todo move to file
+
 //TODO subrouter
 router.map({
 	'/users/add': {
