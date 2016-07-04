@@ -4,7 +4,7 @@ import moment from 'moment';
 
 Vue.filter('fromNow', input => {
 	return moment(input).fromNow();
-})
+});
 
 Vue.use(Resource);
 

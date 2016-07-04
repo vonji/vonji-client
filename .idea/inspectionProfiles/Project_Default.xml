@@ -15,7 +15,7 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="8">
+          <list size="10">
             <item index="0" class="java.lang.String" itemvalue="v-for" />
             <item index="1" class="java.lang.String" itemvalue="v-model" />
             <item index="2" class="java.lang.String" itemvalue="@keyup.enter" />
@@ -24,6 +24,8 @@
             <item index="5" class="java.lang.String" itemvalue="v-link" />
             <item index="6" class="java.lang.String" itemvalue="@click" />
             <item index="7" class="java.lang.String" itemvalue="@submit.prevent" />
+            <item index="8" class="java.lang.String" itemvalue="v-else" />
+            <item index="9" class="java.lang.String" itemvalue="@click.prevent" />
           </list>
         </value>
       </option>
@@ -32,7 +34,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="10">
+          <list size="11">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -43,12 +45,14 @@
             <item index="7" class="java.lang.String" itemvalue="router-view" />
             <item index="8" class="java.lang.String" itemvalue="topbar" />
             <item index="9" class="java.lang.String" itemvalue="slot" />
+            <item index="10" class="java.lang.String" itemvalue="user-card" />
           </list>
         </value>
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
-    <inspection_tool class="JSUnresolvedVariable" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+    <inspection_tool class="JSUnresolvedFunction" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnresolvedVariable" enabled="false" level="WEAK WARNING" enabled_by_default="false">
       <option name="myStrictlyCheckProperties" value="false" />
     </inspection_tool>
     <inspection_tool class="LocalVariableNamingConventionJS" enabled="true" level="WARNING" enabled_by_default="true">

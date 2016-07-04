@@ -15,34 +15,34 @@
 	</div>
 </template>
 
-<script>
-export default {
-	props: {
-		primary: Boolean,
-		user: {
-			type: Object,
-			default: () => ({}),
-		},
-	},
-}
+<script type="text/babel">
+	export default {
+		props: {
+			primary: Boolean,
+			user: {
+				type: Object,
+				default: () => ({})
+			}
+		}
+	}
 </script>
 
 <style lang="scss">
-.v-usercard {
-	width: 14em;
-	padding: 0.5em;
-	&.v-uc-primary {
-		background-color: lighten(desaturate(blue, 34), 46);
-	}
-	.v-uc-body {
-		display:flex;
-		margin-top: 0.3em;
-		.v-uc-left {
-			margin-right: 0.5em;
+	.v-usercard {
+		width: 14em;
+		padding: 0.5em;
+		&.v-uc-primary {
+			background-color: lighten(desaturate(blue, 34), 46);
 		}
+		.v-uc-body {
+			display:flex;
+			margin-top: 0.3em;
+			.v-uc-left {
+				margin-right: 0.5em;
+			}
+		}
+		font-size: 0.84em;
+		display: flex;
+		flex-direction: column;
 	}
-	font-size: 0.84em;
-	display: flex;
-	flex-direction: column;
-}
 </style>

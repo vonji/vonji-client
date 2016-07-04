@@ -11,20 +11,19 @@
 </template>
 
 <script type="text/babel">
-import { alertDismiss } from '../vuex/actions'
+	import { alertDismiss } from '../vuex/actions'
 
-export default {
-	date() {
-		return {
-		}
-	},
-	vuex: {
-		getters: {
-			alerts: (state) => state.alerts
+	export default {
+		date() {
+			return {}
 		},
-		actions: {
-			alertDismiss
+		vuex: {
+			getters: {
+				alerts: (state) => state.alerts
+			},
+			actions: {
+				alertDismiss
+			}
 		}
 	}
-}
 </script>

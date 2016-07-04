@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="v-content-{{ content.ID }}" class="v-content-viewer">
+	<div id="v-content-{{ content.ID }}" class="v-content-viewer">
 		<form v-if="isWriteMode">
 			<div class="form-group">
 				<textarea
@@ -37,79 +37,79 @@
 				</div>
 			</div>
 		</div>
-  </div>
+	</div>
 </template>
 
 <script>
-import UserCard from '../users/UserCard.vue';
-export default {
-	data() {
-		return {
-			mode: 'read',
-			newContent: '',
-		};
-	},
-	methods: {
-		edit() {
-			this.newContent = this.content.Content;
-			this.mode = 'write';
+	import UserCard from '../users/UserCard.vue';
+	export default {
+		data() {
+			return {
+				mode: 'read',
+				newContent: ''
+			};
 		},
-		cancel() {
-			this.newContent = '';
-			this.mode = 'read';
+		methods: {
+			edit() {
+				this.newContent = this.content.Content;
+				this.mode = 'write';
+			},
+			cancel() {
+				this.newContent = '';
+				this.mode = 'read';
+			},
+			save() {
+				this.$dispatch('on-content-edit', this.content.ID, this.newContent);//should be on save?
+				this.mode = 'read';
+			}
 		},
-		save() {
-			this.$dispatch('on-content-edit', this.content.ID, this.newContent);
-			this.mode = 'read';
+		computed: {
+			isWriteMode() {
+				return this.mode === 'write';
+			}
 		},
-	},
-	computed: {
-		isWriteMode() {
-			return this.mode === 'write';
+		props: {
+			content: {
+				type: Object,
+				required: true
+			},
+			editLink: {
+				type: String,
+				required: true
+			}
 		},
-	},
-	props: {
-		content: {
-			type: Object,
-			required: true,
-		},
-		editLink: {
-			type: String,
-			required: true,
+		components: {
+			UserCard
 		}
-	},
-	components: {
-		UserCard,
 	}
-}
 </script>
 
 <style lang="scss">
-.v-content-viewer {
-	margin-bottom: 1em;
-}
-.v-content-usercards {
-	display: flex;
-	justify-content: flex-end;
-	.v-usercard {
-		& + .v-usercard {
-			margin-left: 3em;
+	.v-content-viewer {
+		margin-bottom: 1em;
+	}
+	.v-content-usercards {
+		display: flex;
+		justify-content: flex-end;
+		.v-usercard {
+			& + .v-usercard {
+				margin-left: 3em;
+			}
 		}
 	}
-}
-.v-content-tags {
-	padding-top: 1em;
-	.label {
-		margin-right: 1em;
+	.v-content-tags {
+		padding-top: 1em;
+		.label {
+			margin-right: 1em;
+		}
 	}
-}
-.v-content-footer {
-	padding-top: 1em;
-	a {
-		color: gray;
-		font-size: 0.85em;
-		display: inline-flex;
-		margin-right: 1em;
+	.v-content-footer {
+		padding-top: 1em;
+		a {
+			color: gray;
+			font-size: 0.85em;
+			display: inline-flex;
+			margin-right: 1em;
+		}
 	}
-}
 </style>

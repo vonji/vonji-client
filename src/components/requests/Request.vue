@@ -27,14 +27,17 @@
 							<h4>{{ request.Responses.length }} Réponses</h4>
 						</div>
 						<div v-for="response in request.Responses" class="col-md-12">
-							<hr />
+							<hr/>
 							<div class="row">
 								<div class="col-md-2">
 									<div class="btn-group-vertical">
-										<button type="button" class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}" @click="toggleResponseAcceptance(response)">
+										<button type="button"
+												class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}"
+												@click="toggleResponseAcceptance(response)">
 											Accept
 										</button>
-										<button type="button" class="btn btn-sm btn-danger" @click="deleteResponse(response.ID)">
+										<button type="button" class="btn btn-sm btn-danger"
+												@click="deleteResponse(response.ID)">
 											Delete
 										</button>
 									</div>
@@ -52,8 +55,8 @@
 							<h4>Your proposal</h4>
 						</div>
 						<div class="col-md-12">
-							<hr />
-							<form v-on:submit.prevent="submitResponse">
+							<hr/>
+							<form @submit.prevent="submitResponse">
 								<div class="form-group">
 									<label for="#new-answer-description">Give a description of what you can do</label>
 									<textarea
@@ -91,119 +94,101 @@
 			</div>
 		</div>
 	</div>
-</div>
 </template>
 
-<script>
-import BsPageHeader from '../bootstrap/BsPageHeader.vue';
-import ContentViewer from './ContentViewer.vue';
-import _ from 'lodash';
-import {
-	requestsApi,
-	responsesApi,
-} from '../../utils/resources';
+<script type="text/babel">
+	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
+	import ContentViewer from './ContentViewer.vue';
+	import _ from 'lodash';
+	import { requestsApi, responsesApi } from '../../utils/resources';
 
-export default {
-	data() {
-		return {
-			request: {
-				Responses: [],
+	export default {
+		data() {
+			return {
+				request: {
+					Responses: []
+				},
+				newResponse: {}
+			};
+		},
+		route: {
+			data({ to: { params: { id } } }) {
+				return requestsApi.get({ id }).then(request => ({ request: request.json() }));
+			}
+		},
+		methods: {
+			requestContentChanged(id, content) {
+				requestsApi.update({ id }, _.assign({}, this.request, {
+						Content: content
+					}))
+					.then(() => requestsApi.get({ id }))
+					.then(newRequest => this.request = newRequest.json());
 			},
-			newResponse: {},
-		};
-	},
-	route: {
-		data({ to: { params: { id } } }) {
-			return requestsApi.get({ id }).then(request => ({ request: request.json() }));
+			responseContentChanged(id, content) {
+				const oldResponse = this.request.Responses.find(r => r.ID === id);
+				responsesApi.update({ id }, _.assign({}, oldResponse, {
+						Content: content
+					}))
+					.then(() => responsesApi.get({ id }))
+					.then(newResponse => oldResponse.Content = newResponse.json().Content);
+			},
+			toggleResponseAcceptance(targetResponse) {
+				const modifiedResponse = _.assign({}, targetResponse, {
+					Accepted: !targetResponse.Accepted
+				});
+				responsesApi.update({ id: targetResponse.ID }, modifiedResponse)
+					.then(res => {
+						this.request.Responses = this.request.Responses.map(currentResponse => {
+							if (currentResponse.ID === targetResponse.ID) {
+								return modifiedResponse;
+							}
+							return currentResponse;
+						})
+					});
+			},
+			submitResponse() {
+				responsesApi.save({
+						RequestID: this.request.ID,
+						UserID: parseInt(localStorage.userID),
+						Content: this.newResponse.Content,
+						Value: parseInt(this.newResponse.Value)
+					})
+					.then(httpResponse => responsesApi.get({ id: httpResponse.text() }))
+					.then(fetchedResource => {
+						this.request.Responses.push(fetchedResource.json());
+						this.newResponse = {};
+					})
+					.catch(err => {
+						console.error(err);
+					});
+			},
+			deleteRequest(id) {
+				requestsApi.delete({ id })
+					.then(() => this.$router.go('/requests'));
+			},
+			deleteResponse(id) {
+				responsesApi.delete({ id })
+					.then(() => this.request.Responses = this.request.Responses.filter(r => r.ID !== id));
+			}
 		},
-	},
-	methods: {
-		requestContentChanged(id, content) {
-			requestsApi.update({ id }, _.assign({}, this.request, {
-				Content: content,
-			}))
-			.then(() => requestsApi.get({ id }))
-			.then(newRequest => this.request = newRequest.json());
-		},
-		responseContentChanged(id, content) {
-			const oldResponse = this.request.Responses.find(r => r.ID === id);
-			responsesApi.update({ id }, _.assign({}, oldResponse, {
-				Content: content,
-			}))
-			.then(() => responsesApi.get({ id }))
-			.then(newResponse => oldResponse.Content = newResponse.json().Content);
-		},
-		toggleResponseAcceptance(targetResponse) {
-			// I create a new copy of the given response and I merge it
-			// with an object which has a different value for the key Accepted.
-			const modifiedResponse = _.assign({}, targetResponse, {
-				Accepted: !targetResponse.Accepted,
-			});
-			// I don't want to modify the value of the acceptance if the server says no.
-			responsesApi.update({ id: targetResponse.ID }, modifiedResponse)
-			// When the server do the modification I replace the old response by the new.
-			.then(res => {
-				this.request.Responses = this.request.Responses.map(currentResponse => {
-					if (currentResponse.ID === targetResponse.ID) {
-						return modifiedResponse;
-					}
-					return currentResponse;
-				})
-			});
-		},
-		submitResponse() {
-			// Here I don't need to parse the JSON because VueResource does it for me.
-			responsesApi.save({
-				RequestID: this.request.ID,
-				UserID: parseInt(localStorage.userID),
-				Content: this.newResponse.Content,
-				Value: parseInt(this.newResponse.Value),
-			})
-			// I Changed the server so it send me back the ID of the just created resource.
-			// This response is a VueResource response and it allows me to call .json() which
-			// turns the body directly into its JSON equivalent. Then I send a HTTP GET with the
-			// new response's ID and I return the result which is a Promise which allow me to
-			// chain 'then' calls see how Promise works for more info.
-			.then(httpResponse => responsesApi.get({ id: httpResponse.text() }))
-			// Then when I fetched back my new resource I push it into the data array.
-			// Doing this allows me to refresh the responses list without reloading the page.
-			.then(fetchedResource => {
-				this.request.Responses.push(fetchedResource.json());
-				// I reset the form, you don't want to answer twice the same thing.
-				this.newResponse = {};
-			})
-			// Or else I display an error.
-			.catch(err => {
-				console.error(err);
-			});
-		},
-		deleteRequest(id) {
-			requestsApi.delete({ id })
-			.then(() => this.$router.go('/requests'));
-		},
-		deleteResponse(id) {
-			responsesApi.delete({ id })
-			.then(() => this.request.Responses = this.request.Responses.filter(r => r.ID !== id));
-		},
-	},
-	components: {
-		BsPageHeader,
-		ContentViewer,
-	},
-}
+		components: {
+			BsPageHeader,
+			ContentViewer
+		}
+	}
 </script>
 
 <style lang="scss">
-dt {
-	width: auto;
-}
+	dt {
+		width: auto;
+	}
 
-textarea {
-	resize: horizontal;
-}
+	textarea {
+		resize: horizontal;
+	}
 
-.v-response {
-	margin-bottom: 2em;
-	border-top: 1px solid #eeeeee;
-}
+	.v-response {
+		margin-bottom: 2em;
+		border-top: 1px solid #eeeeee;
+	}
 </style>

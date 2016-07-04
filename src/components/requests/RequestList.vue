@@ -33,7 +33,7 @@
 		route: {
 			data() {
 				return {
-					requests: requestsApi.get().then(result => result.json()),
+					requests: requestsApi.get().then(result => result.json())
 				}
 			}
 		}

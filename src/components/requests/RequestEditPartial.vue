@@ -24,23 +24,23 @@
 </template>
 
 <script type="text/babel">
-export default {
-	props: {
-		request: {
-			type: Object,
-			default: () => ({}),
+	export default {
+		props: {
+			request: {
+				type: Object,
+				default: () => ({})
+			}
 		},
-	},
-	methods: {
-		save() {
-			this.$dispatch('on-save', this.request);
+		methods: {
+			save() {
+				this.$dispatch('on-save', this.request);
+			}
 		}
 	}
-}
 </script>
 
 <style>
-textarea {
-	resize: vertical;
-}
+	textarea {
+		resize: vertical;
+	}
 </style>

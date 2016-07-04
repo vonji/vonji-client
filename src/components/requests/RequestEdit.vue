@@ -7,26 +7,24 @@
 </template>
 
 <script type="text/babel">
-	import {
-		requestsApi,
-	} from '../../utils/resources';
+	import { requestsApi } from '../../utils/resources';
 	import RequestEditPartial from './RequestEditPartial.vue';
 
 	export default {
 		data() {
 			return {
-				request: {},
+				request: {}
 			};
 		},
 		events: {
 			'on-save': function (request) {
 				requestsApi.update({ id: this.request.ID }, {
 						Title: request.Title,
-						Content: request.Content,
-				})
-				.then(() => {
-					this.$router.go('/requests/view/' + this.request.ID);
-				});
+						Content: request.Content
+					})
+					.then(() => {
+						this.$router.go('/requests/view/' + this.request.ID);
+					});
 			}
 		},
 		route: {
@@ -38,6 +36,6 @@
 		},
 		components: {
 			RequestEditPartial
-		},
+		}
 	}
 </script>

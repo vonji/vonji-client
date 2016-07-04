@@ -11,7 +11,6 @@ import RequestAdd from './components/requests/RequestAdd.vue';
 import RequestEdit from './components/requests/RequestEdit.vue';
 import RequestList from './components/requests/RequestList.vue';
 
-
 global.jQuery = require('jquery');
 require('bootstrap-loader');
 
@@ -30,7 +29,7 @@ Vue.directive('confirm', {
 			"use strict";
 			$(self.el).confirmation({
 				singleton: true,
-				onConfirm: function() {
+				onConfirm: function () {
 					"use strict";
 					self.params.callback(self.params.params);
 				}
@@ -42,23 +41,23 @@ Vue.directive('confirm', {
 //TODO subrouter
 router.map({
 	'/users/add': {
-		component: UserAdd,
+		component: UserAdd
 	},
 	'/users/list': {
-		component: UserList,
+		component: UserList
 	},
 	'/requests': {
-		component: RequestList,
+		component: RequestList
 	},
 	'/requests/add/': {
-		component: RequestAdd,
+		component: RequestAdd
 	},
 	'/requests/edit/:id': {
-		component: RequestEdit,
+		component: RequestEdit
 	},
 	'/requests/view/:id': {
-		component: Request,
-	},
+		component: Request
+	}
 });
 
 router.start(App, '#app');

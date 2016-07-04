@@ -10,25 +10,24 @@ import {
 	ALERT_DISMISS,
 } from './actionTypes';
 
-
 export const login = ({ dispatch }, email, password) => {
 	usersApi.get({ email })
-	.then(result => result.json())
-	.then(user => {
-		if (user.Password === password) {
-			dispatch(LOGIN_SUCCESS, user);
-			dispatch(ALERT, 'info', 'Logged in');
-		}
-		else {
+		.then(result => result.json())
+		.then(user => {
+			if (user.Password === password) {
+				dispatch(LOGIN_SUCCESS, user);
+				dispatch(ALERT, 'info', 'Logged in');
+			}
+			else {
+				dispatch(ALERT, 'danger', 'Login failure');
+				dispatch(LOGIN_FAILURE);
+			}
+		})
+		.catch(error => {
+			console.error(error);
 			dispatch(ALERT, 'danger', 'Login failure');
 			dispatch(LOGIN_FAILURE);
-		}
-	})
-	.catch(error => {
-		console.error(error);
-		dispatch(ALERT, 'danger', 'Login failure');
-		dispatch(LOGIN_FAILURE);
-	})
+		})
 };
 
 export const logout = ({ dispatch }) => {

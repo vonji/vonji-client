@@ -16,21 +16,21 @@
 </template>
 
 <script type="text/babel">
-import {
-	usersApi,
-} from '../../utils/resources';
+	import {
+		usersApi,
+	} from '../../utils/resources';
 
-export default {
-	data() {
-		return {
-			user: {}
-		};
-	},
-	methods: {
-		submit: function () {
-			usersApi.save(this.user)
-			.then(() => this.$router.go('/users/list'));
+	export default {
+		data() {
+			return {
+				user: {}
+			};
+		},
+		methods: {
+			submit: function () {
+				usersApi.save(this.user)
+					.then(() => this.$router.go('/users/list'));
+			}
 		}
 	}
-}
 </script>
