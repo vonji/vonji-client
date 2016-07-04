@@ -171,7 +171,7 @@
 						Content: this.newResponse.Content,
 						Value: parseInt(this.newResponse.Value)
 					})
-					.then(httpResponse => responsesApi.get({ id: httpResponse.text() }))
+					.then(httpResponse => responsesApi.get({ id: httpResponse.json().ID }))
 					.then(fetchedResource => {
 						this.request.Responses.push(fetchedResource.json());
 						this.newResponse = {};
