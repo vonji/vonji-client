@@ -1,5 +1,5 @@
 <template>
-	<div class="form">
+	<form @submit.prevent="save">
 		<div class="form-group">
 			<label for="#{{ request.ID }}-request-title">Request title</label>
 			<input
@@ -7,6 +7,7 @@
 				v-model="request.Title"
 				class="form-control"
 				placeholder="Title of your request..."
+				required
 			/>
 		</div>
 		<div class="form-group">
@@ -17,10 +18,11 @@
 				v-model="request.Content"
 				class="form-control"
 				placeholder="Describe your request..."
+				required
 			></textarea>
 		</div>
-		<button @click="save" class="btn btn-primary btn-block btn-lg">Save</button>
-	</div>
+		<button type="submit" class="btn btn-primary btn-block btn-lg">Save</button>
+	</form>
 </template>
 
 <script type="text/babel">

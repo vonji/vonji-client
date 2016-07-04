@@ -1,15 +1,16 @@
 <template lang="html">
 	<div id="v-content-{{ content.ID }}" class="v-content-viewer">
-		<form v-if="isWriteMode">
+		<form v-if="isWriteMode" @submit.prevent="save">
 			<div class="form-group">
 				<textarea
 					v-model="newContent"
 					class="form-control"
 					style="width:100%;"
+					required
 				></textarea>
 			</div>
 			<div class="btn-group">
-				<button @click="save" class="btn btn-primary">Save</button>
+				<button type="submit" class="btn btn-primary">Save</button>
 				<button @click="cancel" class="btn btn-default">Cancel</button>
 			</div>
 		</form>

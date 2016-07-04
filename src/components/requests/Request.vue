@@ -65,6 +65,7 @@
 										v-model="newResponse.Content"
 										name="newResponse"
 										rows="8"
+										required
 									></textarea>
 								</div>
 								<div class="form-group">
@@ -75,10 +76,11 @@
 										class="form-control"
 										type="number"
 										min="0"
+										required
 									/>
 								</div>
 								<div class="form-group">
-									<button class="btn btn-primary">Répondre</button>
+									<button type="submit" class="btn btn-primary">Répondre</button>
 								</div>
 							</form>
 						</div>
@@ -181,12 +183,10 @@
 					});
 			},
 			deleteRequest(id) {
-				requestsApi.delete({ id })
-					.then(() => this.$router.go('/requests'));
+				requestsApi.delete({ id }).then(() => this.$router.go('/requests'));
 			},
 			deleteResponse(id) {
-				responsesApi.delete({ id })
-					.then(() => this.request.Responses = this.request.Responses.filter(r => r.ID !== id));
+				responsesApi.delete({ id }).then(() => this.request.Responses = this.request.Responses.filter(r => r.ID !== id));
 			}
 		},
 		components: {
