@@ -151,14 +151,18 @@
 					Accepted: !targetResponse.Accepted
 				});
 				responsesApi.update({ id: targetResponse.ID }, modifiedResponse)
-					.then(res => {
-						this.request.Responses = this.request.Responses.map(currentResponse => {
-							if (currentResponse.ID === targetResponse.ID) {
-								return modifiedResponse;
-							}
-							return currentResponse;
-						})
-					});
+					.then(() => {
+						responsesApi.update({ id: this.sortedResponses[0].ID })
+						.then(() => {
+							let id = this.request.Responses.findIndex(e => e.ID == targetResponse.ID);
+							this.request.Responses[id].Accepted = !this.request.Responses[id].Accepted;
+							id = this.request.Responses.findIndex(e => e.Accepted && e.ID != targetResponse.ID);
+							if (id < 0)
+								return;
+							this.request.Responses[id].Accepted = false;
+						});
+					})
+
 			},
 			submitResponse() {
 				responsesApi.save({
