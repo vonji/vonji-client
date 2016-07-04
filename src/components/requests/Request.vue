@@ -26,7 +26,7 @@
 						<div class="col-md-12">
 							<h4>{{ request.Responses.length }} Réponses</h4>
 						</div>
-						<div v-for="response in request.Responses" class="col-md-12">
+						<div v-for="response in sortedResponses" class="col-md-12">
 							<hr/>
 							<div class="row">
 								<div class="col-md-2">
@@ -97,9 +97,10 @@
 </template>
 
 <script type="text/babel">
+	import _ from 'lodash';
+	import moment from 'moment';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
-	import _ from 'lodash';
 	import { requestsApi, responsesApi } from '../../utils/resources';
 
 	export default {
@@ -114,6 +115,19 @@
 		route: {
 			data({ to: { params: { id } } }) {
 				return requestsApi.get({ id }).then(request => ({ request: request.json() }));
+			}
+		},
+		computed: {
+			sortedResponses() {
+				return this.request.Responses.sort((a, b) => {
+					if (a.Accepted)
+						return -1;
+					if (b.Accepted)
+						return 1;
+					if (moment(a.UpdatedAt).isSame(b.UpdatedAt, 'second'))
+						return 0;
+					return moment(a.UpdatedAt).isBefore(b.UpdatedAt, 'second') ? -1 : 1;
+				});
 			}
 		},
 		methods: {
