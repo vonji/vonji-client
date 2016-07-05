@@ -67,7 +67,7 @@
 								<hr/>
 								<form @submit.prevent="submitResponse">
 									<div class="form-group">
-										<label for="#new-answer-description">Give a description of what you can
+										<label for="new-answer-description">Give a description of what you can
 											do</label>
 										<textarea
 											id="new-answer-description"
@@ -79,7 +79,7 @@
 										></textarea>
 									</div>
 									<div class="form-group">
-										<label for="#new-answer-vcoin">How many vCoin do you charge for this?</label>
+										<label for="new-answer-vcoin">How many vCoin do you charge for this?</label>
 										<input
 											id="new-answer-vcoin"
 											v-model="newResponse.Value"
