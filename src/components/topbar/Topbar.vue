@@ -15,6 +15,8 @@ import LoginForm from './LoginForm.vue';
 import LogoutForm from './LogoutForm.vue';
 import BsNavbar from '../bootstrap/BsNavbar.vue';
 
+import { isLogged, isGuest } from '../../vuex/getters'
+
 export default {
 	data() {
 		return {};
@@ -22,11 +24,12 @@ export default {
 	components: {
 		BsNavbar,
 		LoginForm,
-		LogoutForm,
+		LogoutForm
 	},
 	vuex: {
 		getters: {
-			isGuest: state => !state.user
+			isGuest,
+			isLogged
 		}
 	}
 }

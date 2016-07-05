@@ -13,7 +13,7 @@ Vue.use(Vuex);
 
 const state = {
 	alerts: [],
-	user: localStorage.user
+	userID: localStorage.userID
 };
 
 const mutations = {
@@ -23,18 +23,18 @@ const mutations = {
 	},
 	[LOGIN_FAILURE] (state) {
 		state.userID = null;
-		localStorage.userID = null;//maybe undefine ?
+		localStorage.userID = null;
 	},
 	[LOGOUT] (state) {
 		state.userID = null;
-		localStorage.userID = null;//maybe undefine ?
+		localStorage.userID = null;
 	},
 	[ALERT] (state, type, message) {
 		state.alerts.push({ type: type, message: message });
 	},
 	[ALERT_DISMISS] (state, index) {
 		state.alerts.splice(index, index + 1);
-	},
+	}
 };
 
 export default new Vuex.Store({

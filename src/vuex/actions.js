@@ -19,8 +19,8 @@ export const login = ({ dispatch }, email, password) => {
 				dispatch(ALERT, 'info', 'Logged in');
 			}
 			else {
+				dispatch(LOGIN_FAILURE);//delete?
 				dispatch(ALERT, 'danger', 'Login failure');
-				dispatch(LOGIN_FAILURE);
 			}
 		})
 		.catch(error => {
