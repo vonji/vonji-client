@@ -23,11 +23,11 @@ const mutations = {
 	},
 	[LOGIN_FAILURE] (state) {
 		state.userID = null;
-		localStorage.userID = null;
+		delete localStorage.userID;
 	},
 	[LOGOUT] (state) {
 		state.userID = null;
-		localStorage.userID = null;
+		delete localStorage.userID;
 	},
 	[ALERT] (state, type, message) {
 		state.alerts.push({ type: type, message: message });
