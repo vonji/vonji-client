@@ -28,11 +28,11 @@
 				</div>
 				<div class="col-md-8">
 					<div class="v-content-usercards">
-						<user-card :user="content.LastEditor" v-if="content.LastEditor">
-							<a>edited Mar 21 at 21:35</a>
-						</user-card>
 						<user-card :user="content.User" :primary="true">
-							<a>posted Mar 21 at 21:35</a>
+							<a>posted {{ content.CreatedAt | format 'ddd D [at] LT' }}</a>
+						</user-card>
+						<user-card v-if="content.LastEditor" :user="content.LastEditor">
+							<a>edited {{ content.UpdatedAt | format 'ddd D [at] LT' }}</a>
 						</user-card>
 					</div>
 				</div>
