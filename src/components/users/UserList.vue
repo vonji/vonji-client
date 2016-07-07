@@ -18,7 +18,7 @@
 				</div>
 			</div>
 			<div class="row v-user-view">
-				<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users">
+				<div style="margin-bottom:1em;" class="col-md-3" v-for="user in sortedUsers">
 					<div class="media">
 						<div class="media-left">
 							<a href="#">
@@ -54,6 +54,17 @@
 			return {
 				users: []
 			};
+		},
+		computed: {
+			sortedUsers: function () {
+				return this.users.sort((a, b) => {
+					if (a.VReputation > b.VReputation)
+						return -1;
+					if (a.VReputation === b.VReputation)
+						return 0;
+					return 1;
+				})
+			}
 		},
 		components: {
 			BsPageHeader
