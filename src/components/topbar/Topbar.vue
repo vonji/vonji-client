@@ -3,7 +3,7 @@
 		<ul class="nav navbar-nav">
 			<li><a v-link="'/users/list'">User list</a></li>
 			<li><a v-link="'/requests'">Requests list</a></li>
-			<li><a v-link="'/requests/add'">Request add</a></li>
+			<li v-if="isLogged"><a v-link="'/requests/add'">Request add</a></li>
 		</ul>
 		<login-form v-if="isGuest"></login-form>
 		<logout-form v-else></logout-form>

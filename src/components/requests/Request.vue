@@ -12,7 +12,9 @@
 						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-2">
-									<button class="btn btn-danger btn-sm" v-confirm :callback="deleteRequest" :params="request.ID">Delete</button>
+									<button v-if="isLogged" class="btn btn-danger btn-sm" v-confirm :callback="deleteRequest"
+											:params="request.ID">Delete
+									</button>
 								</div>
 								<div class="col-md-10">
 									<content-viewer
@@ -30,7 +32,7 @@
 							<hr/>
 							<div class="row">
 								<div class="col-md-2">
-									<div class="btn-group-vertical">
+									<div v-if="isLogged" class="btn-group-vertical">
 										<button type="button"
 												class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}"
 												@click="toggleResponseAcceptance(response)">
@@ -39,6 +41,12 @@
 										<button type="button" class="btn btn-sm btn-danger"
 												@click="deleteResponse(response.ID)">
 											Delete
+										</button>
+									</div>
+									<div v-else>
+										<button v-if="response.Accepted" type="button"
+												class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}">
+											Accepted
 										</button>
 									</div>
 								</div>
@@ -51,39 +59,42 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12">
-							<h4>Your proposal</h4>
-						</div>
-						<div class="col-md-12">
-							<hr/>
-							<form @submit.prevent="submitResponse">
-								<div class="form-group">
-									<label for="#new-answer-description">Give a description of what you can do</label>
-									<textarea
-										id="new-answer-description"
-										class="form-control"
-										v-model="newResponse.Content"
-										name="newResponse"
-										rows="8"
-										required
-									></textarea>
-								</div>
-								<div class="form-group">
-									<label for="#new-answer-vcoin">How many vCoin do you charge for this?</label>
-									<input
-										id="new-answer-vcoin"
-										v-model="newResponse.Value"
-										class="form-control"
-										type="number"
-										min="0"
-										required
-									/>
-								</div>
-								<div class="form-group">
-									<button type="submit" class="btn btn-primary">Répondre</button>
-								</div>
-							</form>
-						</div>
+						<template v-if="isLogged">
+							<div class="col-md-12">
+								<h4>Your proposal</h4>
+							</div>
+							<div class="col-md-12">
+								<hr/>
+								<form @submit.prevent="submitResponse">
+									<div class="form-group">
+										<label for="#new-answer-description">Give a description of what you can
+											do</label>
+										<textarea
+											id="new-answer-description"
+											class="form-control"
+											v-model="newResponse.Content"
+											name="newResponse"
+											rows="8"
+											required
+										></textarea>
+									</div>
+									<div class="form-group">
+										<label for="#new-answer-vcoin">How many vCoin do you charge for this?</label>
+										<input
+											id="new-answer-vcoin"
+											v-model="newResponse.Value"
+											class="form-control"
+											type="number"
+											min="0"
+											required
+										/>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-primary">Répondre</button>
+									</div>
+								</form>
+							</div>
+						</template>
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -104,6 +115,7 @@
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
 	import { requestsApi, responsesApi } from '../../utils/resources';
+	import { isLogged } from '../../vuex/getters'
 
 	export default {
 		data() {
@@ -155,14 +167,14 @@
 				responsesApi.update({ id: targetResponse.ID }, modifiedResponse)
 					.then(() => {
 						responsesApi.update({ id: this.sortedResponses[0].ID })
-						.then(() => {
-							let id = this.request.Responses.findIndex(e => e.ID == targetResponse.ID);
-							this.request.Responses[id].Accepted = !this.request.Responses[id].Accepted;
-							id = this.request.Responses.findIndex(e => e.Accepted && e.ID != targetResponse.ID);
-							if (id < 0)
-								return;
-							this.request.Responses[id].Accepted = false;
-						});
+							.then(() => {
+								let id = this.request.Responses.findIndex(e => e.ID == targetResponse.ID);
+								this.request.Responses[id].Accepted = !this.request.Responses[id].Accepted;
+								id = this.request.Responses.findIndex(e => e.Accepted && e.ID != targetResponse.ID);
+								if (id < 0)
+									return;
+								this.request.Responses[id].Accepted = false;
+							});
 					})
 
 			},
@@ -187,6 +199,11 @@
 			},
 			deleteResponse(id) {
 				responsesApi.delete({ id }).then(() => this.request.Responses = this.request.Responses.filter(r => r.ID !== id));
+			}
+		},
+		vuex: {
+			getters: {
+				isLogged
 			}
 		},
 		components: {
