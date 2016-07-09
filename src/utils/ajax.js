@@ -1,3 +1,5 @@
+//TODO User Vue-Resource everywhere
+
 let vonji = {
     get: function (o) {
         "use strict";
@@ -53,7 +55,7 @@ let ajax = function (o) {
                 window.location.reload(true);
             }
             if (o.redirect) {
-                window.location.href = frontHome + o.redirect;
+                window.location.href = frontHome + o.redirect;//TODO
             }
         },
         error: o.error || function (jqXHR, textStatus, error) {

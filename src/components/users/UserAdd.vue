@@ -1,20 +1,21 @@
 <template>
-	<div class="row" id ="form"><!-- TODO no id -->
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <form id="user-registration-form">
-            <!--
-			<input name="email" type="email" v-model="email" placeholder="email">
-            <input name="password" type="password" placeholder="password">
-            -->
-			<input name="FirstName" type="text" placeholder="Prenom">
-            <input name="LastName" type="text" placeholder="Nom">
-            <input name="Description" type="text" placeholder="Description">
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-    <div class="col-md-3"></div>
-</div>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<form id="user-registration-form">
+				<!--
+				TODO
+				<input name="email" type="email" v-model="email" placeholder="email">
+				<input name="password" type="password" placeholder="password">
+				-->
+				<input name="FirstName" type="text" placeholder="Prenom">
+				<input name="LastName" type="text" placeholder="Nom">
+				<input name="Description" type="text" placeholder="Description">
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
 </template>
 
 <script>
