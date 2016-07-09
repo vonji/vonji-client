@@ -4,6 +4,9 @@ import Resource from 'vue-resource'
 import App from './components/App.vue';
 
 import Navbar from './components/Navbar.vue'
+
+import UserList from './components/users/UserList.vue'
+
 global.jQuery = require('jquery');
 require('bootstrap-loader');
 
@@ -15,6 +18,9 @@ Vue.http.options.root = 'http://localhost:1618/';
 let router = new Router();
 
 router.map({
+    '/users/list': {
+        component: UserList
+    }
 });
 
 router.start(App, '#app');
