@@ -19,7 +19,7 @@ function Resource(resourceName) {
 
     let success = (response) => {
         if (this.options.success)
-            o.success(response);
+            this.options.success(response);
         if (this.options.reload && this.options.redirect) {
             console.error('Can not reload and redirect after ajax request');
             return;
@@ -28,16 +28,16 @@ function Resource(resourceName) {
             window.location.reload(true);
         if (this.options.redirect)
             router.go(this.options.redirect);
-        return response.data
+        return JSON.parse(response.data)
     };
 
-    let error = (o, response) => {
-        if (o.error)
-            o.error(response);
+    let error = (response) => {
+        if (this.options.error)
+            this.options.error(response);
     };
 
-    this.get = (o) => { this.options = o || {}; return Vue.http.get(resourceUrl + o.id).then(success, error); };
-    this.post = (o) => { this.options = o || {}; return Vue.http.post(resourceUrl, o.data).then(success, error); };
-    this.put = (o) => { this.options = o || {}; return Vue.http.put(resourceUrl, o.data).then(success, error); };
-    this.delete = (o) => { this.options = o || {}; return Vue.http.delete(resourceUrl + o.id).then(success, error); };
+    this.get = (o) => { this.options = o = (o || {}); return Vue.http.get(resourceUrl + o.id).then(success, error); };
+    this.post = (o) => { this.options = o = (o || {}); return Vue.http.post(resourceUrl, o.data).then(success, error); };
+    this.put = (o) => { this.options = o = (o || {}); return Vue.http.put(resourceUrl, o.data).then(success, error); };
+    this.delete = (o) => { this.options = o = (o || {}); return Vue.http.delete(resourceUrl + o.id).then(success, error); };
 }
