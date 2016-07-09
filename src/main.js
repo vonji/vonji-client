@@ -11,6 +11,8 @@ import UserList from './components/users/UserList.vue'
 import Request from './components/requests/Request.vue'
 import RequestEdit from './components/requests/RequestEdit.vue'
 import RequestList from './components/requests/RequestList.vue'
+import ResponseEdit from './components/requests/ResponseEdit.vue'
+
 
 global.jQuery = require('jquery');
 require('bootstrap-loader');
@@ -32,13 +34,16 @@ router.map({
     '/users/list': {
         component: UserList
     },
-    '/requests/:id': {
-        component: Request
     '/requests': {
         component: RequestList
     },
     '/requests/edit/:id': {
         component: RequestEdit
+    '/requests/view/:id': {
+        component: Request
+    },
+    '/responses/edit/:id': {//'requests/:requestId/responses/edit/:id'??
+        component: ResponseEdit
     }
 });
 
