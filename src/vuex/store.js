@@ -4,27 +4,20 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-  user: '',
-  token: ''
+    user: undefined
 };
 
 const mutations = {
-  LOGIN (state, username, password) {
-    if (username === 'loup' && password === 'loup') {
-      state.user = username;
-      state.token = 'token';
-    } else {
-      state.user = '';
-      state.token = '';
+    LOGIN (state, user) {
+        state.user = user;
+    },
+    LOGOUT (state) {
+        "use strict";
+        state.user = undefined;
     }
-  },
-  LOGOUT (state) {
-    state.user = '';
-    state.token = '';
-  },
 };
 
 export default new Vuex.Store({
-  state,
-  mutations
+    state,
+    mutations
 });

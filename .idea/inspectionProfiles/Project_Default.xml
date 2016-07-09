@@ -15,13 +15,15 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="6">
+          <list size="8">
             <item index="0" class="java.lang.String" itemvalue="v-for" />
             <item index="1" class="java.lang.String" itemvalue="v-model" />
             <item index="2" class="java.lang.String" itemvalue="@keyup.enter" />
             <item index="3" class="java.lang.String" itemvalue="v-on:click" />
             <item index="4" class="java.lang.String" itemvalue="v-if" />
             <item index="5" class="java.lang.String" itemvalue="v-link" />
+            <item index="6" class="java.lang.String" itemvalue="@click" />
+            <item index="7" class="java.lang.String" itemvalue="@submit.prevent" />
           </list>
         </value>
       </option>
@@ -30,7 +32,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="8">
+          <list size="9">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -39,6 +41,7 @@
             <item index="5" class="java.lang.String" itemvalue="script" />
             <item index="6" class="java.lang.String" itemvalue="user-info" />
             <item index="7" class="java.lang.String" itemvalue="router-view" />
+            <item index="8" class="java.lang.String" itemvalue="topbar" />
           </list>
         </value>
       </option>
@@ -75,6 +78,7 @@
     <inspection_tool class="StatementsPerFunctionJS" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="m_limit" value="30" />
     </inspection_tool>
+    <inspection_tool class="TailRecursionJS" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="TextLabelInSwitchStatementJS" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="ThreeNegationsPerFunctionJS" enabled="true" level="WARNING" enabled_by_default="true" />
   </profile>

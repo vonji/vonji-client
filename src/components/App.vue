@@ -1,6 +1,6 @@
 <template>
-    <!--<navbar :is-logged="sharedState"></navbar>-->
     <div class="container">
+        <topbar></topbar>
         <a v-link="'/'">HOME</a>
         <router-view>
         </router-view>
@@ -10,5 +10,20 @@
         <br>
         <a v-link="'/requests'">Requests list</a>
         <a v-link="'/requests/add'">Request add</a>
+        <br>
     </div>
 </template>
+
+<script type="text/babel">
+    import store from './../vuex/store';
+
+    import Topbar from './topbar/Topbar.vue'
+
+    export default {
+        name: 'App',
+        store: store,
+        components: {
+            Topbar
+        }
+    }
+</script>
