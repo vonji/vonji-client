@@ -64,7 +64,9 @@
         },
         data() {
             return {
-                request: {},
+                request: {
+                    User: {}//fix warning when page is loaded but data are not yet loaded
+                },
                 responseContent: "",
                 responseValue: 0
             };
