@@ -38,10 +38,14 @@
 				</div>
 			</div>
 		</div>
+		<div>
+			<comments-viewer :content="content"></comments-viewer>
+		</div>
 	</div>
 </template>
 
 <script>
+	import CommentsViewer from './CommentsViewer.vue'
 	import UserCard from '../users/UserCard.vue';
 	import { isLogged } from '../../vuex/getters';
 
@@ -82,7 +86,8 @@
 			}
 		},
 		components: {
-			UserCard
+			UserCard,
+			CommentsViewer
 		},
 		vuex: {
 			getters: {

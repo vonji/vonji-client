@@ -16,4 +16,5 @@ const root = 'http://localhost:1618/';
 
 export const responsesApi = Vue.resource(`${root}responses{/id}`);
 export const requestsApi = Vue.resource(`${root}requests{/id}`);
+export const commentsApi = Vue.resource(`${root}comments{/id}`);
 export const usersApi = Vue.resource(`${root}users{/email}`);
