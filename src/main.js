@@ -21,7 +21,9 @@ const router = new VueRouter();
 Vue.directive('confirm', {
 	params: ['callback', 'params'],
 	bind: function () {
-		require('bootstrap-confirmation2');
+		this.params.callback(this.params.params);//bootstrap confirm package is buggy
+		return;
+		//require('bootstrap-confirmation2');
 		let $ = require('jquery');
 
 		let self = this;
