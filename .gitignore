@@ -116,6 +116,7 @@ fabric.properties
 logs
 *.log
 npm-debug.log*
+build
 
 # Runtime data
 pids
