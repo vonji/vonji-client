@@ -37,7 +37,7 @@ export const logout = ({ dispatch }) => {
 
 export const alert = ({ dispatch }, type, message) => {
 	"use strict";
-	dispatch(ALERT);
+	dispatch(ALERT, type, message);
 };
 
 export const alertDismiss = ({ dispatch }, index) => {
