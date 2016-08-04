@@ -1,6 +1,6 @@
 <template>
 	<div>
-		{{ comment.Content }} - {{ comment.User.FirstName }} {{ comment.User.LastName }} {{ comment.UpdatedAt | fromNow }}
+		{{ comment.Content }} - <a v-link="'/users/profile/' + comment.User.ID">{{ comment.User.DisplayedName }}</a> {{ comment.UpdatedAt | fromNow }}
 	</div>
 </template>
 

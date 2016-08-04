@@ -5,10 +5,12 @@
 		</div>
 		<div class="v-uc-body">
 			<div class="v-uc-left">
-				<img src="https://placekitten.com/32/32"></img>
+				<a v-link="'/users/profile' + user.ID">
+					<img :src="user.Avatar" width="60" height="60">
+				</a>
 			</div>
 			<div class="v-uc-right">
-				<div><a href="">{{ user.FirstName + " " + user.LastName }}</a></div>
+				<div><a v-link="'users/profile/' + user.ID">{{ user.DisplayedName }}</a></div>
 				<div>{{ user.VReputation }} * 34 * 78 * 23</div>
 			</div>
 		</div>

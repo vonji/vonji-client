@@ -1,8 +1,8 @@
 <template>
 	<div class="user-info">
 		<slot></slot>
-		<img src="https://placehold.it/50x50" alt="avatar">
-		{{user.FirstName}}
+		<img :src="user.Avatar" alt="avatar" width="60" height="60">
+		{{ user.DisplayedName }}
 	</div>
 </template>
 
