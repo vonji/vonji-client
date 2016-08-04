@@ -5,7 +5,7 @@
 		</div>
 		<div class="v-uc-body">
 			<div class="v-uc-left">
-				<a v-link="'/users/profile' + user.ID">
+				<a v-link="'/users/profile/' + user.ID">
 					<img :src="user.Avatar" width="60" height="60">
 				</a>
 			</div>
