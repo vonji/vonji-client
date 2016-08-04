@@ -21,7 +21,7 @@
 						Content: request.Content,
 						UserID: Number(localStorage.userID)
 					})
-					.then((obj) => obj)
+					.then((obj) => obj)//???
 					.then(() => this.$router.go('/requests'))
 					.catch(console.error);
 			}
