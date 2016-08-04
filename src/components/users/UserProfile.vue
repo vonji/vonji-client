@@ -79,6 +79,7 @@
 <script type="text/babel">
 
 	import { usersApi } from '../../utils/resources';
+	import { alert } from '../../vuex/actions';
 
 	export default {
 		data() {
@@ -91,9 +92,16 @@
 				return usersApi.get({ id }).then(user => ({ user: user.json() }));
 			}
 		},
-		methods: {
-			save() {
-				usersApi.update(this.user);
+		vuex: {
+			actions: {
+				save({ dispatch }) {
+					usersApi.update(this.user)
+						.then(() => alert({ dispatch }, 'info', 'Profile updated'))
+						.catch(response => {
+							alert({ dispatch }, 'danger', 'Could not save profile');
+							console.error(response);
+						});
+				}
 			}
 		}
 	}
