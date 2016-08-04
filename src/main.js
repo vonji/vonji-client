@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 
 import UserAdd from './components/users/UserAdd.vue';
 import UserList from './components/users/UserList.vue';
+import UserProfile from './components/users/UserProfile.vue'
 
 import Request from './components/requests/Request.vue';
 import RequestAdd from './components/requests/RequestAdd.vue';
@@ -47,6 +48,9 @@ router.map({
 	},
 	'/users/list': {
 		component: UserList
+	},
+	'/users/profile/:id': {
+		component: UserProfile
 	},
 	'/requests': {
 		component: RequestList
