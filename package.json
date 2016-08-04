@@ -4,7 +4,7 @@
   "description": "The official VonjiAPI client web application.",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --content-base public/",
+    "dev": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline --hot --content-base public/",
     "build": "webpack -p"
   },
   "repository": {
