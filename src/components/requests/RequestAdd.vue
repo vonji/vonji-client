@@ -8,11 +8,13 @@
 
 <script type="text/babel">
 	import RequestEditPartial from './RequestEditPartial.vue';
+	import TagsViewer from './TagsViewer.vue';
 	import { requestsApi } from '../../utils/resources';
 
 	export default {
 		components: {
-			RequestEditPartial
+			RequestEditPartial,
+			TagsViewer
 		},
 		events: {
 			'on-save': function (request) {

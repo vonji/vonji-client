@@ -114,7 +114,7 @@
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
 	import { requestsApi, responsesApi } from '../../utils/resources';
-	import { isLogged } from '../../vuex/getters'
+	import { isLogged } from '../../vuex/getters';
 
 	export default {
 		data() {
@@ -207,7 +207,7 @@
 		},
 		components: {
 			BsPageHeader,
-			ContentViewer
+			ContentViewer,
 		}
 	}
 </script>

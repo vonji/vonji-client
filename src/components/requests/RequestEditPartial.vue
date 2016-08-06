@@ -21,11 +21,14 @@
 				required
 			></textarea>
 		</div>
+		<tags-viewer :parent="request" :edit-mode="true"></tags-viewer>
 		<button type="submit" class="btn btn-primary btn-block btn-lg">Save</button>
 	</form>
 </template>
 
 <script type="text/babel">
+	import TagsViewer from './TagsViewer.vue';
+
 	export default {
 		props: {
 			request: {
@@ -37,6 +40,9 @@
 			save() {
 				this.$dispatch('on-save', this.request);
 			}
+		},
+		components: {
+			TagsViewer
 		}
 	}
 </script>

@@ -14,12 +14,10 @@
 				<button @click="cancel" class="btn btn-default">Cancel</button>
 			</div>
 		</form>
-		<div class="v-content-body" v-else @click="edit">
+		<div v-else class="v-content-body" @click="edit">
 			{{ content.Content }}
 		</div>
-		<div v-if="content.Tags" class="v-content-tags">
-			<span v-for="tag in content.Tags" class="label label-primary">{{ tag }}</span>
-		</div>
+		<tags-viewer v-if="content.Tags" :parent="content" :edit-mode="mode === 'write'" class="v-content-tags"></tags-viewer>
 		<div class="v-content-footer">
 			<div class="row">
 				<div class="col-md-4">
@@ -45,7 +43,8 @@
 </template>
 
 <script>
-	import CommentsViewer from './CommentsViewer.vue'
+	import CommentsViewer from './CommentsViewer.vue';
+	import TagsViewer from './TagsViewer.vue';
 	import UserCard from '../users/UserCard.vue';
 	import { isLogged } from '../../vuex/getters';
 
@@ -87,7 +86,8 @@
 		},
 		components: {
 			UserCard,
-			CommentsViewer
+			CommentsViewer,
+			TagsViewer
 		},
 		vuex: {
 			getters: {
