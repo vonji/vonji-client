@@ -12,10 +12,10 @@ Vue.filter('format', (input, format) =>
 
 Vue.use(Resource);
 
-const root = 'http://localhost:1618/';
+Vue.http.options.root = 'http://localhost:1618';
 
-export const responsesApi = Vue.resource(`${root}responses{/id}`);
-export const requestsApi = Vue.resource(`${root}requests{/id}`);
-export const commentsApi = Vue.resource(`${root}comments{/id}`);
-export const usersApi = Vue.resource(`${root}users{/id}`);
-export const tagsApi = Vue.resource(`${root}tags{/id}`);
+export const responsesApi = Vue.resource('responses{/id}');
+export const requestsApi = Vue.resource('requests{/id}');
+export const commentsApi = Vue.resource('comments{/id}');
+export const usersApi = Vue.resource('users{/id}');
+export const tagsApi = Vue.resource('tags{/id}');
