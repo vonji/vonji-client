@@ -18,11 +18,8 @@
 		},
 		events: {
 			'on-save': function (request) {
-				requestsApi.save({
-						Title: request.Title,
-						Content: request.Content,
-						UserID: Number(localStorage.userID)
-					})
+				request.UserID = Number(localStorage.userID);
+				requestsApi.save(request)
 					.then((obj) => obj)//???
 					.then(() => this.$router.go('/requests'))
 					.catch(console.error);

@@ -33,7 +33,9 @@
 		props: {
 			request: {
 				type: Object,
-				default: () => ({})
+				default: () => ({
+					Tags: []
+				})
 			}
 		},
 		methods: {
