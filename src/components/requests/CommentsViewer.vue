@@ -48,7 +48,11 @@
 					Content: this.commentInput,
 					UserID: Number(localStorage.userID)
 				})
-				.then(response => this.content.Comments.push(JSON.parse(response.body)));
+				.then(response => {
+					this.commentInput = '';
+					this.content.Comments = this.content.Comments || [];
+					this.content.Comments.push(JSON.parse(response.body))
+				});
 			}
 		}
 	}
