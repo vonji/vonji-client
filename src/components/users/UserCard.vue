@@ -11,7 +11,8 @@
 			</div>
 			<div class="v-uc-right">
 				<div><a v-link="'users/profile/' + user.ID">{{ user.DisplayedName }}</a></div>
-				<div>{{ user.VReputation }} * 34 * 78 * 23</div>
+				<div>{{ user.VCoins }} vCoins</div>
+				<div>{{ user.VAction }} vActions</div>
 			</div>
 		</div>
 	</div>
