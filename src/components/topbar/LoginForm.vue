@@ -1,5 +1,5 @@
 <template>
-	<div class="navbar-form navbar-right">
+	<div class="navbar-form">
 		<form @submit.prevent="submit" role="form" autocomplete="on" class="form-inline">
 			<div class="form-group">
 				<input v-model="email" type="email" class="form-control" placeholder="Login"/>
@@ -39,3 +39,9 @@
 		}
 	}
 </script>
+
+<style scoped>
+	form {
+		margin-bottom: 0!important;
+	}
+</style>

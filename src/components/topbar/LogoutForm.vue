@@ -1,5 +1,5 @@
 <template>
-	<div class="navbar-form navbar-right">
+	<div class="navbar-form">
 		<button @click="logout()" class="btn btn-default">Logout</button>
 	</div>
 </template>

@@ -5,8 +5,11 @@
 			<li><a v-link="'/requests'">Requests list</a></li>
 			<li v-if="isLogged"><a v-link="'/requests/add'">Request add</a></li>
 		</ul>
-		<login-form v-if="isGuest"></login-form>
-		<logout-form v-else></logout-form>
+		<login-form v-if="isGuest" class="nav navbar-right"></login-form>
+		<ul v-else class="nav navbar-nav navbar-right">
+			<li><a v-link="'/users/profile/' + user.ID">{{ user.DisplayedName }}</a></li>
+			<li><logout-form></logout-form></li>
+		</ul>
 	</bs-navbar>
 </template>
 
@@ -15,11 +18,17 @@ import LoginForm from './LoginForm.vue';
 import LogoutForm from './LogoutForm.vue';
 import BsNavbar from '../bootstrap/BsNavbar.vue';
 
+import { usersApi } from '../../utils/resources';
 import { isLogged, isGuest } from '../../vuex/getters'
 
 export default {
 	data() {
-		return {};
+		return {
+			user: {}
+		};
+	},
+	ready() {
+		usersApi.get({ id: localStorage.userID }).then(response => this.user = response.json());
 	},
 	components: {
 		BsNavbar,
