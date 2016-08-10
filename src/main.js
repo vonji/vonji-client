@@ -13,6 +13,8 @@ import RequestAdd from './components/requests/RequestAdd.vue';
 import RequestEdit from './components/requests/RequestEdit.vue';
 import RequestList from './components/requests/RequestList.vue';
 
+import TagList from './components/tags/TagList.vue';
+
 global.jQuery = require('jquery');
 require('bootstrap-loader');
 
@@ -67,6 +69,9 @@ router.map({
 	},
 	'/requests/view/:id': {
 		component: Request
+	},
+	'/tags/list': {
+		component: TagList
 	}
 });
 

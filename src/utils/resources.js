@@ -17,7 +17,6 @@ Vue.http.options.root = 'http://localhost:1618';
 export const responsesApi = Vue.resource('responses{/id}');
 export const requestsApi = Vue.resource('requests{/id}');
 export const commentsApi = Vue.resource('comments{/id}');
-export const tagsApi = Vue.resource('tags{/id}');
 export const transactionsApi = Vue.resource('transactions{/id}');
 
 let usersApi = Vue.resource('users{/id}');
@@ -31,3 +30,8 @@ usersApi.getHistory = id => {
 };
 
 export { usersApi };
+
+let tagsApi = Vue.resource('tags{/id}');
+tagsApi.getRequests = tagId => Vue.http.get('requests/all/where' + encodeURI(JSON.stringify({ tags: [{ ID: tagId }] })));
+
+export { tagsApi };

@@ -1,8 +1,9 @@
 <template lang="html">
 	<bs-navbar brand-name="Vonji" link="'/'">
 		<ul class="nav navbar-nav">
-			<li><a v-link="'/users/list'">User list</a></li>
-			<li><a v-link="'/requests'">Requests list</a></li>
+			<li><a v-link="'/users/list'">Users</a></li>
+			<li><a v-link="'/requests'">Requests</a></li>
+			<li><a v-link="'/tags/list'">Tags</a></li>
 			<li v-if="isLogged"><a v-link="'/requests/add'">Request add</a></li>
 		</ul>
 		<login-form v-if="isGuest" class="nav navbar-right"></login-form>
