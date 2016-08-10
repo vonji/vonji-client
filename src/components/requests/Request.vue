@@ -146,16 +146,16 @@
 		methods: {
 			requestContentChanged(id, content) {
 				requestsApi.update({ id }, _.assign({}, this.request, {
-						Content: content
-					}))
+					Content: content
+				}))
 					.then(() => requestsApi.get({ id }))
 					.then(newRequest => this.request = newRequest.json());
 			},
 			responseContentChanged(id, content) {
 				const oldResponse = this.request.Responses.find(r => r.ID === id);
 				responsesApi.update({ id }, _.assign({}, oldResponse, {
-						Content: content
-					}))
+					Content: content
+				}))
 					.then(() => responsesApi.get({ id }))
 					.then(newResponse => oldResponse.Content = newResponse.json().Content);
 			},
@@ -165,25 +165,28 @@
 				});
 				responsesApi.update({ id: targetResponse.ID }, modifiedResponse)
 					.then(() => {
-						responsesApi.update({ id: this.sortedResponses[0].ID })
-							.then(() => {
-								let id = this.request.Responses.findIndex(e => e.ID == targetResponse.ID);
-								this.request.Responses[id].Accepted = !this.request.Responses[id].Accepted;
-								id = this.request.Responses.findIndex(e => e.Accepted && e.ID != targetResponse.ID);
-								if (id < 0)
-									return;
-								this.request.Responses[id].Accepted = false;
-							});
+						if (this.sortedResponses[0].ID !== targetResponse.ID) {
+							responsesApi.update({ id: this.sortedResponses[0].ID }, this.sortedResponses[0]);
+						}
 					})
+					.then(() => {
+						let id = this.request.Responses.findIndex(e => e.ID == targetResponse.ID);
+						this.request.Responses[id].Accepted = !this.request.Responses[id].Accepted;
+						id = this.request.Responses.findIndex(e => e.Accepted && e.ID != targetResponse.ID);
+						if (id < 0)
+							return;
+						this.request.Responses[id].Accepted = false;
+					})
+				;
 
 			},
 			submitResponse() {
 				responsesApi.save({
-						RequestID: this.request.ID,
-						UserID: parseInt(localStorage.userID),
-						Content: this.newResponse.Content,
-						Value: parseInt(this.newResponse.Value)
-					})
+					RequestID: this.request.ID,
+					UserID: parseInt(localStorage.userID),
+					Content: this.newResponse.Content,
+					Value: parseInt(this.newResponse.Value)
+				})
 					.then(httpResponse => responsesApi.get({ id: httpResponse.json().ID }))
 					.then(fetchedResource => {
 						this.request.Responses.push(fetchedResource.json());
