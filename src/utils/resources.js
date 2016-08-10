@@ -17,5 +17,7 @@ Vue.http.options.root = 'http://localhost:1618';
 export const responsesApi = Vue.resource('responses{/id}');
 export const requestsApi = Vue.resource('requests{/id}');
 export const commentsApi = Vue.resource('comments{/id}');
-export const usersApi = Vue.resource('users{/id}');
 export const tagsApi = Vue.resource('tags{/id}');
+let usersApi = Vue.resource('users{/id}');
+usersApi.getByEmail = email => Vue.http.get('users/where/' + encodeURI(JSON.stringify({ Email: email })));
+export { usersApi };

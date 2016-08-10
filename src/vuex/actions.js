@@ -11,7 +11,7 @@ import {
 } from './actionTypes';
 
 export const login = ({ dispatch }, email, password) => {
-	usersApi.get({ id: email })
+	usersApi.getByEmail(email)
 		.then(result => result.json())
 		.then(user => {
 			if (user.Password === password) {
