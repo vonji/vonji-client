@@ -113,7 +113,7 @@
 	import moment from 'moment';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
-	import { requestsApi, responsesApi } from '../../utils/resources';
+	import { requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
 	import { isLogged } from '../../vuex/getters';
 
 	export default {
@@ -169,6 +169,17 @@
 							responsesApi.update({ id: this.sortedResponses[0].ID }, this.sortedResponses[0]);
 						}
 					})
+					.then(() => {
+						transactionsApi.save({
+								FromID: this.request.UserID,
+								ToID: targetResponse.UserID,
+								Amount: 15,
+								Type: 'VACTION',
+								Reason: 'Accepted response',
+								Source: '/requests/view/' + this.request.ID
+							})
+						}
+					)
 					.then(() => {
 						let id = this.request.Responses.findIndex(e => e.ID == targetResponse.ID);
 						this.request.Responses[id].Accepted = !this.request.Responses[id].Accepted;

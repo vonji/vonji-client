@@ -18,6 +18,16 @@ export const responsesApi = Vue.resource('responses{/id}');
 export const requestsApi = Vue.resource('requests{/id}');
 export const commentsApi = Vue.resource('comments{/id}');
 export const tagsApi = Vue.resource('tags{/id}');
+export const transactionsApi = Vue.resource('transactions{/id}');
+
 let usersApi = Vue.resource('users{/id}');
 usersApi.getByEmail = email => Vue.http.get('users/where/' + encodeURI(JSON.stringify({ Email: email })));
+usersApi.getHistory = id => {
+	return Vue.http.get('transactions/where/all/' + encodeURI(JSON.stringify({ FromID: Number(id) })))
+		.then((response) => {
+			return Vue.http.get('transactions/where/all/' + encodeURI(JSON.stringify({ ToID: Number(id) })))
+				.then((response2) => response.json().concat(response2.json()));
+		});
+};
+
 export { usersApi };
