@@ -28,7 +28,10 @@
 						<div class="media-body">
 							<div class="v-user-heading">
 								<div class="v-user-name"><a v-link="'/users/profile/' + user.ID">{{ user.DisplayedName }}</a></div>
-								<div class="v-user-reput">{{ user.VReputation || 0 }} VR</div>
+								<div class="v-user-reput">
+									{{ user.VAction }} VActions
+									<!-- TODO cestmoche {{ user.VCoins }} VCoins -->
+								</div>
 							</div>
 							<p>{{ user.Description }}</p>
 							<div></div>
