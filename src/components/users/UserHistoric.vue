@@ -56,7 +56,7 @@
 			data({ to: { params: { id } } }) {
 				return {
 					user: usersApi.get({ id }).then(response => response.json()),
-					transactions: usersApi.getHistory(id)
+					transactions: usersApi.getHistoric(id)
 				};
 			}
 		},

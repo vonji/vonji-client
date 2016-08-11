@@ -55,7 +55,7 @@ router.map({
 	'/users/profile/:id': {
 		component: UserProfile
 	},
-	'/users/history/:id': {
+	'/users/historic/:id': {
 		component: UserHistoric
 	},
 	'/requests': {

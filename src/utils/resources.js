@@ -21,7 +21,7 @@ export const transactionsApi = Vue.resource('transactions{/id}');
 
 let usersApi = Vue.resource('users{/id}');
 usersApi.getByEmail = email => Vue.http.get('users/where/' + encodeURI(JSON.stringify({ Email: email })));
-usersApi.getHistory = id => {
+usersApi.getHistoric = id => {
 	return Vue.http.get('transactions/where/all/' + encodeURI(JSON.stringify({ FromID: Number(id) })))
 		.then((response) => {
 			return Vue.http.get('transactions/where/all/' + encodeURI(JSON.stringify({ ToID: Number(id) })))
