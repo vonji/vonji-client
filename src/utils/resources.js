@@ -32,6 +32,10 @@ usersApi.getHistoric = id => {
 export { usersApi };
 
 let tagsApi = Vue.resource('tags{/id}');
-tagsApi.getRequests = tagId => Vue.http.get('requests/all/where' + encodeURI(JSON.stringify({ tags: [{ ID: tagId }] })));
+tagsApi.getRequests = tagId => {
+	return requestsApi.get().then(response => {
+		return response.json().filter(r => r.Tags.filter(tag => tag.ID === tagId).length !== 0);
+	});
+};
 
 export { tagsApi };
