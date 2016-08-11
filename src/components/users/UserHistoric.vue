@@ -74,7 +74,7 @@
 	}
 </script>
 
-<style type="scss">
+<style lang="scss">
 	h2 {
 		text-align: center;
 	}

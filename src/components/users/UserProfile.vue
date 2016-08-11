@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="row">
+		<div class="row profile">
 			<div class="row profileMain">
 				<div class="col-md-4">
 					<img :src="user.Avatar" alt="avatar" id="avatar" width="150" height="150">
@@ -108,24 +108,26 @@
 </script>
 
 <style lang="scss">
-	#avatar {
-		border: 1px solid darkgrey;
-	}
+	.profile {
+		#avatar {
+			border: 1px solid darkgrey;
+		}
 
-	input, textarea {
-		margin-bottom: 15px!important;
-	}
+		input, textarea {
+			margin-bottom: 15px;
+		}
 
-	.profileMain {
-		margin-bottom: 20px;
-	}
+		.profileMain {
+			margin-bottom: 20px;
+		}
 
-	#vaction, #vcoin {
-		font-weight: bold;
-	}
+		#vaction, #vcoin {
+			font-weight: bold;
+		}
 
-	hr {
-		margin-top: 40px!important;
-		margin-bottom: 40px!important;
+		hr {
+			margin-top: 40px;
+			margin-bottom: 40px;
+		}
 	}
 </style>
