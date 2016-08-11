@@ -13,7 +13,7 @@
 		<h2>{{ tags.length }} skills</h2>
 	</div>
 	<div class="row">
-		<div v-for="tag in tags | filter" class="col-md-1">
+		<div v-for="tag in tags | filter | sortByName" class="col-md-1">
 			<span class="tag">{{ tag.Name }}</span>x {{ usages[$index] }}
 		</div>
 	</div>
@@ -35,8 +35,8 @@
 				return tagsApi.get()
 					.then(response => {
 						let tags = response.json();
-						tags.forEach((e, i) => {
-							tagsApi.getRequests(e.ID).then(response => this.usages.push(response.json().length))
+						tags.forEach(e => {
+							tagsApi.getRequests(e.ID).then(requests => this.usages.push(requests.length))
 						});
 						return { tags }
 					});
@@ -45,6 +45,9 @@
 		filters: {
 			filter(tags) {
 				return tags.filter(e => e.Name.indexOf(this.searchInput) !== -1);
+			},
+			sortByName(tags) {
+				return tags.sort((a, b) => a.Name.localeCompare(b.Name) )
 			}
 		}
 	}
