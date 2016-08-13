@@ -18,10 +18,7 @@
 		},
 		events: {
 			'on-save': function (request) {
-				requestsApi.update({ id: this.request.ID }, {
-						Title: request.Title,
-						Content: request.Content
-					})
+				requestsApi.update({ id: this.request.ID }, request)
 					.then(() => {
 						this.$router.go('/requests/view/' + this.request.ID);
 					});
