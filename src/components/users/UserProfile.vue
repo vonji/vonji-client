@@ -1,12 +1,9 @@
 <template>
 	<div>
+		<user-profile-header :user="user"></user-profile-header>
 		<div class="row">
 			<div class="col-md-4">
-				<img :src="user.Avatar" alt="avatar" id="avatar" width="150" height="150">
-				<br>
-				<span id="vcoin">{{ user.VCoins }} vCoins</span>
-				<br>
-				<span id="vaction">{{ user.VAction }} vActions</span>
+				<avatar-box :user="user"></avatar-box>
 			</div>
 			<div class="col-md-5">
 				<div class="row">{{ user.DisplayedName }}</div>
@@ -88,6 +85,8 @@
 </template>
 
 <script type="text/babel">
+	import AvatarBox from './AvatarBox.vue';
+	import UserProfileHeader from './UserProfileHeader.vue';
 	import moment from 'moment';
 	import { usersApi } from '../../utils/resources'; import { requestsApi } from "../../utils/resources";
 
@@ -132,6 +131,10 @@
 			byUpdate(o) {
 				return o.sort((a, b) => moment(a.UpdatedAt).isBefore(b.UpdatedAt, 'second') ? 1 : -1);
 			}
+		},
+		components: {
+			AvatarBox,
+			UserProfileHeader
 		}
 	}
 </script>

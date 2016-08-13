@@ -1,21 +1,10 @@
 <template>
 	<div>
-		<div class="row">
-			<nav>
-				<ul class="nav nav-tabs">
-					<li role="presentation" class="active"><div>ddddd</div></li>
-					<li role="presentation"><div>TESTTES</div></li>
-				</ul>
-			</nav>
-		</div>
+		<user-profile-header :user="user"></user-profile-header>
 		<div class="row profile">
 			<div class="row profileMain">
 				<div class="col-md-4">
-					<img :src="user.Avatar" alt="avatar" id="avatar" width="150" height="150">
-					<br>
-					<span id="vcoin">{{ user.VCoins }} vCoins</span>
-					<br>
-					<span id="vaction">{{ user.VAction }} vActions</span>
+					<avatar-box :user="user"></avatar-box>
 				</div>
 				<div class="col-md-6 form-group">
 					<label for="displayedNameInput">Displayed name</label>
@@ -85,7 +74,8 @@
 </template>
 
 <script type="text/babel">
-
+	import AvatarBox from './AvatarBox.vue';
+	import UserProfileHeader from './UserProfileHeader.vue';
 	import { usersApi } from '../../utils/resources';
 	import { alert } from '../../vuex/actions';
 
@@ -111,28 +101,22 @@
 						});
 				}
 			}
+		},
+		components: {
+			AvatarBox,
+			UserProfileHeader
 		}
 	}
 </script>
 
 <style lang="scss">
 	.profile {
-		#avatar {
-			border: 1px solid darkgrey;
-		}
-
 		input, textarea {
 			margin-bottom: 15px;
 		}
-
 		.profileMain {
 			margin-bottom: 20px;
 		}
-
-		#vaction, #vcoin {
-			font-weight: bold;
-		}
-
 		hr {
 			margin-top: 40px;
 			margin-bottom: 40px;
