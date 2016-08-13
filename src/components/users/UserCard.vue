@@ -5,12 +5,12 @@
 		</div>
 		<div class="v-uc-body">
 			<div class="v-uc-left">
-				<a v-link="'/users/profile/' + user.ID">
+				<a v-link="'/users/profile/view/' + user.ID">
 					<img :src="user.Avatar" width="60" height="60">
 				</a>
 			</div>
 			<div class="v-uc-right">
-				<div><a v-link="'users/profile/' + user.ID">{{ user.DisplayedName }}</a></div>
+				<div><a v-link="'users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></div>
 				<div>{{ user.VCoins }} vCoins</div>
 				<div>{{ user.VAction }} vActions</div>
 			</div>

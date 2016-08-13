@@ -8,7 +8,7 @@
 					<h3><a v-link="'requests/view/' + request.ID">{{ request.Title }}</a></h3>
 				</div>
 				<div class="col-sm-2">
-					asked {{ request.UpdatedAt | fromNow }} by <a v-link="'/users/profile/' + request.User.ID"> {{ request.User.DisplayedName }} </a>
+					asked {{ request.UpdatedAt | fromNow }} by <a v-link="'/users/profile/view/' + request.User.ID"> {{ request.User.DisplayedName }} </a>
 				</div>
 			</div>
 		</div>

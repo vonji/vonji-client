@@ -8,7 +8,7 @@
 		</ul>
 		<login-form v-if="isGuest" class="nav navbar-right"></login-form>
 		<ul v-else class="nav navbar-nav navbar-right">
-			<li><a v-link="'/users/profile/' + user.ID">{{ user.DisplayedName }}</a></li>
+			<li><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></li>
 			<li><logout-form></logout-form></li>
 		</ul>
 	</bs-navbar>

@@ -21,13 +21,13 @@
 				<div style="margin-bottom:1em;" class="col-md-3" v-for="user in sortedUsers">
 					<div class="media">
 						<div class="media-left">
-							<a v-link="'/users/profile/' + user.ID">
+							<a v-link="'/users/profile/view/' + user.ID">
 								<img class="media-object" :src="user.Avatar" width="60" height="60" alt="Avatar">
 							</a>
 						</div>
 						<div class="media-body">
 							<div class="v-user-heading">
-								<div class="v-user-name"><a v-link="'/users/profile/' + user.ID">{{ user.DisplayedName }}</a></div>
+								<div class="v-user-name"><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></div>
 								<div class="v-user-reput">
 									{{ user.VAction }} VActions
 									<!-- TODO cestmoche {{ user.VCoins }} VCoins -->
