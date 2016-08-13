@@ -34,7 +34,7 @@
 			<h2>Requests</h2>
 			<table class="table table-condensed table-striped">
 				<tbody>
-				<tr v-for="request in requests">
+				<tr v-for="request in requests | byCreation">
 					<td>{{ request.CreatedAt | fromNow }}</td>
 					<td>{{ request.Title }}</td>
 					<td>{{ request.Views }} views {{ request.Responses.length}} responses</td>
@@ -56,7 +56,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr v-for="transaction in transactions | vActions | byDate">
+					<tr v-for="transaction in transactions | vActions | byCreation">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
 						<td>{{ transaction.Amount > 0 ? '+' : '-' }}{{ transaction.Amount }}</td>
 						<td>{{ transaction.Reason }}</td>
@@ -74,7 +74,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr v-for="transaction in transactions | vCoins | byDate">
+					<tr v-for="transaction in transactions | vCoins | byCreation">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
 						<td>{{ transaction.Amount > 0 ? '+' : '-' }}{{ transaction.Amount }}</td>
 						<td>{{ transaction.Reason }}</td>
@@ -126,8 +126,11 @@
 			vCoins(transactions) {
 				return transactions.filter(e => e.Type === 'VCOIN')
 			},
-			byDate(transactions) {
-				return transactions.sort((a, b) => moment(a.UpdatedAt).isBefore(b.UpdatedAt, 'second') ? 1 : -1);
+			byCreation(o) {
+				return o.sort((a, b) => moment(a.CreatedAt).isBefore(b.CreatedAt, 'second') ? 1 : -1);
+			},
+			byUpdate(o) {
+				return o.sort((a, b) => moment(a.UpdatedAt).isBefore(b.UpdatedAt, 'second') ? 1 : -1);
 			}
 		}
 	}
