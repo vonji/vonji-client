@@ -73,7 +73,7 @@
 					<tbody>
 					<tr v-for="transaction in transactions | vCoins | byCreation">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
-						<td>{{ transaction.Amount > 0 ? '+' : '-' }}{{ transaction.Amount }}</td>
+						<td>{{ getTransactionAmount(transaction) }}</td>
 						<td>{{ transaction.Reason }}</td>
 						<td><a v-link="transaction.Source">SOURCE</a></td>
 					</tr>
@@ -116,6 +116,10 @@
 			deleteRequest(id) {
 				requestsApi.delete({ id })
 					.then(() => this.requests = this.requests.filter(e => e.ID == id))
+			},
+			getTransactionAmount(transaction) {
+				let res = transaction.FromID === this.user.ID ? transaction.Amount * -1 : transaction.Amount;
+				return res > 0 ? '+' + res : res;
 			}
 		},
 		filters: {
