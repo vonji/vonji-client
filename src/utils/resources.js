@@ -30,8 +30,15 @@ usersApi.getHistoric = id => {
 };
 usersApi.getTags = id => {
 	return requestsApi.get().then(response => {
-		//Get all tags of request that the user answered, then filter duplicate
-		return response.json().filter(r => r.Responses.filter(e => e.UserID == id).length !== 0).map(e => e.Tags).reduce((a, b) => a.concat(b), []).filter((tagId, _, self) => !self.some(e => e.ID === tagId));
+		let res = [];
+		response.json().filter(r => r.Responses.filter(e => e.UserID == id).length !== 0)
+			.map(e => e.Tags)
+			.reduce((a, b) => a.concat(b), [])
+			.forEach((tag) => {
+				if (!res.some(e => e.ID == tag.ID))
+					res.push(tag);
+			});
+		return res;
 	});
 };
 usersApi.getRequests = id => Vue.http.get('requests/where/all/' + encodeURIComponent(JSON.stringify({ UserID: Number(id) }))).then(response => response.json());
