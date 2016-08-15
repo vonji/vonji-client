@@ -16,18 +16,14 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div class="row">
-					<h2>Tags</h2>
-					<div v-for="tag in tags" class="tag">{{ tag.Name }}</div>
-				</div>
+				<h2>Tags</h2>
+				<div v-for="tag in tags" class="tag">{{ tag.Name }}</div>
 			</div>
 			<div class="col-md-6">
-				<div class="row">
-					<h2>Challenges</h2>
-				</div>
+				<h2>Challenges</h2>
 			</div>
 		</div>
-		<div class="row">
+		<div>
 			<h2>Requests</h2>
 			<table class="table table-condensed table-striped">
 				<tbody>
