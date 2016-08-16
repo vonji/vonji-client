@@ -52,8 +52,7 @@
 					<tr v-for="transaction in transactions | vActions | byCreation">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
 						<td>{{ transaction.Amount > 0 ? '+' : '-' }}{{ transaction.Amount }}</td>
-						<td>{{ transaction.Reason }}</td>
-						<td><a v-link="transaction.Source">SOURCE</a></td>
+						<td><a v-link="transaction.Source">{{ transaction.Reason }}</a></td>
 					</tr>
 					</tbody>
 				</table>
@@ -70,8 +69,7 @@
 					<tr v-for="transaction in transactions | vCoins | byCreation">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
 						<td>{{ getTransactionAmount(transaction) }}</td>
-						<td>{{ transaction.Reason }}</td>
-						<td><a v-link="transaction.Source">SOURCE</a></td>
+						<td><a v-link="transaction.Source">{{ transaction.Reason }}</a></td>
 					</tr>
 					</tbody>
 				</table>
