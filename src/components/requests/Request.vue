@@ -31,16 +31,27 @@
 							<hr/>
 							<div class="row">
 								<div class="col-md-2">
-									<div v-if="isLogged" class="btn-group-vertical">
-										<button type="button"
-												class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}"
-												@click="toggleResponseAcceptance(response)">
-											Accept
-										</button>
-										<button type="button" class="btn btn-sm btn-danger"
-												@click="deleteResponse(response.ID)">
-											Delete
-										</button>
+									<div v-if="isLogged">
+										<div class="btn-group-vertical">
+											<button type="button"
+													class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}"
+													@click="toggleResponseAcceptance(response)">
+												Accept
+											</button>
+											<button type="button" class="btn btn-sm btn-danger" @click="deleteResponse(response.ID)">
+												Delete
+											</button>
+										</div>
+										<div v-if="response.Accepted" class="ratingContainer">
+											<form @submit.prevent="rate(response)" class="form-inline">
+												<div class="form-group">
+													<div class="input-group">
+														<input type="number" v-model="response.Rating" min="1" max="5" value="3" class="form-control">
+														<div class="input-group-addon ratingButtonContainer"><button type="submit" class="btn ratingButton">Rate</button></div>
+													</div>
+												</div>
+											</form>
+										</div>
 									</div>
 									<div v-else>
 										<button v-if="response.Accepted" type="button"
@@ -212,6 +223,29 @@
 			},
 			deleteResponse(id) {
 				responsesApi.delete({ id }).then(() => this.request.Responses = this.request.Responses.filter(r => r.ID !== id));
+			},
+			rate(response) {
+				response.Rating = Number(response.Rating);
+				responsesApi.update({ id: response.ID }, response)
+					.then(() => {
+						const modifiedRequest = _.assign({}, this.request, {
+							Archived: true
+						});
+						requestsApi.update({ id: this.request.ID }, modifiedRequest);
+					})
+					.then(() => {
+						transactionsApi.save({
+							FromID: this.request.UserID,
+							ToID: response.UserID,
+							Type: 'VCOIN',
+							Amount: response.Value,
+							Reason: 'Request fullfiled',
+							Source: '/requests/view/' + this.request.ID
+						});
+					})
+					.then(() => {
+						this.request.Archived = true;
+					});
 			}
 		},
 		vuex: {
@@ -238,5 +272,15 @@
 	.v-response {
 		margin-bottom: 2em;
 		border-top: 1px solid #eeeeee;
+	}
+
+	.ratingContainer {
+		margin-top: 5px;
+	}
+	.ratingButton {
+		border: 0!important;
+	}
+	.ratingButtonContainer {
+		padding: 0!important;
 	}
 </style>
