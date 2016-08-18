@@ -4,7 +4,7 @@
 			<div class="form-inline form-group">
 				<div class="input-group">
 					<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-					<input type="search" v-model="searchInput" class="form-control">
+					<input type="search" v-model="searchInput" class="form-control" placeholder="Search tag name">
 				</div>
 			</div>
 		</div>
@@ -13,8 +13,9 @@
 		<h2>{{ tags.length }} skills</h2>
 	</div>
 	<div class="row">
-		<div v-for="tag in tags | filter | sortByName" class="col-md-1">
+		<div v-for="tag in tags | filter | sortByName" class="tagContainer col-md-2">
 			<span class="tag">{{ tag.Name }}</span>x {{ usages[$index] }}
+			<div>{{ tag.Description }}</div>
 		</div>
 	</div>
 </template>
@@ -52,3 +53,9 @@
 		}
 	}
 </script>
+
+<style lang="scss">
+	.tagContainer {
+		margin-bottom: 5px;
+	}
+</style>
