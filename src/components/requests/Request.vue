@@ -42,12 +42,12 @@
 												Delete
 											</button>
 										</div>
-										<div v-if="response.Accepted" class="ratingContainer">
+										<div v-if="response.Accepted" class="rating-container">
 											<form @submit.prevent="rate(response)" class="form-inline">
 												<div class="form-group">
 													<div class="input-group">
 														<input type="number" v-model="response.Rating" min="1" max="5" value="3" class="form-control">
-														<div class="input-group-addon ratingButtonContainer"><button type="submit" class="btn ratingButton">Rate</button></div>
+														<div class="input-group-addon rating-button-container"><button type="submit" class="btn rating-button">Rate</button></div>
 													</div>
 												</div>
 											</form>
@@ -274,13 +274,13 @@
 		border-top: 1px solid #eeeeee;
 	}
 
-	.ratingContainer {
+	.rating-container {
 		margin-top: 5px;
 	}
-	.ratingButton {
+	.rating-button {
 		border: 0!important;
 	}
-	.ratingButtonContainer {
+	.rating-button-container {
 		padding: 0!important;
 	}
 </style>

@@ -2,7 +2,7 @@
 	<div>
 		<user-profile-header :user="user"></user-profile-header>
 		<div class="row profile">
-			<div class="row profileMain">
+			<div class="row profile-main">
 				<div class="col-md-4">
 					<avatar-box :user="user"></avatar-box>
 				</div>
@@ -30,7 +30,7 @@
 					<!-- TODO <input type="text" id="genderInput" v-model="user.Gender" placeholder="Specify"> Other -->
 				</div>
 			</div>
-			<div class="row profileMain">
+			<div class="row profile-main">
 				<label for="descriptionInput">About me</label>
 				<textarea name="description" v-model="user.Description" id="descriptionInput" class="form-control"></textarea>
 			</div>
@@ -114,7 +114,7 @@
 		input, textarea {
 			margin-bottom: 15px;
 		}
-		.profileMain {
+		.profile-main {
 			margin-bottom: 20px;
 		}
 		hr {

@@ -2,9 +2,9 @@
 	<div>
 		<div class="row">
 			<span v-for="tag in parent.Tags" class="tag">
-				{{ tag.Name }} <button v-if="editMode" @click="removeTag($index)" class="btn btn-default tagDeleteButton">x</button>
+				{{ tag.Name }} <button v-if="editMode" @click="removeTag($index)" class="btn btn-default tag-delete-button">x</button>
 			</span>
-			<form v-if="editMode" @submit.prevent="addTag" class="form-inline" id="tagInputForm">
+			<form v-if="editMode" @submit.prevent="addTag" class="form-inline" id="tag-input-form">
 				<input type="text" v-model="newTag" list="tagsList" class="form-control">
 				<datalist id="tagsList">
 					<option v-for="tag in tagsList">{{ tag.Name }}</option>
@@ -73,12 +73,12 @@
 		display: inline-block;
 	}
 
-	.tagDeleteButton {
+	.tag-delete-button {
 		border-radius: 50%!important;
 		padding: 0px 5px!important;
 	}
 
-	#tagInputForm {
+	#tag-input-form {
 		display: inline-block;
 	}
 </style>

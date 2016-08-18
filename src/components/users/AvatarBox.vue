@@ -1,10 +1,10 @@
 <template>
 	<div class="col-md-4">
-		<img :src="user.Avatar" alt="avatar" class="avatarBoxImage" width="150" height="150">
+		<img :src="user.Avatar" alt="avatar" class="avatar-box-image" width="150" height="150">
 		<br>
-		<span class="avatarBoxStats">{{ user.VCoins }} vCoins</span>
+		<span class="avatar-box-stats">{{ user.VCoins }} vCoins</span>
 		<br>
-		<span class="avatarBoxStats">{{ user.VAction }} vActions</span>
+		<span class="avatar-box-stats">{{ user.VAction }} vActions</span>
 	</div>
 </template>
 
@@ -20,10 +20,10 @@
 </script>
 
 <style lang="scss">
-	.avatarBoxImage {
+	.avatar-box-image {
 		border: 1px solid darkgrey;
 	}
-	.avatarBoxStats {
+	.avatar-box-stats {
 		font-weight: bold;
 	}
 </style>
