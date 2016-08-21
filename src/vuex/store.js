@@ -21,7 +21,7 @@ const mutations = {
 		state.userID = user.ID;
 		localStorage.userID = user.ID;
 	},
-	[LOGIN_FAILURE] (state) {
+	[LOGIN_FAILURE] (state) {//todo useless??
 		state.userID = null;
 		delete localStorage.userID;
 	},
