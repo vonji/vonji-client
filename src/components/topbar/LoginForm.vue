@@ -10,7 +10,7 @@
 			<button type="submit" class="btn {{ isDisabled ? 'btn-default' : 'btn-primary' }}" disabled="{{ isDisabled }}">
 				Login
 			</button>
-			<a class="btn btn-primary" v-link="'/users/add'">Sign in</a>
+			<a class="btn btn-primary" v-link="'/users/add'">Sign up</a>
 		</form>
 	</div>
 </template>

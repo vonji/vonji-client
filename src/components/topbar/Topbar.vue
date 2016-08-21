@@ -29,7 +29,7 @@ export default {
 		};
 	},
 	ready() {
-		usersApi.get({ id: localStorage.userID }).then(response => this.user = response.json());
+		return usersApi.get({ id: localStorage.userID }).then(response => this.user = response.json());
 	},
 	components: {
 		BsNavbar,
