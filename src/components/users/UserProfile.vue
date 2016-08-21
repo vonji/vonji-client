@@ -124,10 +124,10 @@
 				return transactions.filter(e => e.Type === 'VCOIN')
 			},
 			byCreation(o) {
-				return o.sort((a, b) => moment(a.CreatedAt).isBefore(b.CreatedAt, 'second') ? 1 : -1);
+				return o.slice().sort((a, b) => moment(a.CreatedAt).isBefore(b.CreatedAt, 'second') ? 1 : -1);
 			},
 			byUpdate(o) {
-				return o.sort((a, b) => moment(a.UpdatedAt).isBefore(b.UpdatedAt, 'second') ? 1 : -1);
+				return o.slice().sort((a, b) => moment(a.UpdatedAt).isBefore(b.UpdatedAt, 'second') ? 1 : -1);
 			}
 		},
 		components: {
