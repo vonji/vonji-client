@@ -27,9 +27,8 @@
 </template>
 
 <script type="text/babel">
-	import {
-		usersApi,
-	} from '../../utils/resources';
+	import { usersApi } from '../../utils/resources';
+	import { login } from '../../vuex/actions';
 
 	export default {
 		data() {
@@ -40,10 +39,17 @@
 				}
 			};
 		},
-		methods: {
-			submit: function () {
-				usersApi.save(this.user)
-					.then(() => this.$router.go('/users/list'));
+		vuex: {
+			actions: {
+				submit({ dispatch }, e) {
+					usersApi.save(this.user)
+						.then((result) => {
+							localStorage.userID = result.json().ID;
+							return result.json();
+						})
+						.then((user) => login({ dispatch }, user.Email, user.Password))
+						.then(() => this.$router.go('/users/welcome'));
+				}
 			}
 		}
 	}

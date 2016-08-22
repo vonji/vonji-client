@@ -7,6 +7,7 @@ import UserAdd from './components/users/UserAdd.vue';
 import UserList from './components/users/UserList.vue';
 import UserProfile from './components/users/UserProfile.vue';
 import UserProfileEdit from './components/users/UserProfileEdit.vue';
+import UserWelcome from './components/users/UserWelcome.vue';
 
 import Request from './components/requests/Request.vue';
 import RequestAdd from './components/requests/RequestAdd.vue';
@@ -35,6 +36,9 @@ router.map({
 	},
 	'/users/profile/edit/:id': {
 		component: UserProfileEdit
+	},
+	'/users/welcome': {
+		component: UserWelcome
 	},
 	'/requests': {
 		component: RequestList
