@@ -34,7 +34,10 @@
 	export default {
 		data() {
 			return {
-				user: {}
+				user: {
+					VActions: 1,
+					VCoins: 200
+				}
 			};
 		},
 		methods: {
