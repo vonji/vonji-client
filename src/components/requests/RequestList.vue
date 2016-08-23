@@ -10,12 +10,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="row" v-for="request in requests | filter">
-			<div class="col-sm-6">
-				<h3><a v-link="'requests/view/' + request.ID">{{ request.Title }}</a></h3>
-			</div>
-			<div class="col-sm-4">
-				asked {{ request.UpdatedAt | fromNow }} by <a v-link="'/users/profile/view/' + request.User.ID"> {{ request.User.DisplayedName }} </a>
+		<div v-for="request in requests | filter">
+			<div class="row request-row">
+				<div class="col-sm-6">
+					<div class="row request-title">
+						<a v-link="'requests/view/' + request.ID" class="request-title">{{ request.Title }}</a>
+					</div>
+					<div class="row">
+						<span v-for="tag in request.Tags" class="tag">{{ tag.Name }}</span>
+					</div>
+				</div>
+				<div class="col-sm-4 request-date">
+					asked {{ request.UpdatedAt | fromNow }} by <a v-link="'/users/profile/view/' + request.User.ID"> {{ request.User.DisplayedName }} </a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -56,3 +63,19 @@
 		},
 	}
 </script>
+
+<style>
+	.request-row {
+		padding-top: 5px;
+		padding-bottom: 15px;
+		border-bottom: 1px solid #eff0f1;
+	}
+	.request-title {
+		font-size: 15px;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	.request-date {
+		font-size: 12px;
+	}
+</style>
