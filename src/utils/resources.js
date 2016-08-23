@@ -2,8 +2,8 @@ import Vue from 'vue';
 import Resource from 'vue-resource'
 import moment from 'moment';
 
-Vue.filter('fromNow', input =>
-	moment(input).fromNow()
+Vue.filter('fromNow', (input, param) =>
+	moment(input).fromNow(param)
 );
 
 Vue.filter('format', (input, format) =>

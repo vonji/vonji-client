@@ -3,7 +3,7 @@
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-md-12">
-					<bs-page-header title="Users"></bs-page-header>
+					<bs-page-header :title="users.length + ' users'"></bs-page-header>
 				</div>
 			</div>
 			<div class="row">
@@ -33,11 +33,8 @@
 									<!-- TODO cestmoche {{ user.VCoins }} VCoins -->
 								</div>
 							</div>
-							<p>{{ user.Description }}</p>
-							<div></div>
-							<div>
-								<div v-for="tag in user.Tags" class="label label-default">{{ tag.Name }}</div>
-							</div>
+							<p>{{ user.Motto }}</p>
+							<div class="v-user-date">member since {{ user.CreatedAt | fromNow true }}</div>
 						</div>
 					</div>
 				</div>
@@ -86,25 +83,22 @@
 	.v-user-box {
 		margin-top: 1em;
 	}
-
 	.v-user-view {
 		margin-top: 1.2em;
 	}
-
 	.v-user-heading {
 		display: flex;
 		flex-direction: row;
 		align-items: baseline;
 	}
-
 	.v-user-name {
-		font-size: 1.3em;
-		font-weight: strong;
-		flex-grow: 4;
+		font-size: 16px;
 	}
-
 	.v-user-reput {
 		text-align: right;
 		flex-grow: 1;
+	}
+	.v-user-date {
+		font-size: 10px;
 	}
 </style>
