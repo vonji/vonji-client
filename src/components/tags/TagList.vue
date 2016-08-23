@@ -1,12 +1,7 @@
 <template>
 	<div class="row">
 		<div class="col-md-4">
-			<div class="form-inline form-group">
-				<div class="input-group">
-					<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-					<input type="search" v-model="searchInput" class="form-control" placeholder="Search tag name">
-				</div>
-			</div>
+			<bs-search-bar :model.sync="searchInput" placehold="Search tag" inline></bs-search-bar>
 		</div>
 	</div>
 	<div class="row">
@@ -25,6 +20,7 @@
 </template>
 
 <script>
+	import BsSearchBar from '../bootstrap/BsSearchBar.vue';
 	import { tagsApi, requestsApi } from "../../utils/resources";
 
 	let moment = require('moment');
@@ -68,6 +64,9 @@
 			length(array) {
 				return array.length;
 			}
+		},
+		components: {
+			BsSearchBar
 		}
 	}
 </script>
