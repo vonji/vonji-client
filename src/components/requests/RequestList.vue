@@ -10,7 +10,7 @@
 				</div>
 			</div>
 		</div>
-		<div v-for="request in requests | filter">
+		<div v-for="request in requests | filter | byUpdate">
 			<div class="row request-row">
 				<div class="col-sm-6">
 					<div class="row request-title">
