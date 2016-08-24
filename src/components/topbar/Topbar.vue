@@ -8,7 +8,8 @@
 		</ul>
 		<login-form v-if="isGuest" class="nav navbar-nav navbar-right"></login-form>
 		<ul v-else class="nav navbar-nav navbar-right">
-			<li><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></li>
+			<li><img :src="user.Avatar" alt="user-avatar" width="40" height="40" class="hidden-xs topbar-avatar img-rounded"></li>
+			<li><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }} ({{ user.VCoins }} vCoins)</a></li>
 			<li><logout-form></logout-form></li>
 		</ul>
 	</bs-navbar>
@@ -44,3 +45,9 @@ export default {
 	}
 }
 </script>
+
+<style>
+	.topbar-avatar {
+		margin-top: 5px;
+	}
+</style>
