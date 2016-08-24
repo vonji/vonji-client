@@ -11,7 +11,7 @@ Vue.filter('format', (input, format) =>
 );
 
 Vue.filter('byCreation', (objects) =>
-	objects.sort((a, b) => {
+	objects.slice().sort((a, b) => {
 		if (moment(a.CreatedAt).isSame(b.CreatedAt, 'second'))
 			return 0;
 		return moment(a.CreatedAt).isBefore(b.CreatedAt, 'second') ? 1 : -1;
@@ -19,7 +19,7 @@ Vue.filter('byCreation', (objects) =>
 );
 
 Vue.filter('byUpdate', (objects) =>
-	objects.sort((a, b) => {
+	objects.slice().sort((a, b) => {
 		if (moment(a.UpdatedAt).isSame(b.UpdatedAt, 'second'))
 			return 0;
 		return moment(a.UpdatedAt).isBefore(b.UpdatedAt, 'second') ? 1 : -1;
