@@ -6,7 +6,7 @@
 			<li><a v-link="'/users/list'">Users</a></li>
 			<li v-if="isLogged"><a v-link="'/requests/add'">New request</a></li>
 		</ul>
-		<login-form v-if="isGuest" class="nav navbar-right"></login-form>
+		<login-form v-if="isGuest" class="nav navbar-nav navbar-right"></login-form>
 		<ul v-else class="nav navbar-nav navbar-right">
 			<li><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></li>
 			<li><logout-form></logout-form></li>
