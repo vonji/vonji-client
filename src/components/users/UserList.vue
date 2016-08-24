@@ -6,19 +6,11 @@
 					<bs-page-header :title="users.length + ' users'"></bs-page-header>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<ul class="nav nav-tabs">
-						<li class="active"><a>Réputation</a></li>
-						<li><a>New users</a></li>
-						<li><a>Voters</a></li>
-						<li><a>Editors</a></li>
-						<li><a>Moderators</a></li>
-					</ul>
-				</div>
+			<div class="row user-list-filters">
+				<a class="user-list-filter" @click.prevent="this.since = 'day'">today</a> | <a class="user-list-filter" @click.prevent="this.since = 'week'">week</a> | <a class="user-list-filter" @click.prevent="this.since = 'month'">month</a> | <a class="user-list-filter" @click.prevent="this.since = false">all</a>
 			</div>
 			<div class="row v-user-view">
-				<div style="margin-bottom:1em;" class="col-md-3" v-for="user in sortedUsers">
+				<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users | filter | byCreation">
 					<div class="media">
 						<div class="media-left">
 							<a v-link="'/users/profile/view/' + user.ID">
@@ -44,30 +36,16 @@
 </template>
 
 <script type="text/babel">
-	import {
-		usersApi,
-	} from '../../utils/resources';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
+	import { usersApi } from '../../utils/resources';
+	import moment from 'moment';
 
 	export default {
 		data() {
 			return {
-				users: []
+				users: [],
+				since: false
 			};
-		},
-		computed: {
-			sortedUsers: function () {
-				return this.users.sort((a, b) => {
-					if (a.VReputation > b.VReputation)
-						return -1;
-					if (a.VReputation === b.VReputation)
-						return 0;
-					return 1;
-				})
-			}
-		},
-		components: {
-			BsPageHeader
 		},
 		route: {
 			data() {
@@ -76,13 +54,20 @@
 				};
 			},
 		},
+		components: {
+			BsPageHeader
+		},
+		filters: {
+			filter(users) {
+				return !this.since ? users : users.filter(e =>
+					moment(e.CreatedAt).isAfter(moment().subtract(1, this.since))
+				);
+			}
+		}
 	}
 </script>
 
 <style lang="scss">
-	.v-user-box {
-		margin-top: 1em;
-	}
 	.v-user-view {
 		margin-top: 1.2em;
 	}
@@ -100,5 +85,14 @@
 	}
 	.v-user-date {
 		font-size: 10px;
+	}
+
+	.user-list-filters {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		font-size: 14px;
+	}
+	.user-list-filter {
+		cursor: pointer;
 	}
 </style>
