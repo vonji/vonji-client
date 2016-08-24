@@ -25,6 +25,9 @@ const router = new VueRouter();
 
 //TODO subrouter
 router.map({
+	'/': {
+		component: RequestList
+	},
 	'/users/add': {
 		component: UserAdd
 	},
