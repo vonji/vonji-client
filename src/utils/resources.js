@@ -35,6 +35,7 @@ export const requestsApi = Vue.resource('requests{/id}');
 export const commentsApi = Vue.resource('comments{/id}');
 export const tagsApi = Vue.resource('tags{/id}');
 export const transactionsApi = Vue.resource('transactions{/id}');
+export const achievementsApi = Vue.resource('achievements{/id}');
 
 let usersApi = Vue.resource('users{/id}');
 usersApi.getByEmail = email => Vue.http.get('users/where/' + encodeURI(JSON.stringify({ Email: email })));

@@ -21,6 +21,9 @@
 			</div>
 			<div class="col-md-6">
 				<h2>Challenges</h2>
+				<div v-for="achievement in user.Achievements">
+					{{ achievement.Name }} ({{ achievement.Award }} vAction)
+				</div>
 			</div>
 		</div>
 		<div>
