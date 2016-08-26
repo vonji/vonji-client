@@ -31,7 +31,6 @@ Vue.use(Resource);
 Vue.http.options.root = 'http://localhost:1618';
 
 export const responsesApi = Vue.resource('responses{/id}');
-export const requestsApi = Vue.resource('requests{/id}');
 export const commentsApi = Vue.resource('comments{/id}');
 export const tagsApi = Vue.resource('tags{/id}');
 export const transactionsApi = Vue.resource('transactions{/id}');
@@ -62,3 +61,8 @@ usersApi.getTags = id => {
 usersApi.getRequests = id => Vue.http.get('requests/where/all/' + encodeURIComponent(JSON.stringify({ UserID: Number(id) }))).then(response => response.json());
 
 export { usersApi };
+
+let requestsApi = Vue.resource('requests{/id}');
+requestsApi.Light = () => Vue.http.get('requests/ligth').then(response => response.json());
+
+export { requestsApi };
