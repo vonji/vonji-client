@@ -4,9 +4,12 @@
 			<div class="col-md-5">
 				<bs-search-bar :model.sync="searchInput" placeholder="Recherchez une requête"></bs-search-bar>
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-5 request-search-results">
 				<div v-if="searchInput">
 					{{ requests | filter | length }} résultats sur {{ requests.length }}
+				</div>
+				<div v-else>
+					{{ requests.length }} requêtes
 				</div>
 			</div>
 		</div>
@@ -78,5 +81,11 @@
 	}
 	.request-date {
 		font-size: 12px;
+	}
+	.request-list-header {
+		display: flex;
+		align-items: center;
+		text-align: center;
+		margin-bottom: 15px;
 	}
 </style>
