@@ -30,7 +30,8 @@ export default {
 		};
 	},
 	ready() {
-		return usersApi.get({ id: localStorage.userID }).then(response => this.user = response.json());
+		if (localStorage.userID)
+			usersApi.get({ id: localStorage.userID }).then(response => this.user = response.json());
 	},
 	components: {
 		BsNavbar,
