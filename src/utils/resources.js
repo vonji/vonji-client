@@ -63,6 +63,6 @@ usersApi.getRequests = id => Vue.http.get('requests/where/all/' + encodeURICompo
 export { usersApi };
 
 let requestsApi = Vue.resource('requests{/id}');
-requestsApi.Light = () => Vue.http.get('requests/ligth').then(response => response.json());
+requestsApi.Light = () => Vue.http.get('requests/light').then(response => response.json());
 
 export { requestsApi };
