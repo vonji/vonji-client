@@ -26,6 +26,14 @@ Vue.filter('byUpdate', (objects) =>
 	})
 );
 
+Vue.filter('since', (objects, n, unit) =>
+	unit === 'posix' ? objects : objects.filter(o => moment(o.CreatedAt).isAfter(moment().subtract(n, unit)))
+);
+
+Vue.filter('length', (array) =>
+	array.length
+);
+
 Vue.use(Resource);
 
 Vue.http.options.root = 'http://localhost:1618';

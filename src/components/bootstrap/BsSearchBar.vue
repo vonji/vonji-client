@@ -1,38 +1,43 @@
 <template>
-	<form @submit.prevent="foo()" class="{{ inline ? 'form-inline' : '' }}">
-		<div class="input-group">
-			<span class="input-group-btn"><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" style="line-height: inherit"></span></button></span>
-			<input type="search" v-model="model" class="form-control" placeholder="{{placeholder}}">
+	<div class="row">
+		<div class="col-md-5">
+			<bs-search-input :model.sync="input" :placeholder="placeholder"></bs-search-input>
 		</div>
-	</form>
+		<div class="col-md-5 search-bar-results">
+			<div v-if="input">
+				<h4><slot name="search"></slot></h4>
+			</div>
+			<div v-else>
+				<h4><slot></slot></h4>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script type="text/babel">
+	import BsSearchInput from './BsSearchInput.vue';
+
 	export default {
 		props: {
-			model: {
+			input: {
 				type: String,
 				required: true
 			},
 			placeholder: {
 				type: String,
-				default: ""
-			},
-			inline: {
-				type: Boolean,
-				default: false
+				required: false,
+				default: ''
 			}
 		},
-		methods: {
-			foo() {
-				this.$dispatch('submit', this.model)
-			}
+		components: {
+			BsSearchInput
 		}
 	}
 </script>
 
-<style scoped>
-	form {
-		margin-bottom: 0px!important;
+<style lang="scss">
+	.search-bar-results {
+		text-align: center;
+		margin-bottom: 15px;
 	}
 </style>

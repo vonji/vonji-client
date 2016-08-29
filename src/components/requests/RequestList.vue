@@ -1,18 +1,9 @@
 <template>
 	<div>
-		<div class="row request-list-header">
-			<div class="col-md-5">
-				<bs-search-bar :model.sync="searchInput" placeholder="Recherchez une requête"></bs-search-bar>
-			</div>
-			<div class="col-md-5 request-search-results">
-				<div v-if="searchInput">
-					{{ requests | filter | length }} résultats sur {{ requests.length }}
-				</div>
-				<div v-else>
-					{{ requests.length }} requêtes
-				</div>
-			</div>
-		</div>
+		<bs-search-bar :input.sync="searchInput" placeholder="Recherchez une requête">
+			<slot slot="search">{{ requests | filter | length }} résultats sur {{ requests.length }}</slot>
+			<slot>{{ requests.length }} requêtes</slot>
+		</bs-search-bar>
 		<loading v-if="requests.length == 0"></loading>
 		<div v-for="request in requests | filter | byUpdate">
 			<div class="row request-row">
@@ -62,9 +53,6 @@
 		filters: {
 			filter(requests) {
 				return requests.filter(req => req.Title.indexOf(this.searchInput) !== -1 || req.Tags.some(tag => tag.Name.indexOf(this.searchInput) !== -1));
-			},
-			length(array) {
-				return array.length;
 			}
 		}
 	}
@@ -83,11 +71,5 @@
 	}
 	.request-date {
 		font-size: 12px;
-	}
-	.request-list-header {
-		display: flex;
-		align-items: center;
-		text-align: center;
-		margin-bottom: 15px;
 	}
 </style>

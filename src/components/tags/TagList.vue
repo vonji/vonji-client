@@ -1,11 +1,10 @@
 <template>
+	<bs-search-bar :input.sync="searchInput" placehold="Recherchez une compétence">
+		<slot slot="search">{{ tags | filter | length }} compétences sur {{ tags.length }}</slot>
+		<slot>{{ tags.length }} compétences</slot>
+	</bs-search-bar>
 	<div class="row">
-		<div class="col-md-4">
-			<bs-search-bar :model.sync="searchInput" placehold="Search tag" inline></bs-search-bar>
-		</div>
-	</div>
-	<div class="row">
-		<h2>{{ tags.length }} skills</h2>
+		<h2></h2>
 	</div>
 	<div class="row">
 		<template v-for="tag in tags | filter | sortByName">
@@ -49,9 +48,6 @@
 			sortByName(tags) {
 				return tags.sort((a, b) => a.Name.localeCompare(b.Name) )
 			},
-			since(requests, n, unit) {
-				return requests.filter(r => moment(r.CreatedAt).isAfter(moment().subtract(n, unit)));
-			},
 			completed(requests) {
 				return requests.filter(req => req.Archived && req.Responses.some(res => res.Accepted));
 			},
@@ -60,9 +56,6 @@
 			},
 			withTag(requests, tag) {
 				return requests.filter(r => r.Tags.some(t => t.ID == tag.ID));
-			},
-			length(array) {
-				return array.length;
 			}
 		},
 		components: {

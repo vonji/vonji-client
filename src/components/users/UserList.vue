@@ -1,34 +1,31 @@
 <template>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="row">
-				<div class="col-md-12">
-					<bs-page-header :title="users.length + ' users'"></bs-page-header>
-				</div>
-			</div>
-			<loading v-if="users.length == 0"></loading>
-			<div class="row user-list-filters">
-				<a class="user-list-filter" @click.prevent="this.since = 'day'">today</a> | <a class="user-list-filter" @click.prevent="this.since = 'week'">week</a> | <a class="user-list-filter" @click.prevent="this.since = 'month'">month</a> | <a class="user-list-filter" @click.prevent="this.since = false">all</a>
-			</div>
-			<div class="row v-user-view">
-				<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users | filter | byCreation">
-					<div class="media">
-						<div class="media-left">
-							<a v-link="'/users/profile/view/' + user.ID">
-								<img class="media-object" :src="user.Avatar" width="60" height="60" alt="Avatar">
-							</a>
-						</div>
-						<div class="media-body">
-							<div class="v-user-heading">
-								<div class="v-user-name"><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></div>
-								<div class="v-user-reput">
-									{{ user.VAction }} VActions
-									<!-- TODO cestmoche {{ user.VCoins }} VCoins -->
-								</div>
+	<div>
+		<bs-search-bar :input.sync="searchInput" placehold="Recherchez un membre">
+			<slot slot="search">{{ users | filter | since 1 timeFilter | length }} membres sur {{ users.length }}</slot>
+			<slot>{{ users | filter | since 1 timeFilter | length }} membres sur {{ users.length }}</slot><!-- todo better -->
+		</bs-search-bar>
+		<loading v-if="users.length == 0"></loading>
+		<div class="row user-list-filters">
+			<a class="user-list-filter" @click.prevent="this.timeFilter = 'day'">today</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'week'">week</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'month'">month</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'posix'">all</a>
+		</div>
+		<div class="row v-user-view">
+			<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users | filter | since 1 timeFilter | byCreation">
+				<div class="media">
+					<div class="media-left">
+						<a v-link="'/users/profile/view/' + user.ID">
+							<img class="media-object" :src="user.Avatar" width="60" height="60" alt="Avatar">
+						</a>
+					</div>
+					<div class="media-body">
+						<div class="v-user-heading">
+							<div class="v-user-name"><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></div>
+							<div class="v-user-reput">
+								{{ user.VAction }} VActions
+								<!-- TODO cestmoche {{ user.VCoins }} VCoins -->
 							</div>
-							<p>{{ user.Motto }}</p>
-							<div class="v-user-date">member since {{ user.CreatedAt | fromNow true }}</div>
 						</div>
+						<p>{{ user.Motto }}</p>
+						<div class="v-user-date">member since {{ user.CreatedAt | fromNow true }}</div>
 					</div>
 				</div>
 			</div>
@@ -37,7 +34,7 @@
 </template>
 
 <script type="text/babel">
-	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
+	import BsSearchBar from '../bootstrap/BsSearchBar.vue';
 	import Loading from '../Loading.vue';
 	import { usersApi } from '../../utils/resources';
 	import moment from 'moment';
@@ -46,7 +43,8 @@
 		data() {
 			return {
 				users: [],
-				since: false
+				timeFilter: 'posix',
+				searchInput: ''
 			};
 		},
 		route: {
@@ -57,14 +55,12 @@
 			},
 		},
 		components: {
-			BsPageHeader,
+			BsSearchBar,
 			Loading
 		},
 		filters: {
 			filter(users) {
-				return !this.since ? users : users.filter(e =>
-					moment(e.CreatedAt).isAfter(moment().subtract(1, this.since))
-				);
+				return users.filter(e => e.DisplayedName.indexOf(this.searchInput) !== -1)
 			}
 		}
 	}
