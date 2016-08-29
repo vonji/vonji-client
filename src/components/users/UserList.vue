@@ -6,6 +6,7 @@
 					<bs-page-header :title="users.length + ' users'"></bs-page-header>
 				</div>
 			</div>
+			<loading v-if="users.length == 0"></loading>
 			<div class="row user-list-filters">
 				<a class="user-list-filter" @click.prevent="this.since = 'day'">today</a> | <a class="user-list-filter" @click.prevent="this.since = 'week'">week</a> | <a class="user-list-filter" @click.prevent="this.since = 'month'">month</a> | <a class="user-list-filter" @click.prevent="this.since = false">all</a>
 			</div>
@@ -37,6 +38,7 @@
 
 <script type="text/babel">
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
+	import Loading from '../Loading.vue';
 	import { usersApi } from '../../utils/resources';
 	import moment from 'moment';
 
@@ -55,7 +57,8 @@
 			},
 		},
 		components: {
-			BsPageHeader
+			BsPageHeader,
+			Loading
 		},
 		filters: {
 			filter(users) {

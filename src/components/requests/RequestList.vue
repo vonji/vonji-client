@@ -13,6 +13,7 @@
 				</div>
 			</div>
 		</div>
+		<loading v-if="requests.length == 0"></loading>
 		<div v-for="request in requests | filter | byUpdate">
 			<div class="row request-row">
 				<div class="col-sm-6">
@@ -38,6 +39,7 @@
 <script type="text/babel">
 	import { requestsApi } from '../../utils/resources';
 	import BsSearchBar from '../bootstrap/BsSearchBar.vue';
+	import Loading from '../Loading.vue';
 
 	export default {
 		data() {
@@ -49,13 +51,13 @@
 		route: {
 			data() {
 				return {
-					//requests: requestsApi.get().then(result => result.json())
 					requests: requestsApi.Light()
 				}
 			}
 		},
 		components: {
-			BsSearchBar
+			BsSearchBar,
+			Loading
 		},
 		filters: {
 			filter(requests) {
