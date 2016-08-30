@@ -1,5 +1,5 @@
 <template lang="html">
-	<bs-navbar brand-name="Vonji" link="'/'">
+	<bs-navbar brand-name="Vonji" link="/">
 		<ul class="nav navbar-nav">
 			<li><a v-link="'/requests'">Requests</a></li>
 			<li><a v-link="'/tags/list'">Tags</a></li>
