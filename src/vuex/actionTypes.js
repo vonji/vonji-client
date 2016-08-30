@@ -3,3 +3,4 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 export const ALERT = 'ALERT';
 export const ALERT_DISMISS = 'ALERT_DISMISS';
+export const USER_UPDATE = 'USER_UPDATE';

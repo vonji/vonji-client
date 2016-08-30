@@ -14,13 +14,15 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import store from './../vuex/store';
 
 	import Topbar from './topbar/Topbar.vue'
 	import Alerts from './Alerts.vue'
 
 	import * as actions from '../vuex/actions'
+
+	import { usersApi } from '../utils/resources';
 
 	export default {
 		name: 'App',
@@ -29,6 +31,13 @@
 			Topbar,
 			Alerts
 		},
-		actions//
+		actions,
+		ready() {
+			if (localStorage.userID) {
+				usersApi.get({ id: localStorage.userID }).then(response => {
+					actions.userUpdate(this.$store, response.json());
+				});
+			}
+		}
 	}
 </script>

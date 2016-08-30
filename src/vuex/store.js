@@ -1,39 +1,38 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import * as acts from './actions';
-import {
-	LOGIN_SUCCESS,
-	LOGIN_FAILURE,
-	LOGOUT,
-	ALERT,
-	ALERT_DISMISS,
-} from './actionTypes';
+import * as A from './actionTypes';
 
 Vue.use(Vuex);
 
 const state = {
 	alerts: [],
+	user: {},
 	userID: localStorage.userID
 };
 
 const mutations = {
-	[LOGIN_SUCCESS] (state, user) {
+	[A.LOGIN_SUCCESS] (state, user) {
 		state.userID = user.ID;
 		localStorage.userID = user.ID;
 	},
-	[LOGIN_FAILURE] (state) {//todo useless??
+	[A.LOGIN_FAILURE] (state) {
 		state.userID = null;
 		delete localStorage.userID;
 	},
-	[LOGOUT] (state) {
+	[A.LOGOUT] (state) {
 		state.userID = null;
 		delete localStorage.userID;
 	},
-	[ALERT] (state, type, message) {
+	[A.ALERT] (state, type, message) {
 		state.alerts.push({ type: type, message: message });
 	},
-	[ALERT_DISMISS] (state, index) {
+	[A.ALERT_DISMISS] (state, index) {
 		state.alerts.splice(index, index + 1);
+	},
+	[A.USER_UPDATE] (state, user) {
+		state.user = user;
+	},
 	}
 };
 

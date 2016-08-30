@@ -8,8 +8,8 @@
 		</ul>
 		<login-form v-if="isGuest" class="nav navbar-nav navbar-right"></login-form>
 		<ul v-else class="nav navbar-nav navbar-right">
-			<li><img :src="user.Avatar" alt="user-avatar" width="40" height="40" class="hidden-xs topbar-avatar img-rounded"></li>
-			<li><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }} ({{ user.VCoins }} vCoins)</a></li>
+			<li><img :src="currentUser.Avatar" alt="user-avatar" width="40" height="40" class="hidden-xs topbar-avatar img-rounded"></li>
+			<li><a v-link="'/users/profile/view/' + currentUser.ID">{{ currentUser.DisplayedName }} ({{ currentUser.VCoins }} vCoins)</a></li>
 			<li><logout-form></logout-form></li>
 		</ul>
 	</bs-navbar>
@@ -21,18 +21,9 @@ import LogoutForm from './LogoutForm.vue';
 import BsNavbar from '../bootstrap/BsNavbar.vue';
 
 import { usersApi } from '../../utils/resources';
-import { isLogged, isGuest } from '../../vuex/getters'
+import { isLogged, currentUser } from '../../vuex/getters'
 
 export default {
-	data() {
-		return {
-			user: {}
-		};
-	},
-	ready() {
-		if (localStorage.userID)
-			usersApi.get({ id: localStorage.userID }).then(response => this.user = response.json());
-	},
 	components: {
 		BsNavbar,
 		LoginForm,
@@ -40,10 +31,10 @@ export default {
 	},
 	vuex: {
 		getters: {
-			isGuest,
-			isLogged
+			isLogged,
+			currentUser
 		}
-	}
+	},
 }
 </script>
 

@@ -7,3 +7,7 @@ export function isGuest (state) {
 	"use strict";
 	return !isLogged(state);
 }
+
+export function currentUser(state) {
+	return state.user;
+}
