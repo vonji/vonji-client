@@ -21,7 +21,7 @@ import LogoutForm from './LogoutForm.vue';
 import BsNavbar from '../bootstrap/BsNavbar.vue';
 
 import { usersApi } from '../../utils/resources';
-import { isLogged, currentUser } from '../../vuex/getters'
+import { isLogged, isGuest, currentUser } from '../../vuex/getters'
 
 export default {
 	components: {
@@ -31,6 +31,7 @@ export default {
 	},
 	vuex: {
 		getters: {
+			isGuest,
 			isLogged,
 			currentUser
 		}
