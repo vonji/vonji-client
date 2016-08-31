@@ -26,9 +26,9 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import { usersApi } from '../../utils/resources';
-	import { login } from '../../vuex/actions';
+	import { login, userUpdate } from '../../vuex/actions';
 
 	export default {
 		data() {
@@ -47,7 +47,8 @@
 							localStorage.userID = result.json().ID;
 							return result.json();
 						})
-						.then((user) => login({ dispatch }, user.Email, user.Password))
+						.then(user => login({ dispatch }, user.Email, user.Password))
+						.then(user => userUpdate({ dispatch }, user))
 						.then(() => this.$router.go('/users/welcome'));
 				}
 			}
