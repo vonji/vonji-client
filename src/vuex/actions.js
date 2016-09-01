@@ -38,4 +38,7 @@ export const alertDismiss = ({ dispatch }, index) => {
 export const userUpdate = ({ dispatch }, user) => {
 	dispatch(A.USER_UPDATE, user);
 };
+
+export const achievementListUpdate = ({ dispatch }, achievements) => {
+	dispatch(A.ACHIEVEMENT_LIST_UPDATE, achievements);
 };

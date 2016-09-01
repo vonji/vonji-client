@@ -22,7 +22,7 @@
 
 	import * as actions from '../vuex/actions'
 
-	import { usersApi } from '../utils/resources';
+	import { achievementsApi, usersApi } from '../utils/resources';
 
 	export default {
 		name: 'App',
@@ -38,6 +38,9 @@
 					actions.userUpdate(this.$store, response.json());
 				});
 			}
+			achievementsApi.get().then(response => {
+				actions.achievementListUpdate(this.$store, response.json());
+			})
 		}
 	}
 </script>

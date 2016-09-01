@@ -33,6 +33,8 @@ const mutations = {
 	[A.USER_UPDATE] (state, user) {
 		state.user = user;
 	},
+	[A.ACHIEVEMENT_LIST_UPDATE] (state, achievementList) {
+		state.achievementList = achievementList;
 	}
 };
 
