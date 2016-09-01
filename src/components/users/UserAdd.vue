@@ -28,7 +28,7 @@
 
 <script type="text/ecmascript-6">
 	import { usersApi } from '../../utils/resources';
-	import { login, userUpdate } from '../../vuex/actions';
+	import { alert, login, userUpdate } from '../../vuex/actions';
 
 	export default {
 		data() {
@@ -42,14 +42,16 @@
 		vuex: {
 			actions: {
 				submit({ dispatch }, e) {
+					this.user.Achievements = [this.$store.state.achievementList[0]];
 					usersApi.save(this.user)
 						.then((result) => {
 							localStorage.userID = result.json().ID;
 							return result.json();
 						})
-						.then(user => login({ dispatch }, user.Email, user.Password))
-						.then(user => userUpdate({ dispatch }, user))
-						.then(() => this.$router.go('/users/welcome'));
+						.then(user => { login({ dispatch }, user.Email, user.Password); console.log(user); return user })
+						.then(user => { userUpdate({ dispatch }, user); console.log(user); return user })
+						.then(user => { alert({ dispatch }, 'info', 'Achievement get: ' + user.Achievements[0].Name + '! Vous avez etes credité de 200 vCoins'); console.log(user); return user })
+						.then(() => this.$router.go('/'));
 				}
 			}
 		}
