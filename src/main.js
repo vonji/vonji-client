@@ -16,6 +16,8 @@ import RequestList from './components/requests/RequestList.vue';
 
 import TagList from './components/tags/TagList.vue';
 
+import AchievementList from './components/AchievementList.vue';
+
 global.jQuery = require('jquery');
 require('bootstrap-loader');
 
@@ -57,6 +59,9 @@ router.map({
 	},
 	'/tags/list': {
 		component: TagList
+	},
+	'/achievements': {
+		component: AchievementList
 	}
 });
 
