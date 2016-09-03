@@ -17,6 +17,9 @@ import TagList from './components/tags/TagList.vue';
 
 import AchievementList from './components/AchievementList.vue';
 
+import * as actions from './vuex/actions';
+import { achievementsApi, usersApi } from './utils/resources';
+
 global.jQuery = require('jquery');
 require('bootstrap-loader');
 
@@ -59,6 +62,19 @@ router.map({
 	'/achievements': {
 		component: AchievementList
 	}
+});
+
+router.afterEach(transition => {
+	let store = transition.to.router.app.$store;
+
+	if (localStorage.userID) {
+		usersApi.get({ id: localStorage.userID }).then(response => {
+			actions.userUpdate(store, response.json());
+		});
+	}
+	achievementsApi.get().then(response => {
+		actions.achievementListUpdate(store, response.json());
+	})
 });
 
 router.start(App, '#app');

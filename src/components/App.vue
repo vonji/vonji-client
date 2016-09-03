@@ -32,15 +32,5 @@
 			Alerts
 		},
 		actions,
-		ready() {
-			if (localStorage.userID) {
-				usersApi.get({ id: localStorage.userID }).then(response => {
-					actions.userUpdate(this.$store, response.json());
-				});
-			}
-			achievementsApi.get().then(response => {
-				actions.achievementListUpdate(this.$store, response.json());
-			})
-		}
 	}
 </script>

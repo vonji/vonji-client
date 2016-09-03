@@ -6,6 +6,7 @@ import * as A from './actionTypes';
 Vue.use(Vuex);
 
 const state = {
+	achievementList: [],
 	alerts: [],
 	user: {},
 	userID: localStorage.userID
