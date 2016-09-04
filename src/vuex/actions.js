@@ -1,4 +1,4 @@
-import { usersApi } from '../utils/resources';
+import { usersApi, transactionsApi } from '../utils/resources';
 import * as A from './actionTypes';
 
 export const login = ({ dispatch }, email, password) => {
@@ -42,3 +42,24 @@ export const userUpdate = ({ dispatch }, user) => {
 export const achievementListUpdate = ({ dispatch }, achievements) => {
 	dispatch(A.ACHIEVEMENT_LIST_UPDATE, achievements);
 };
+
+export const achievementAward = (({ dispatch }, achievement, user) => {
+	if (user.Achievements.some(e => e.ID == achievement.ID))
+		return;
+	user.Achievements.push(achievement);
+	user.VAction += achievement.Award;
+	usersApi.update(user)
+		.then(() => {
+			transactionsApi.save({
+				FromId: 1,
+				ToId: user.ID,
+				Type: 'VACTION',
+				Amount: achievement.Award,
+				Reason: 'Achievement get: ' + achievement.Name,
+				Source: '/achievements'
+			});
+		}).then(() => {
+			dispatch(A.ALERT, 'info', 'Achievement get: ' + achievement.Name);
+			dispatch(A.USER_UPDATE, user);
+		});
+});
