@@ -10,7 +10,7 @@
 				</a>
 			</div>
 			<div class="v-uc-right">
-				<div><a v-link="'users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></div>
+				<div><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></div>
 				<div>{{ user.VCoins }} vCoins</div>
 				<div>{{ user.VAction }} vActions</div>
 			</div>
