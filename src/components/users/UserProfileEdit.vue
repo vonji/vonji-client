@@ -77,7 +77,8 @@
 	import AvatarBox from './AvatarBox.vue';
 	import UserProfileHeader from './UserProfileHeader.vue';
 	import { usersApi } from '../../utils/resources';
-	import { alert } from '../../vuex/actions';
+	import { achievementAward, alert } from '../../vuex/actions';
+	import { achievementList } from "../../vuex/getters";
 
 	export default {
 		data() {
@@ -94,12 +95,23 @@
 			actions: {
 				save({ dispatch }) {
 					usersApi.update(this.user)
+						.then(() => {
+							let user = this.user;
+							if (user.FacebookLink && user.TwitterLink && user.LinkedInLink)
+								achievementAward({ dispatch }, this.achievementList[2], user);
+							if (!user.RealName.empty() && !user.Description.empty() && !user.Motto.empty() && !user.FacebookLink.empty() && !user.TwitterLink.empty() && !user.LinkedInLink.empty() && !user.Phone.empty() && !user.Birthday.empty() && !user.Location.empty() && !user.Gender.empty()) {
+								achievementAward({ dispatch }, this.achievementList[3], user);
+							}
+						})
 						.then(() => alert({ dispatch }, 'info', 'Profile updated'))
 						.catch(response => {
 							alert({ dispatch }, 'danger', 'Could not save profile');
 							console.error(response);
 						});
 				}
+			},
+			getters: {
+				achievementList
 			}
 		},
 		components: {

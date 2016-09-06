@@ -78,3 +78,8 @@ router.afterEach(transition => {
 });
 
 router.start(App, '#app');
+
+/* TODO: this is probably a bad idea */
+String.prototype.empty = function() {
+	return (this.length === 0 || !this.trim());
+};

@@ -119,13 +119,15 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import _ from 'lodash';
 	import moment from 'moment';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
 	import { requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
-	import { isLogged } from '../../vuex/getters';
+	import * as permissions from '../../utils/permissions';
+	import { achievementList, isLogged } from '../../vuex/getters';
+	import { achievementAward } from '../../vuex/actions';
 
 	export default {
 		data() {
@@ -224,33 +226,39 @@
 			deleteResponse(id) {
 				responsesApi.delete({ id }).then(() => this.request.Responses = this.request.Responses.filter(r => r.ID !== id));
 			},
-			rate(response) {
-				response.Rating = Number(response.Rating);
-				responsesApi.update({ id: response.ID }, response)
-					.then(() => {
-						const modifiedRequest = _.assign({}, this.request, {
-							Archived: true
-						});
-						requestsApi.update({ id: this.request.ID }, modifiedRequest);
-					})
-					.then(() => {
-						transactionsApi.save({
-							FromID: this.request.UserID,
-							ToID: response.UserID,
-							Type: 'VCOIN',
-							Amount: response.Value,
-							Reason: 'Request fullfiled',
-							Source: '/requests/view/' + this.request.ID
-						});
-					})
-					.then(() => {
-						this.request.Archived = true;
-					});
-			}
 		},
 		vuex: {
 			getters: {
-				isLogged
+				isLogged,
+				achievementList
+			},
+			actions: {
+				rate({ dispatch }, response) {
+					response.Rating = Number(response.Rating);
+					responsesApi.update({ id: response.ID }, response)
+						.then(() => {
+							const modifiedRequest = _.assign({}, this.request, {
+								Archived: true
+							});
+							requestsApi.update({ id: this.request.ID }, modifiedRequest);
+						})
+						.then(() => {
+							transactionsApi.save({
+								FromID: this.request.UserID,
+								ToID: response.UserID,
+								Type: 'VCOIN',
+								Amount: response.Value,
+								Reason: 'Request fullfiled',
+								Source: '/requests/view/' + this.request.ID
+							});
+						})
+						.then(() => {
+							achievementAward({ dispatch }, this.achievementList[4], this.request.User)
+						})
+						.then(() => {
+							this.request.Archived = true;
+						});
+				}
 			}
 		},
 		components: {
