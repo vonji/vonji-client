@@ -1,0 +1,46 @@
+<template>
+	<table class="table table-condensed table-striped">
+		<tbody>
+		<tr v-for="request in requests | byCreation">
+			<td>{{ request.CreatedAt | fromNow }}</td>
+			<td>{{ request.Title }}</td>
+			<td v-if="request | acceptedResponse" is="request-grade-box" @grade="gradeResponse" :data="request | acceptedResponse"></td>
+			<td>{{ request.Views }} views {{ request.Responses.length}} responses</td>
+			<td>
+				<a v-link="'/requests/edit/' + request.ID">edit</a>
+				<a @click.prevent="deleteRequest(request)" href="#">delete</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</template>
+
+<script type="text/ecmascript-6">
+	import RequestGradeBox from '../requests/RequestGradeBox.vue';
+
+	export default {
+		props: {
+			requests: {
+				type: Array,
+				required: true,
+			}
+		},
+		methods: {
+			gradeResponse(grade, response) {
+				this.$dispatch('grade', response, grade);
+			},
+			deleteRequest(request) {
+				this.$dispatch('delete', request);
+			}
+		},
+		filters: {
+			acceptedResponse(request) {
+				let res = request.Responses.filter(e => e.Accepted);
+				return !res || res[0];
+			}
+		},
+		components: {
+			RequestGradeBox
+		}
+	}
+</script>

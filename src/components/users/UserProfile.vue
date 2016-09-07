@@ -26,21 +26,15 @@
 				</div>
 			</div>
 		</div>
-		<div>
-			<h2>Requests</h2>
-			<table class="table table-condensed table-striped">
-				<tbody>
-				<tr v-for="request in requests | byCreation">
-					<td>{{ request.CreatedAt | fromNow }}</td>
-					<td>{{ request.Title }}</td>
-					<td>{{ request.Views }} views {{ request.Responses.length}} responses</td>
-					<td>
-						<a v-link="'/requests/edit/' + request.ID">edit</a>
-						<a v-if="canDelete(request)" @click.prevent="deleteRequest(request.ID)" href="#">delete</a>
-					</td>
-				</tr>
-				</tbody>
-			</table>
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Services en attentes</h2>
+				<user-requests :requests="requests | pending" @delete="deleteRequest"></user-requests>
+			</div>
+			<div class="col-md-6">
+				<h2>Services à évaluer</h2>
+				<user-requests :requests="requests | accepted" @grade="gradeResponse"  @delete="deleteRequest"></user-requests>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
@@ -84,8 +78,9 @@
 <script type="text/babel">
 	import AvatarBox from './AvatarBox.vue';
 	import UserProfileHeader from './UserProfileHeader.vue';
+	import UserRequests from './UserRequests.vue';
 	import moment from 'moment';
-	import { usersApi } from '../../utils/resources'; import { requestsApi } from "../../utils/resources";
+	import { usersApi, requestsApi, responsesApi } from '../../utils/resources';
 
 	export default {
 		data() {
@@ -107,12 +102,17 @@
 			}
 		},
 		methods: {
-			canDelete(request) {
-				return request.Responses.length === 0;
+			gradeResponse(response, grade) {
+				response.Rating = grade;
+				responsesApi.update(response).catch(error => {
+					console.log(error);
+					response.Rating = 0;
+				})
 			},
-			deleteRequest(id) {
-				requestsApi.delete({ id })
-					.then(() => this.requests = this.requests.filter(e => e.ID == id))
+			deleteRequest(request) {
+				requestsApi.delete({ id: request.ID }).then(() => {
+					this.requests = this.requests.filter(e => e.ID == request.ID)
+				});
 			},
 			getTransactionAmount(transaction) {
 				let res = transaction.FromID === this.user.ID ? transaction.Amount * -1 : transaction.Amount;
@@ -125,11 +125,18 @@
 			},
 			vCoins(transactions) {
 				return transactions.filter(e => e.Type === 'VCOIN')
+			},
+			pending(requests) {
+				return requests.filter(req => !req.Responses.some(res => res.Accepted));
+			},
+			accepted(requests) {
+				return requests.filter(req => req.Responses.some(res => res.Accepted && res.Rating === 0));
 			}
 		},
 		components: {
 			AvatarBox,
-			UserProfileHeader
+			UserProfileHeader,
+			UserRequests
 		}
 	}
 </script>
