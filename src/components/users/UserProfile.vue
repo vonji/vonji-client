@@ -66,11 +66,12 @@
 </template>
 
 <script type="text/babel">
+	import moment from 'moment';
 	import AvatarBox from './AvatarBox.vue';
 	import UserProfileHeader from './UserProfileHeader.vue';
 	import UserRequests from './UserRequests.vue';
-	import moment from 'moment';
-	import { usersApi, requestsApi, responsesApi } from '../../utils/resources';
+	import { usersApi, requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
+	import { achievementAward } from '../../vuex/actions';
 
 	export default {
 		data() {
@@ -90,13 +91,6 @@
 			}
 		},
 		methods: {
-			gradeResponse(response, grade) {
-				response.Rating = grade;
-				responsesApi.update(response).catch(error => {
-					console.log(error);
-					response.Rating = 0;
-				})
-			},
 			deleteRequest(request) {
 				requestsApi.delete({ id: request.ID }).then(() => {
 					this.requests = this.requests.filter(e => e.ID == request.ID)
@@ -105,6 +99,45 @@
 			getTransactionAmount(transaction) {
 				let res = transaction.FromID === this.user.ID ? transaction.Amount * -1 : transaction.Amount;
 				return res > 0 ? '+' + res : res;
+			}
+		},
+		vuex: {
+			actions: {
+				gradeResponse(response, grade) {
+					let request = this.requests.find(e => e.ID == response.RequestID);
+					response.Rating = grade;
+					responsesApi.update(response)
+						.then(() => {
+							this.user.Tags = this.user.Tags.concat(request.Tags);
+							this.user.VCoins -= response.Value;
+							usersApi.update(this.user);
+						})
+						.then(() => {
+							response.User.VCoins += response.Value;
+							usersApi.update(this.user);
+						})
+						.then(() => {
+							transactionsApi.save({
+								FromID: request.UserID,
+								ToID: response.UserID,
+								Type: 'VCOIN',
+								Amount: response.Value,
+								Reason: 'Request fullfiled',
+								Source: '/requests/view/' + request.ID
+							});
+						})
+						.then(() => {
+							achievementAward({ dispatch }, this.achievementList[4], this.request.User)
+						})
+						.then(() => {
+							this.request.Archived = true;
+							requestsApi.update(request);
+						})
+						.catch(error => {
+							console.log(error);
+							response.Rating = 0;
+						})
+				}
 			}
 		},
 		filters: {
