@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Tags</h2>
-				<div v-for="tag in tags" class="tag">{{ tag.Name }}</div>
+				<div v-for="tag in user.Tags" class="tag">{{ tag.Name }}</div>
 			</div>
 			<div class="col-md-6">
 				<h2>Challenges</h2>
@@ -40,11 +40,6 @@
 			<div class="col-md-6">
 				<h2>vActions</h2>
 				<table class="table table-condensed table-striped">
-					<thead>
-					<tr>
-						<th></th>
-					</tr>
-					</thead>
 					<tbody>
 					<tr v-for="transaction in transactions | vActions | byCreation">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
@@ -57,11 +52,6 @@
 			<div class="col-md-6">
 				<h2>vCoins</h2>
 				<table class="table table-condensed table-striped">
-					<thead>
-					<tr>
-						<th></th>
-					</tr>
-					</thead>
 					<tbody>
 					<tr v-for="transaction in transactions | vCoins | byCreation">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
@@ -86,7 +76,6 @@
 		data() {
 			return {
 				user: {},
-				tags: [],
 				requests: [],
 				transactions: []
 			}
@@ -95,7 +84,6 @@
 			data({ to: { params: { id } } }) {
 				return {
 					user: usersApi.get({ id }).then(user => user.json()),
-					tags: usersApi.getTags(id),
 					requests: usersApi.getRequests(id),
 					transactions: usersApi.getHistoric(id)
 				}
