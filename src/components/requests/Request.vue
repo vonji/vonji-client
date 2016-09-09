@@ -125,7 +125,6 @@
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
 	import { requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
-	import * as permissions from '../../utils/permissions';
 	import { achievementList, isLogged } from '../../vuex/getters';
 	import { achievementAward } from '../../vuex/actions';
 
