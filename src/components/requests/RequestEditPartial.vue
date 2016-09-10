@@ -35,7 +35,7 @@
 				type: Object,
 				default: () => ({
 					Tags: [],
-					State: 'pending'
+					Status: 'pending'
 				})
 			}
 		},
