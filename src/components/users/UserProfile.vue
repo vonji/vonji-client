@@ -72,6 +72,7 @@
 	import UserRequests from './UserRequests.vue';
 	import { usersApi, requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
 	import { achievementAward } from '../../vuex/actions';
+	import { achievementList } from '../../vuex/getters';
 
 	export default {
 		data() {
@@ -103,7 +104,7 @@
 		},
 		vuex: {
 			actions: {
-				gradeResponse(response, grade) {
+				gradeResponse({ dispatch }, response, grade) {
 					let request = this.requests.find(e => e.ID == response.RequestID);
 					response.Rating = grade;
 					responsesApi.update(response)
@@ -137,6 +138,9 @@
 							console.log(error);
 							response.Rating = 0;
 						})
+				},
+				getters: {
+					achievementList
 				}
 			}
 		},
