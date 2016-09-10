@@ -163,38 +163,33 @@
 					.then(() => responsesApi.get({ id }))
 					.then(newResponse => oldResponse.Content = newResponse.json().Content);
 			},
-			toggleResponseAcceptance(targetResponse) {
-				const modifiedResponse = _.assign({}, targetResponse, {
-					Accepted: !targetResponse.Accepted
-				});
-				responsesApi.update({ id: targetResponse.ID }, modifiedResponse)
-					.then(() => {
-						if (this.sortedResponses[0].ID !== targetResponse.ID) {
-							responsesApi.update({ id: this.sortedResponses[0].ID }, this.sortedResponses[0]);
+			toggleResponseAcceptance(response) {
+				response.Accepted = !response.Accepted;
+				responsesApi.update(response)
+					.then(() => {//
+						if (this.sortedResponses[0].ID !== response.ID) {
+							this.sortedResponses[0].Accepted = false;
+							responsesApi.update(this.sortedResponses[0]);
 						}
 					})
 					.then(() => {
-						transactionsApi.save({
+						this.request.Status = response.Accepted ? 'accepted' : 'pending';
+						requestsApi.update(this.request);
+					})
+					.then(() => {
+						if (response.Accepted) {
+							transactionsApi.save({
 								FromID: this.request.UserID,
-								ToID: targetResponse.UserID,
+								ToID: response.UserID,
 								Amount: 15,
 								Type: 'VACTION',
 								Reason: 'Accepted response',
 								Source: '/requests/view/' + this.request.ID
 							})
 						}
-					)
-					.then(() => {
-						let id = this.request.Responses.findIndex(e => e.ID == targetResponse.ID);
-						this.request.Responses[id].Accepted = !this.request.Responses[id].Accepted;
-						id = this.request.Responses.findIndex(e => e.Accepted && e.ID != targetResponse.ID);
-						if (id < 0)
-							return;
-						this.request.Responses[id].Accepted = false;
 					})
-					.then(() => {
-						this.request.Status = modifiedResponse.Accepted ? 'accepted' : 'pending';
-						requestsApi.update({ id: this.request.ID }, this.request);
+					.catch(error => {
+						console.error(error);
 					})
 				;
 
