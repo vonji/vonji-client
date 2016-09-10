@@ -7,8 +7,8 @@
 			<td v-if="request | acceptedResponse" is="request-grade-box" @grade="gradeResponse" :data="request | acceptedResponse"></td>
 			<td>{{ request.Views }} views {{ request.Responses.length}} responses</td>
 			<td>
-				<a v-link="'/requests/edit/' + request.ID">edit</a>
-				<a @click.prevent="deleteRequest(request)" href="#">delete</a>
+				<a v-link="'/requests/edit/' + request.ID"><span class="glyphicon glyphicon-pencil"></span></a>
+				<a @click.prevent="deleteRequest(request)" href="#"><span class="glyphicon glyphicon-trash"></span></a>
 			</td>
 		</tr>
 		</tbody>
