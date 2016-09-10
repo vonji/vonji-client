@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<bs-search-bar :input.sync="searchInput" placeholder="Recherchez une requête">
-			<slot slot="search">{{ requests | filter | length }} résultats sur {{ requests.length }}</slot>
-			<slot>{{ requests.length }} requêtes</slot>
+			<slot slot="search">{{ requests | pending | filter | length }} résultats sur {{ requests | pending | length }}</slot>
+			<slot>{{ requests | pending | length }} requêtes</slot>
 		</bs-search-bar>
 		<loading v-if="requests.length == 0"></loading>
-		<div v-for="request in requests | filter | byUpdate">
+		<div v-for="request in requests | pending | filter | byUpdate">
 			<div class="row request-row">
 				<div class="col-sm-6">
 					<div class="row request-title">
@@ -27,7 +27,7 @@
 	<div class="col-md-12"><a v-link="'requests/add'">New request</a></div>
 </div>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import { requestsApi } from '../../utils/resources';
 	import BsSearchBar from '../bootstrap/BsSearchBar.vue';
 	import Loading from '../Loading.vue';
@@ -53,6 +53,9 @@
 		filters: {
 			filter(requests) {
 				return requests.filter(req => req.Title.indexOf(this.searchInput) !== -1 || req.Tags.some(tag => tag.Name.indexOf(this.searchInput) !== -1));
+			},
+			pending(requests) {
+				return requests.filter(req => req.Status === 'pending')
 			}
 		}
 	}
