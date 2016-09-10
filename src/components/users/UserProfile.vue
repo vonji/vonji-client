@@ -130,7 +130,7 @@
 							achievementAward({ dispatch }, this.achievementList[4], this.request.User)
 						})
 						.then(() => {
-							this.request.Archived = true;
+							this.request.Status = 'graded';
 							requestsApi.update(request);
 						})
 						.catch(error => {

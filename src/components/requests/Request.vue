@@ -139,7 +139,9 @@
 		},
 		route: {
 			data({ to: { params: { id } } }) {
-				return requestsApi.get({ id }).then(request => ({ request: request.json() }));
+				return {
+					request: requestsApi.get({ id }).then(response => response.json())
+				};
 			}
 		},
 		computed: {
@@ -199,6 +201,10 @@
 						if (id < 0)
 							return;
 						this.request.Responses[id].Accepted = false;
+					})
+					.then(() => {
+						this.request.Status = modifiedResponse.Accepted ? 'accepted' : 'pending';
+						requestsApi.update({ id: this.request.ID }, this.request);
 					})
 				;
 

@@ -49,10 +49,10 @@
 				return tags.sort((a, b) => a.Name.localeCompare(b.Name) )
 			},
 			completed(requests) {
-				return requests.filter(req => req.Archived && req.Responses.some(res => res.Accepted));
+				return requests.filter(req => req.Status === 'graded');
 			},
 			notCompleted(requests) {
-				return requests.filter(req => !req.Archived || req.Responses.some(res => !res.Accepted));
+				return requests.filter(req => req.Status !== 'graded');
 			},
 			withTag(requests, tag) {
 				return requests.filter(r => r.Tags.some(t => t.ID == tag.ID));
