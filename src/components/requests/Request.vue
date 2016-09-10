@@ -42,16 +42,6 @@
 												Delete
 											</button>
 										</div>
-										<div v-if="response.Accepted" class="rating-container">
-											<form @submit.prevent="rate(response)" class="form-inline">
-												<div class="form-group">
-													<div class="input-group">
-														<input type="number" v-model="response.Rating" min="1" max="5" value="3" class="form-control">
-														<div class="input-group-addon rating-button-container"><button type="submit" class="btn rating-button">Rate</button></div>
-													</div>
-												</div>
-											</form>
-										</div>
 									</div>
 									<div v-else>
 										<button v-if="response.Accepted" type="button"
@@ -236,34 +226,6 @@
 			getters: {
 				isLogged,
 				achievementList
-			},
-			actions: {
-				rate({ dispatch }, response) {
-					response.Rating = Number(response.Rating);
-					responsesApi.update({ id: response.ID }, response)
-						.then(() => {
-							const modifiedRequest = _.assign({}, this.request, {
-								Archived: true
-							});
-							requestsApi.update({ id: this.request.ID }, modifiedRequest);
-						})
-						.then(() => {
-							transactionsApi.save({
-								FromID: this.request.UserID,
-								ToID: response.UserID,
-								Type: 'VCOIN',
-								Amount: response.Value,
-								Reason: 'Request fullfiled',
-								Source: '/requests/view/' + this.request.ID
-							});
-						})
-						.then(() => {
-							achievementAward({ dispatch }, this.achievementList[4], this.request.User)
-						})
-						.then(() => {
-							this.request.Archived = true;
-						});
-				}
 			}
 		},
 		components: {
