@@ -7,7 +7,7 @@
 			<td v-if="request | acceptedResponse" is="request-grade-box" @grade="gradeResponse" :data="request | acceptedResponse"></td>
 			<td>{{ request.Views }} views {{ request.Responses.length}} responses</td>
 			<td>
-				<a v-link="'/requests/edit/' + request.ID"><span class="glyphicon glyphicon-pencil"></span></a>
+				<a @click.prevent="editRequest(request)" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
 				<a @click.prevent="deleteRequest(request)" href="#"><span class="glyphicon glyphicon-trash"></span></a>
 			</td>
 		</tr>
@@ -17,6 +17,7 @@
 
 <script type="text/ecmascript-6">
 	import RequestGradeBox from '../requests/RequestGradeBox.vue';
+	import UserRequestEdit from './UserRequestEdit.vue';
 
 	export default {
 		props: {
@@ -29,6 +30,9 @@
 			gradeResponse(grade, response) {
 				this.$dispatch('grade', response, grade);
 			},
+			editRequest(request) {
+				this.$dispatch('edit', request);
+			},
 			deleteRequest(request) {
 				this.$dispatch('delete', request);
 			}
@@ -40,7 +44,8 @@
 			}
 		},
 		components: {
-			RequestGradeBox
+			RequestGradeBox,
+			UserRequestEdit
 		}
 	}
 </script>

@@ -29,11 +29,12 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Services en attentes</h2>
-				<user-requests :requests="requests | pending" @delete="deleteRequest"></user-requests>
+				<user-requests :requests="requests | pending" @edit="editRequest" @delete="deleteRequest"></user-requests>
 			</div>
 			<div class="col-md-6">
 				<h2>Services à évaluer</h2>
-				<user-requests :requests="requests | accepted" @grade="gradeResponse"  @delete="deleteRequest"></user-requests>
+				<user-request-edit v-if="selectedRequest" :request="selectedRequest" @save="saveRequest"></user-request-edit>
+				<user-requests :requests="requests | accepted" @grade="gradeResponse" @edit="editRequest" @delete="deleteRequest"></user-requests>
 			</div>
 		</div>
 		<div class="row">
@@ -70,6 +71,7 @@
 	import AvatarBox from './AvatarBox.vue';
 	import UserProfileHeader from './UserProfileHeader.vue';
 	import UserRequests from './UserRequests.vue';
+	import UserRequestEdit from './UserRequestEdit.vue';
 	import { usersApi, requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
 	import { achievementAward } from '../../vuex/actions';
 	import { achievementList } from '../../vuex/getters';
@@ -79,7 +81,8 @@
 			return {
 				user: {},
 				requests: [],
-				transactions: []
+				transactions: [],
+				selectedRequest: null
 			}
 		},
 		route: {
@@ -92,6 +95,21 @@
 			}
 		},
 		methods: {
+			editRequest(request) {
+				if (request.Status === 'pending') {
+					this.$router.go('/requests/edit/' + request.ID);
+					return;
+				}
+				this.selectedRequest = this.selectedRequest ? null : request;
+			},
+			saveRequest(request) {
+				console.log(request);
+				requestsApi.update(request)
+					.then(() => {
+						this.selectedRequest = null;
+					})
+				;
+			},
 			deleteRequest(request) {
 				requestsApi.delete({ id: request.ID }).then(() => {
 					this.requests = this.requests.filter(e => e.ID == request.ID)
@@ -161,7 +179,8 @@
 		components: {
 			AvatarBox,
 			UserProfileHeader,
-			UserRequests
+			UserRequests,
+			UserRequestEdit
 		}
 	}
 </script>
