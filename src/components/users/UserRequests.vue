@@ -3,7 +3,7 @@
 		<tbody>
 		<tr v-for="request in requests | byCreation">
 			<td>{{ request.CreatedAt | fromNow }}</td>
-			<td>{{ request.Title }}</td>
+			<td><a v-link="'/requests/view/' + request.ID">{{ request.Title }}</a></td>
 			<td v-if="request | acceptedResponse" is="request-grade-box" @grade="gradeResponse" :data="request | acceptedResponse"></td>
 			<td>{{ request.Views }} views {{ request.Responses.length}} responses</td>
 			<td>
