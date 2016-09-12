@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Resource from 'vue-resource'
 import moment from 'moment';
+import Fuse from 'fuse.js';
 
 Vue.filter('fromNow', (input, param) =>
 	moment(input).fromNow(param)
@@ -33,6 +34,16 @@ Vue.filter('since', (objects, n, unit) =>
 Vue.filter('length', (array) =>
 	array.length
 );
+
+Vue.mixin({
+	methods: {
+		fuzzySearch(objects, keys, pattern) {
+			if (pattern === undefined || pattern.trim().length === 0)
+				return objects;
+			return new Fuse(objects, { keys: keys }).search(pattern);
+		}
+	}
+});
 
 Vue.use(Resource);
 

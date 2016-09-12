@@ -1,13 +1,13 @@
 <template>
 	<bs-search-bar :input.sync="searchInput" placehold="Recherchez une compétence">
-		<slot slot="search">{{ tags | filter | length }} compétences sur {{ tags.length }}</slot>
+		<slot slot="search">{{ tags | search | length }} compétences sur {{ tags.length }}</slot>
 		<slot>{{ tags.length }} compétences</slot>
 	</bs-search-bar>
 	<div class="row">
 		<h2></h2>
 	</div>
 	<div class="row">
-		<template v-for="tag in tags | filter | sortByName">
+		<template v-for="tag in tags | search | sortByName">
 			<div class="tag-container col-md-2">
 				<span class="tag">{{ tag.Name }}</span><span class="tag-meta">x {{ requests | withTag tag | length }}</span>
 				<div class="tag-description">{{ tag.Description }}</div>
@@ -18,19 +18,16 @@
 	</div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 	import BsSearchBar from '../bootstrap/BsSearchBar.vue';
 	import { tagsApi, requestsApi } from "../../utils/resources";
-
-	let moment = require('moment');
 
 	export default {
 		data() {
 			return {
 				tags: [],
 				requests: [],
-				searchInput: '',
-				moment
+				searchInput: ''
 			}
 		},
 		route: {
@@ -42,11 +39,11 @@
 			}
 		},
 		filters: {
-			filter(tags) {
-				return tags.filter(e => e.Name.indexOf(this.searchInput) !== -1);
+			search(tags) {
+				return this.fuzzySearch(tags, ['Name'], this.searchInput).slice();
 			},
 			sortByName(tags) {
-				return tags.sort((a, b) => a.Name.localeCompare(b.Name) )
+				return tags.sort((a, b) => a.Name.localeCompare(b.Name));
 			},
 			completed(requests) {
 				return requests.filter(req => req.Status === 'graded');

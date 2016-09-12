@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<bs-search-bar :input.sync="searchInput" placeholder="Recherchez une requête">
-			<slot slot="search">{{ requests | pending | filter | length }} résultats sur {{ requests | pending | length }}</slot>
+			<slot slot="search">{{ requests | pending | search | length }} résultats sur {{ requests | pending | length }}</slot>
 			<slot>{{ requests | pending | length }} requêtes</slot>
 		</bs-search-bar>
 		<loading v-if="requests.length == 0"></loading>
-		<div v-for="request in requests | pending | filter | byUpdate">
+		<div v-for="request in requests | pending | search | byUpdate">
 			<div class="row request-row">
 				<div class="col-sm-6">
 					<div class="row request-title">
@@ -51,8 +51,8 @@
 			Loading
 		},
 		filters: {
-			filter(requests) {
-				return requests.filter(req => req.Title.indexOf(this.searchInput) !== -1 || req.Tags.some(tag => tag.Name.indexOf(this.searchInput) !== -1));
+			search(requests) {
+				return this.fuzzySearch(requests, ['Title', 'Tags.Name'], this.searchInput);
 			},
 			pending(requests) {
 				return requests.filter(req => req.Status === 'pending')

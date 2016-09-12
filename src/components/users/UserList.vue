@@ -60,7 +60,7 @@
 		},
 		filters: {
 			filter(users) {
-				return users.filter(e => e.DisplayedName.indexOf(this.searchInput) !== -1)
+				return this.fuzzySearch(users, ['DisplayedName', 'Tags.Name'], this.searchInput);
 			}
 		}
 	}

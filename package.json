@@ -55,6 +55,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "awesomplete": "^1.1.1"
+    "awesomplete": "^1.1.1",
+    "fuse.js": "^2.5"
   }
 }
