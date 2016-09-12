@@ -18,6 +18,9 @@
 				<div class="col-sm-4 request-date">
 					asked {{ request.UpdatedAt | fromNow }} by <a v-link="'/users/profile/view/' + request.User.ID"> {{ request.User.DisplayedName }} </a>
 				</div>
+				<div class="col-sm-2">
+					<a v-link="'/users/profile/view/' + request.User.ID"><img :src="request.User.Avatar" alt="user Avatar" width="40" height="40"></a>
+				</div>
 			</div>
 		</div>
 	</div>
