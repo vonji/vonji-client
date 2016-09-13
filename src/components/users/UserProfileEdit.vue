@@ -88,7 +88,7 @@
 		},
 		route: {
 			data({ to: { params: { id } } }) {
-				return usersApi.get({ id }).then(user => ({ user: user.json() }));
+				return usersApi.get({ id }).then(user => ({ user: user.body }));
 			}
 		},
 		vuex: {

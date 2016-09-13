@@ -130,7 +130,7 @@
 		route: {
 			data({ to: { params: { id } } }) {
 				return {
-					request: requestsApi.get({ id }).then(response => response.json())
+					request: requestsApi.get({ id }).then(response => response.body)
 				};
 			}
 		},
@@ -153,7 +153,7 @@
 					Content: content
 				}))
 					.then(() => requestsApi.get({ id }))
-					.then(newRequest => this.request = newRequest.json());
+					.then(newRequest => this.request = newRequest.body);
 			},
 			responseContentChanged(id, content) {
 				const oldResponse = this.request.Responses.find(r => r.ID === id);
@@ -161,12 +161,12 @@
 					Content: content
 				}))
 					.then(() => responsesApi.get({ id }))
-					.then(newResponse => oldResponse.Content = newResponse.json().Content);
+					.then(newResponse => oldResponse.Content = newResponse.body.Content);
 			},
 			toggleResponseAcceptance(response) {
 				response.Accepted = !response.Accepted;
 				responsesApi.update(response)
-					.then(() => {//
+					.then(() => {
 						if (this.sortedResponses[0].ID !== response.ID) {
 							this.sortedResponses[0].Accepted = false;
 							responsesApi.update(this.sortedResponses[0]);
@@ -201,9 +201,9 @@
 					Content: this.newResponse.Content,
 					Value: parseInt(this.newResponse.Value)
 				})
-					.then(httpResponse => responsesApi.get({ id: httpResponse.json().ID }))
+					.then(httpResponse => responsesApi.get({ id: httpResponse.body.ID }))
 					.then(fetchedResource => {
-						this.request.Responses.push(fetchedResource.json());
+						this.request.Responses.push(fetchedResource.body);
 						this.newResponse = {};
 					})
 					.catch(err => {

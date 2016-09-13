@@ -33,8 +33,8 @@
 		route: {
 			data() {
 				return {
-					tags: tagsApi.get().then(response => response.json()),
-					requests: requestsApi.get().then(response => response.json())
+					tags: tagsApi.get().then(response => response.body),
+					requests: requestsApi.get().then(response => response.body)
 				}
 			}
 		},

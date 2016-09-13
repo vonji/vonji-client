@@ -45,8 +45,8 @@
 					this.user.Achievements = [this.$store.state.achievementList[0]];
 					usersApi.save(this.user)
 						.then((result) => {
-							localStorage.userID = result.json().ID;
-							return result.json();
+							localStorage.userID = result.body.ID;
+							return result.body;
 						})
 						.then(user => { login({ dispatch }, user.Email, user.Password); console.log(user); return user })
 						.then(user => { userUpdate({ dispatch }, user); console.log(user); return user })

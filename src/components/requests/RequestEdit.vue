@@ -27,7 +27,7 @@
 		route: {
 			data({ to: { params: { id } } }) {
 				return requestsApi.get({ id })
-					.then(fetchedRequest => ({ request: fetchedRequest.json() }))
+					.then(fetchedRequest => ({ request: fetchedRequest.body }))
 					.catch(console.error);
 			}
 		},

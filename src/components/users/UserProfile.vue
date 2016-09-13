@@ -88,7 +88,7 @@
 		route: {
 			data({ to: { params: { id } } }) {
 				return {
-					user: usersApi.get({ id }).then(user => user.json()),
+					user: usersApi.get({ id }).then(response => response.body),
 					requests: usersApi.getRequests(id),
 					transactions: usersApi.getHistoric(id)
 				}
@@ -103,7 +103,6 @@
 				this.selectedRequest = this.selectedRequest ? null : request;
 			},
 			saveRequest(request) {
-				console.log(request);
 				requestsApi.update(request)
 					.then(() => {
 						this.selectedRequest = null;

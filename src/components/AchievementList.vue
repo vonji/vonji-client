@@ -23,8 +23,8 @@
 		route: {
 			data() {
 				return {
-					user: usersApi.get({ id: localStorage.userID }).then(response => response.json()),
-					achievements: achievementsApi.get().then(response => response.json())
+					user: usersApi.get({ id: localStorage.userID }).then(response => response.body),
+					achievements: achievementsApi.get().then(response => response.body)
 				}
 			}
 		},

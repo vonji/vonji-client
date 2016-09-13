@@ -61,13 +61,13 @@ usersApi.getHistoric = id => {
 	return Vue.http.get('transactions/where/all/' + encodeURI(JSON.stringify({ FromID: Number(id) })))
 		.then((response) => {
 			return Vue.http.get('transactions/where/all/' + encodeURI(JSON.stringify({ ToID: Number(id) })))
-				.then((response2) => response.json().concat(response2.json()));
+				.then((response2) => response.body.concat(response2.body));
 		});
 };
 usersApi.getTags = id => {
 	return requestsApi.get().then(response => {
 		let res = [];
-		response.json().filter(r => r.Responses.filter(e => e.UserID == id).length !== 0)
+		response.body.filter(r => r.Responses.filter(e => e.UserID == id).length !== 0)
 			.map(e => e.Tags)
 			.reduce((a, b) => a.concat(b), [])
 			.forEach((tag) => {
@@ -77,11 +77,11 @@ usersApi.getTags = id => {
 		return res;
 	});
 };
-usersApi.getRequests = id => Vue.http.get('requests/where/all/' + encodeURIComponent(JSON.stringify({ UserID: Number(id) }))).then(response => response.json());
+usersApi.getRequests = id => Vue.http.get('requests/where/all/' + encodeURIComponent(JSON.stringify({ UserID: Number(id) }))).then(response => response.body);
 
 export { usersApi };
 
 let requestsApi = Vue.resource('requests{/id}');
-requestsApi.Light = () => Vue.http.get('requests/light').then(response => response.json());
+requestsApi.Light = () => Vue.http.get('requests/light').then(response => response.body);
 
 export { requestsApi };

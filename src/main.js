@@ -69,11 +69,11 @@ router.afterEach(transition => {
 
 	if (localStorage.userID) {
 		usersApi.get({ id: localStorage.userID }).then(response => {
-			actions.userUpdate(store, response.json());
+			actions.userUpdate(store, response.body);
 		});
 	}
 	achievementsApi.get().then(response => {
-		actions.achievementListUpdate(store, response.json());
+		actions.achievementListUpdate(store, response.body);
 	})
 });
 

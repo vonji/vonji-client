@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div><!-- TODO case insensitve match + don't match selected tags -->
 		<div class="row">
 			<span v-for="tag in parent.Tags" class="tag">
 				{{ tag.Name }} <button v-if="editMode" @click="removeTag($index)" class="btn btn-default tag-delete-button">x</button>
@@ -51,7 +51,7 @@
 			},
 			loadTagList() {
 				tagsApi.get().then(result => {
-					this.$set('tagsList', result.json());
+					this.$set('tagsList', result.body);
 				});
 			}
 		},

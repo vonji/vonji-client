@@ -50,7 +50,7 @@
 		route: {
 			data() {
 				return {
-					users: usersApi.get().then(users => users.json()),
+					users: usersApi.get().then(users => users.body),
 				};
 			},
 		},

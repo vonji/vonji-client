@@ -3,7 +3,7 @@ import * as A from './actionTypes';
 
 export const login = ({ dispatch }, email, password) => {
 	usersApi.getByEmail(email)
-		.then(result => result.json())
+		.then(result => result.body)
 		.then(user => {
 			if (user.Password === password) {
 				dispatch(A.LOGIN_SUCCESS, user);
