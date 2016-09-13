@@ -6,7 +6,7 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import RequestEditPartial from './RequestEditPartial.vue';
 	import TagsViewer from './TagsViewer.vue';
 	import { requestsApi } from '../../utils/resources';
@@ -20,8 +20,7 @@
 			'on-save': function (request) {
 				request.UserID = Number(localStorage.userID);
 				requestsApi.save(request)
-					.then((obj) => obj)//???
-					.then(() => this.$router.go('/requests'))
+					.then(response => this.$router.go('/requests/view/' + response.body.ID))
 					.catch(console.error);
 			}
 		}
