@@ -40,7 +40,7 @@ Vue.mixin({
 		fuzzySearch(objects, keys, pattern) {
 			if (pattern === undefined || pattern.trim().length === 0)
 				return objects;
-			return new Fuse(objects, { keys: keys }).search(pattern);
+			return new Fuse(objects, { keys: keys, threshold: 0.3 }).search(pattern);
 		}
 	}
 });
