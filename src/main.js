@@ -13,6 +13,7 @@ import RequestAdd from './components/requests/RequestAdd.vue';
 import RequestEdit from './components/requests/RequestEdit.vue';
 import RequestList from './components/requests/RequestList.vue';
 
+import TagEdit from './components/tags/TagEdit.vue';
 import TagList from './components/tags/TagList.vue';
 
 import AchievementList from './components/AchievementList.vue';
@@ -58,6 +59,9 @@ router.map({
 	},
 	'/tags/list': {
 		component: TagList
+	},
+	'tags/edit/:id': {
+		component: TagEdit
 	},
 	'/achievements': {
 		component: AchievementList

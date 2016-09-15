@@ -9,7 +9,7 @@
 	<div class="row">
 		<template v-for="tag in tags | search | sortByName">
 			<div class="tag-container col-md-2">
-				<span class="tag">{{ tag.Name }}</span><span class="tag-meta">x {{ requests | withTag tag | length }}</span>
+				<a v-link="'/tags/edit/' + tag.ID"><span class="glyphicon glyphicon-pencil"></span></a><span class="tag">{{ tag.Name }}</span><span class="tag-meta">x {{ requests | withTag tag | length }}</span>
 				<div class="tag-description">{{ tag.Description }}</div>
 				<div class="tag-meta">{{ requests | withTag tag | notCompleted | length }} requests waiting for help</div>
 				<div class="tag-meta">{{ requests | withTag tag | since 1 'year' | completed | length }} requests completed this year</div>
