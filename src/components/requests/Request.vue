@@ -8,94 +8,92 @@
 			</div>
 			<div class="row">
 				<div class="col-md-9">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="row">
-								<div class="col-md-2">
-									<button v-if="isLogged" class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Delete
-									</button>
-								</div>
-								<div class="col-md-10">
-									<content-viewer
-										:content="request"
-										:edit-Link="`/requests/edit/${request.ID}`"
-										@on-content-edit="requestContentChanged"
-									></content-viewer>
-								</div>
+					<div>
+						<div class="row">
+							<div class="col-md-2">
+								<button v-if="permissions.check(permissions.request.DELETE, request)" class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Delete
+								</button>
+							</div>
+							<div class="col-md-10">
+								<content-viewer
+									:content="request"
+									:edit-Link="`/requests/edit/${request.ID}`"
+									@on-content-edit="requestContentChanged"
+								></content-viewer>
 							</div>
 						</div>
-						<div class="col-md-12">
-							<h4>{{ request.Responses.length }} Réponses</h4>
-						</div>
-						<div v-for="response in sortedResponses" class="col-md-12">
-							<hr/>
-							<div class="row">
-								<div class="col-md-2">
-									<div v-if="isLogged">
-										<div class="btn-group-vertical">
-											<button type="button"
-													class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}"
-													@click="toggleResponseAcceptance(response)">
-												Accept
-											</button>
-											<button type="button" class="btn btn-sm btn-danger" @click="deleteResponse(response.ID)">
-												Delete
-											</button>
-										</div>
-									</div>
-									<div v-else>
-										<button v-if="response.Accepted" type="button"
-												class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}">
-											Accepted
+					</div>
+					<div>
+						<h4>{{ request.Responses.length }} Réponses</h4>
+					</div>
+					<div v-for="response in sortedResponses">
+						<hr/>
+						<div class="row">
+							<div class="col-md-2">
+								<div v-if="isLogged">
+									<div class="btn-group-vertical">
+										<button type="button"
+												class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}"
+												@click="toggleResponseAcceptance(response)">
+											Accept
+										</button>
+										<button type="button" class="btn btn-sm btn-danger" @click="deleteResponse(response.ID)">
+											Delete
 										</button>
 									</div>
 								</div>
-								<div class="col-md-10">
-									<content-viewer
-										:content="response"
-										:edit-link="`/responses/edit/${response.ID}`"
-										@on-content-edit="responseContentChanged"
-									></content-viewer>
+								<div v-else>
+									<button v-if="response.Accepted" type="button"
+											class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}">
+										Accepted
+									</button>
 								</div>
 							</div>
+							<div class="col-md-10">
+								<content-viewer
+									:content="response"
+									:edit-link="`/responses/edit/${response.ID}`"
+									@on-content-edit="responseContentChanged"
+								></content-viewer>
+							</div>
 						</div>
-						<template v-if="isLogged">
-							<div class="col-md-12">
-								<h4>Your proposal</h4>
-							</div>
-							<div class="col-md-12">
-								<hr/>
-								<form @submit.prevent="submitResponse">
-									<div class="form-group">
-										<label for="new-answer-description">Give a description of what you can
-											do</label>
-										<textarea
-											id="new-answer-description"
-											class="form-control"
-											v-model="newResponse.Content"
-											name="newResponse"
-											rows="8"
-											required
-										></textarea>
-									</div>
-									<div class="form-group">
-										<label for="new-answer-vcoin">How many vCoin do you charge for this?</label>
-										<input
-											id="new-answer-vcoin"
-											v-model="newResponse.Value"
-											class="form-control"
-											type="number"
-											min="0"
-											required
-										/>
-									</div>
-									<div class="form-group">
-										<button type="submit" class="btn btn-primary">Répondre</button>
-									</div>
-								</form>
-							</div>
-						</template>
 					</div>
+					<template v-if="isLogged">
+						<div>
+							<h4>Your proposal</h4>
+						</div>
+						<div>
+							<hr/>
+							<form @submit.prevent="submitResponse">
+								<div class="form-group">
+									<label for="new-answer-description">Give a description of what you can
+										do</label>
+									<textarea
+										id="new-answer-description"
+										class="form-control"
+										v-model="newResponse.Content"
+										name="newResponse"
+										rows="8"
+										required
+									></textarea>
+								</div>
+								<div class="form-group">
+									<label for="new-answer-vcoin">How many vCoin do you charge for this?</label>
+									<input
+										id="new-answer-vcoin"
+										v-model="newResponse.Value"
+										class="form-control"
+										type="number"
+										min="0"
+										required
+									/>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary">Répondre</button>
+								</div>
+							</form>
+						</div>
+					</template>
 				</div>
 				<div class="col-md-3">
 					<ul class="list-unstyled">
@@ -114,6 +112,7 @@
 	import moment from 'moment';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
+	import * as permissions from '../../utils/permissions';
 	import { requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
 	import { achievementList, isLogged } from '../../vuex/getters';
 	import { achievementAward } from '../../vuex/actions';
@@ -124,7 +123,8 @@
 				request: {
 					Responses: []
 				},
-				newResponse: {}
+				newResponse: {},
+				permissions
 			};
 		},
 		route: {
