@@ -22,6 +22,11 @@
 								></content-viewer>
 							</div>
 						</div>
+						<div class="row">
+							Durée: {{ request.Duration / 3600 }} heures<br><!-- todo -->
+							{{ request.Frequency }} fois par {{ request.FrequencyUnit }}<br>
+							Entre le {{ request.PeriodStart }} et le {{ request.PeriodEnd }}<br>
+						</div>
 					</div>
 					<div>
 						<h4>{{ request.Responses.length }} Réponses</h4>
