@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="save">
 		<div class="form-group">
-			<label for="#{{ request.ID }}-request-title">Request title</label>
+			<label for="#{{ request.ID }}-request-title">Titre de la requête</label>
 			<input
 				type="text" id="{{ request.ID }}-request-title"
 				v-model="request.Title"
@@ -11,7 +11,7 @@
 			/>
 		</div>
 		<div class="form-group">
-			<label for="#{{ request.ID }}-request-content">Description of your task</label>
+			<label for="#{{ request.ID }}-request-content">Description de la tâche</label>
 			<textarea
 				id="{{ request.ID }}-request-content"
 				rows="10"
@@ -65,7 +65,7 @@
 				</div>
 			</div>
 
-			<button type="submit" class="btn btn-primary btn-block btn-lg">Save</button>
+			<button type="submit" class="btn btn-primary btn-block btn-lg">Sauvegarder</button>
 		</div>
 	</form>
 </template>

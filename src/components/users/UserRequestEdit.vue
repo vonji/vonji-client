@@ -4,7 +4,7 @@
 		<form @submit.prevent="save" class="form-group">
 			<label for="user-request-edit-value">vCoins</label>
 			<input type="number" v-model="response.Value" min="{{min}}" value="{{response.Value}}" id="user-request-edit-value" class="form-control">
-			<button type="submit" class="btn btn-default">Save</button>
+			<button type="submit" class="btn btn-default">Sauvegarder</button>
 		</form>
 	</div>
 </template>

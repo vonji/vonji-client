@@ -11,7 +11,7 @@
 					<div>
 						<div class="row">
 							<div class="col-md-2">
-								<button class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Delete
+								<button class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Supprimer
 								</button>
 							</div>
 							<div class="col-md-10">
@@ -29,7 +29,7 @@
 						</div>
 					</div>
 					<div>
-						<h4>{{ request.Responses.length }} Réponses</h4>
+						<h4>{{ request.Responses.length }} réponses</h4>
 					</div>
 					<div v-for="response in sortedResponses">
 						<hr/>
@@ -40,17 +40,17 @@
 										<button type="button"
 												class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}"
 												@click="toggleResponseAcceptance(response)">
-											Accept
+											Accepter
 										</button>
 										<button type="button" class="btn btn-sm btn-danger" @click="deleteResponse(response.ID)">
-											Delete
+											Supprimer
 										</button>
 									</div>
 								</div>
 								<div v-else>
 									<button v-if="response.Accepted" type="button"
 											class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}">
-										Accepted
+										Acceptée
 									</button>
 								</div>
 							</div>
@@ -65,14 +65,13 @@
 					</div>
 					<template v-if="isLogged">
 						<div>
-							<h4>Your proposal</h4>
+							<h4>Votre proposition</h4>
 						</div>
 						<div>
 							<hr/>
 							<form @submit.prevent="submitResponse">
 								<div class="form-group">
-									<label for="new-answer-description">Give a description of what you can
-										do</label>
+									<label for="new-answer-description">Décrivez ce que vous pouvez faire</label>
 									<textarea
 										id="new-answer-description"
 										class="form-control"
@@ -83,7 +82,7 @@
 									></textarea>
 								</div>
 								<div class="form-group">
-									<label for="new-answer-vcoin">How many vCoin do you charge for this?</label>
+									<label for="new-answer-vcoin">Combien de vCoins voulez-vous en échange de ce service ?</label>
 									<input
 										id="new-answer-vcoin"
 										v-model="newResponse.Value"
@@ -102,8 +101,8 @@
 				</div>
 				<div class="col-md-3">
 					<ul class="list-unstyled">
-						<li><strong>asked</strong> {{ request.CreatedAt | fromNow }}</li>
-						<li><strong>viewed</strong> {{ request.Views }} times</li>
+						<li><strong>demandé</strong> {{ request.CreatedAt | fromNow }}</li>
+						<li><strong>vues</strong> {{ request.Views }} fois</li>
 						<li><strong>active</strong> {{ request.UpdatedAt | fromNow }}</li>
 					</ul>
 				</div>

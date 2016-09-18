@@ -10,8 +10,8 @@
 				></textarea>
 			</div>
 			<div class="btn-group">
-				<button type="submit" class="btn btn-primary">Save</button>
-				<button @click="cancel" class="btn btn-default">Cancel</button>
+				<button type="submit" class="btn btn-primary">Sauvegarder</button>
+				<button @click="cancel" class="btn btn-default">Annuler</button>
 			</div>
 		</form>
 		<div v-else class="v-content-body" @click="edit">
@@ -21,16 +21,16 @@
 		<div class="v-content-footer">
 			<div class="row">
 				<div class="col-md-4">
-					<a>share</a>
-					<a v-if="isLogged" v-link="editLink">improve this content</a>
+					<a>partager</a>
+					<a v-if="isLogged" v-link="editLink">ameliorer ce poste</a>
 				</div>
 				<div class="col-md-8">
 					<div class="v-content-usercards">
 						<user-card :user="content.User" :primary="true">
-							<a>posted {{ content.CreatedAt | format 'ddd D [at] LT' }}</a>
+							<a>posté {{ content.CreatedAt | format 'ddd D [at] LT' }}</a>
 						</user-card>
 						<user-card v-if="content.LastEditor" :user="content.LastEditor">
-							<a>edited {{ content.UpdatedAt | format 'ddd D [at] LT' }}</a>
+							<a>édité {{ content.UpdatedAt | format 'ddd D [at] LT' }}</a>
 						</user-card>
 					</div>
 				</div>

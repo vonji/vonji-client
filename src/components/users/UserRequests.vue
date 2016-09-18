@@ -5,7 +5,7 @@
 			<td>{{ request.CreatedAt | fromNow }}</td>
 			<td><a v-link="'/requests/view/' + request.ID">{{ request.Title }}</a></td>
 			<td v-if="request | acceptedResponse" is="request-grade-box" @grade="gradeResponse" :data="request | acceptedResponse"></td>
-			<td>{{ request.Views }} views {{ request.Responses.length}} responses</td>
+			<td>{{ request.Views }} vues {{ request.Responses.length}} réponses</td>
 			<td>
 				<a @click.prevent="editRequest(request)" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
 				<a @click.prevent="deleteRequest(request)" href="#"><span class="glyphicon glyphicon-trash"></span></a>

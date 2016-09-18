@@ -8,9 +8,9 @@
 				<input v-model="password" type="password" class="form-control" placeholder="Password"/>
 			</div>
 			<button type="submit" class="btn {{ isDisabled ? 'btn-default' : 'btn-primary' }}" disabled="{{ isDisabled }}">
-				Login
+				Connexion
 			</button>
-			<a class="btn btn-primary" v-link="'/users/add'">Sign up</a>
+			<a class="btn btn-primary" v-link="'/users/add'">S'inscrire</a>
 		</form>
 	</div>
 </template>

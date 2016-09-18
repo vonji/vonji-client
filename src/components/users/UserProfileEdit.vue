@@ -7,10 +7,10 @@
 					<avatar-box :user="user"></avatar-box>
 				</div>
 				<div class="col-md-6 form-group">
-					<label for="displayedNameInput">Displayed name</label>
+					<label for="displayedNameInput">Nom affiché</label>
 					<input type="text" v-model="user.DisplayedName" id="displayedNameInput" class="form-control" placeholder="Displayed name">
 
-					<label for="locationInput">Location </label>
+					<label for="locationInput">Ville</label>
 					<input type="text" v-model="user.Location" id="locationInput" class="form-control" placeholder="Location" >
 
 					<label for="mottoInput">Motto</label>
@@ -19,23 +19,23 @@
 					<br>
 
 					<label class="radio-inline">
-						<input type="radio" name="gender" v-model="user.Gender" value="man"> Man
+						<input type="radio" name="gender" v-model="user.Gender" value="man"> Homme
 					</label>
 					<label class="radio-inline">
-						<input type="radio" name="gender" v-model="user.Gender" value="woman"> Woman
+						<input type="radio" name="gender" v-model="user.Gender" value="woman"> Femme
 					</label>
 					<label class="radio-inline">
-						<input type="radio" name="gender" v-model="user.Gender" value="other"> Other
+						<input type="radio" name="gender" v-model="user.Gender" value="other"> Autre
 					</label>
 					<!-- TODO <input type="text" id="genderInput" v-model="user.Gender" placeholder="Specify"> Other -->
 				</div>
 			</div>
 			<div class="row profile-main">
-				<label for="descriptionInput">About me</label>
+				<label for="descriptionInput">A propos de moi</label>
 				<textarea name="description" v-model="user.Description" id="descriptionInput" class="form-control"></textarea>
 			</div>
 			<div class="row profileSocial">
-				<h4>Socials links</h4>
+				<h4>Réseaux sociaux</h4>
 
 				<div class="col-md-3">
 					<label for="facebookLinkInput">Facebook</label>
@@ -52,22 +52,22 @@
 			</div>
 			<hr>
 			<div class="row profilePrivate">
-				<h3>Private data</h3>
+				<h3>Données privées</h3>
 
-				<label for="realNameInput">Real name</label>
+				<label for="realNameInput">Nom</label>
 				<input type="text" v-model="user.RealName" id="realNameInput" class="form-control">
 
 				<label for="emailInput">Email</label>
 				<input type="email" v-model="user.Email" id="emailInput" class="form-control">
 
-				<label for="phoneInput">Phone number</label>
+				<label for="phoneInput">Numéro de téléphone</label>
 				<input type="tel" v-model="user.Phone" id="phoneInput" class="form-control">
 
-				<label for="birthdayInput">Birthday</label>
+				<label for="birthdayInput">Anniversaire</label>
 				<input type="date" v-model="user.Birthday" id="birthdayInput" class="form-control"> <!-- TODO js fall back -->
 			</div>
 			<div class="row">
-				<button type="submit" class="btn btn-default" @click.prevent="save">Save</button>
+				<button type="submit" class="btn btn-default" @click.prevent="save">Sauvegarder</button>
 			</div>
 		</div>
 	</div>

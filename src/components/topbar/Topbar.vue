@@ -1,10 +1,10 @@
 <template lang="html">
 	<bs-navbar brand-name="Vonji" link="/">
 		<ul class="nav navbar-nav">
-			<li><a v-link="'/requests'">Requests</a></li>
-			<li><a v-link="'/tags/list'">Tags</a></li>
-			<li><a v-link="'/users/list'">Users</a></li>
-			<li v-if="isLogged"><a v-link="'/requests/add'">New request</a></li>
+			<li><a v-link="'/requests'">Requêtes</a></li>
+			<li><a v-link="'/tags/list'">Compétences</a></li>
+			<li><a v-link="'/users/list'">Membres</a></li>
+			<li v-if="isLogged"><a v-link="'/requests/add'">Nouvelle requête</a></li>
 		</ul>
 		<login-form v-if="isGuest" class="nav navbar-nav navbar-right"></login-form>
 		<ul v-else class="nav navbar-nav navbar-right">

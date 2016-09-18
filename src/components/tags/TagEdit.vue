@@ -7,7 +7,7 @@
 			<div class="form-group">
 				<textarea v-model="tag.Description" class="form-control"></textarea>
 			</div>
-			<button type="submit" class="btn btn-default">Save</button>
+			<button type="submit" class="btn btn-default">Sauvegarder</button>
 		</form>
 	</div>
 </template>

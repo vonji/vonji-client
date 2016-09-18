@@ -11,12 +11,12 @@
 				<div class="row">{{ user.Motto }}</div>
 			</div>
 			<div class="col-md-3">
-				<div class="row">Member since {{ user.CreatedAt | fromNow }}</div>
+				<div class="row">Membre depuis {{ user.CreatedAt | fromNow }}</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<h2>Tags</h2>
+				<h2>Compétences</h2>
 				<div v-for="tag in user.Tags" class="tag">{{ tag.Name }}</div>
 			</div>
 			<div class="col-md-6">

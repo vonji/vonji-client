@@ -6,7 +6,7 @@
 		</bs-search-bar>
 		<loading v-if="users.length == 0"></loading>
 		<div class="row user-list-filters">
-			<a class="user-list-filter" @click.prevent="this.timeFilter = 'day'">today</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'week'">week</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'month'">month</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'posix'">all</a>
+			<a class="user-list-filter" @click.prevent="this.timeFilter = 'day'">aujourd'hui</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'week'">semaine</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'month'">mois</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'posix'">tout les temps</a>
 		</div>
 		<div class="row v-user-view">
 			<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users | filter | since 1 timeFilter | byCreation">
@@ -25,7 +25,7 @@
 							</div>
 						</div>
 						<p>{{ user.Motto }}</p>
-						<div class="v-user-date">member since {{ user.CreatedAt | fromNow true }}</div>
+						<div class="v-user-date">membre depuis {{ user.CreatedAt | fromNow true }}</div>
 					</div>
 				</div>
 			</div>
