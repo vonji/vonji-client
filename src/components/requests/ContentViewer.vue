@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<a>share</a>
-					<a v-if="isLogged" href="#" @click.prevent="edit">improve this content</a>
+					<a v-if="isLogged" v-link="editLink">improve this content</a>
 				</div>
 				<div class="col-md-8">
 					<div class="v-content-usercards">
