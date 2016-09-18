@@ -11,7 +11,7 @@
 					<div>
 						<div class="row">
 							<div class="col-md-2">
-								<button v-if="permissions.check(permissions.request.DELETE, request)" class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Delete
+								<button class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Delete
 								</button>
 							</div>
 							<div class="col-md-10">
@@ -117,7 +117,6 @@
 	import moment from 'moment';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
-	import * as permissions from '../../utils/permissions';
 	import { requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
 	import { achievementList, isLogged } from '../../vuex/getters';
 	import { achievementAward } from '../../vuex/actions';
@@ -128,8 +127,7 @@
 				request: {
 					Responses: []
 				},
-				newResponse: {},
-				permissions
+				newResponse: {}
 			};
 		},
 		route: {
