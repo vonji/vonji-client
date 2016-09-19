@@ -3,6 +3,9 @@ import App from './components/App.vue';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import moment from 'moment';
+import 'moment/locale/fr';
+
 import UserAdd from './components/users/UserAdd.vue';
 import UserList from './components/users/UserList.vue';
 import UserProfile from './components/users/UserProfile.vue';
@@ -23,6 +26,8 @@ import { achievementsApi, usersApi } from './utils/resources';
 
 global.jQuery = require('jquery');
 require('bootstrap-loader');
+
+moment().locale('fr');
 
 Vue.use(VueRouter);
 
