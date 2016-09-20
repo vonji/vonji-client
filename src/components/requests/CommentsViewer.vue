@@ -12,7 +12,7 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import { commentsApi } from '../../utils/resources';
 	import { isLogged } from '../../vuex/getters';
 	import Comment from './Comment.vue'
@@ -51,7 +51,7 @@
 				.then(response => {
 					this.commentInput = '';
 					this.content.Comments = this.content.Comments || [];
-					this.content.Comments.push(JSON.parse(response.body))
+					this.content.Comments.push(response.body)
 				});
 			}
 		}
