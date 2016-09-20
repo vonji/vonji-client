@@ -11,6 +11,10 @@
 			/>
 		</div>
 		<div class="form-group">
+			<label for="request-location-input">Lieu</label>
+			<input type="text" v-model="request.Location" required id="request-location-input" class="form-control">
+		</div>
+		<div class="form-group">
 			<label for="#{{ request.ID }}-request-content">Description de la tâche</label>
 			<textarea
 				id="{{ request.ID }}-request-content"
@@ -70,7 +74,7 @@
 	</form>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import TagsViewer from './TagsViewer.vue';
 	import moment from 'moment';
 
@@ -80,7 +84,8 @@
 				type: Object,
 				default: () => ({
 					Tags: [],
-					Status: 'pending'
+					Status: 'pending',
+					Location: ''
 				})
 			}
 		},
@@ -88,6 +93,18 @@
 			return {
 				duration: null,
 				durationUnit: 'hour'
+			}
+		},
+		ready() {
+			if (this.request.Location === undefined || this.request.Location.trim().length === 0) {
+				navigator.geolocation.getCurrentPosition(position => {
+					let coords = position.coords;
+
+					this.$http.get('https://search.mapzen.com/v1/reverse?api_key=mapzen-SKq33X7&point.lat='+coords.latitude+'&point.lon='+coords.longitude+'&layers=region&size=1')
+						.then(response => {
+							this.request.Location = response.body.features[0].properties.region;
+						})
+				});
 			}
 		},
 		watch: {
