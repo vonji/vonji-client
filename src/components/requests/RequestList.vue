@@ -53,7 +53,7 @@
 		route: {
 			data() {
 				return {
-					requests: requestsApi.Light()
+					requests: requestsApi.get().then(response => response.body)
 				}
 			}
 		},
