@@ -1,13 +1,13 @@
 <template>
 	<div>
 		<bs-search-bar :input.sync="searchInput" placeholder="Recherchez une requête">
-			<slot slot="search">{{ requests | pending | search | length }} résultats sur {{ requests | pending | length }}</slot>
-			<slot>{{ requests | pending | length }} requêtes</slot>
+			<slot slot="search">{{ requests | pending | notMine | search | length }} résultats sur {{ requests | notMine | pending | length }}</slot>
+			<slot>{{ requests | pending | notMine | length }} requêtes</slot>
 		</bs-search-bar>
 		<div class="row">
 			<div class="col-md-8">
 				<loading v-if="requests.length == 0"></loading>
-				<div v-for="request in requests | pending | search | byUpdate">
+				<div v-for="request in requests | pending | notMine | search | byUpdate">
 					<div class="row request-row">
 						<div class="col-sm-6">
 							<div class="row request-title">
@@ -42,6 +42,7 @@
 	import Loading from '../Loading.vue';
 	import RequestNear from './RequestNear.vue';
 	import { requestsApi } from '../../utils/resources';
+	import { currentUser } from '../../vuex/getters';
 
 	export default {
 		data() {
@@ -68,7 +69,13 @@
 			},
 			pending(requests) {
 				return requests.filter(req => req.Status === 'pending')
+			},
+			notMine(requests) {
+				return requests.filter(req => req.UserID !== currentUser(this.$store.state).ID);
 			}
+		},
+		getters: {
+			currentUser
 		}
 	}
 </script>
