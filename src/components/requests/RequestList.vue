@@ -21,7 +21,7 @@
 							postée {{ request.UpdatedAt | fromNow }} par <a v-link="'/users/profile/view/' + request.User.ID"> {{ request.User.DisplayedName }} </a>
 						</div>
 						<div class="col-sm-2">
-							<a v-link="'/users/profile/view/' + request.User.ID"><img :src="request.User.Avatar" alt="user Avatar" width="40" height="40"></a>
+							<user-card :user="request.User" :primary="true"></user-card>
 						</div>
 					</div>
 				</div>
@@ -41,6 +41,7 @@
 	import BsSearchBar from '../bootstrap/BsSearchBar.vue';
 	import Loading from '../Loading.vue';
 	import RequestNear from './RequestNear.vue';
+	import UserCard from '../users/UserCard.vue';
 	import { requestsApi } from '../../utils/resources';
 	import { currentUser } from '../../vuex/getters';
 
@@ -61,7 +62,8 @@
 		components: {
 			BsSearchBar,
 			Loading,
-			RequestNear
+			RequestNear,
+			UserCard
 		},
 		filters: {
 			search(requests) {
