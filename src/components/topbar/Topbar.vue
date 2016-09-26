@@ -4,6 +4,7 @@
 			<li><a v-link="'/requests'">Requêtes</a></li>
 			<li><a v-link="'/tags/list'">Compétences</a></li>
 			<li><a v-link="'/users/list'">Membres</a></li>
+			<li><a v-link="'/achievements'">Badges</a></li>
 			<li v-if="isLogged"><a v-link="'/requests/add'">Nouvelle requête</a></li>
 		</ul>
 		<login-form v-if="isGuest" class="nav navbar-nav navbar-right"></login-form>

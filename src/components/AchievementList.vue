@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-for="achievement in achievements" class="row achievement-row">
+		<div v-for="achievement in achievementList" class="row achievement-row">
 			<div class="col-md-2"><span v-if="has(achievement)" class="glyphicon glyphicon-ok"></span></div>
 			<div class="col-md-3"><button class="btn" style="cursor: default">{{ achievement.Name }}</button></div>
 			<div class="col-md-4">{{ achievement.Description }}</div>
@@ -10,27 +10,24 @@
 </template>
 
 <script type="text/ecmascript-6">
-
+	import { achievementList, currentUser } from '../vuex/getters';
 	import { achievementsApi, usersApi } from '../utils/resources';
 
 	export default {
 		data() {
 			return {
-				user: {},
 				achievements: {}
-			}
-		},
-		route: {
-			data() {
-				return {
-					user: usersApi.get({ id: localStorage.userID }).then(response => response.body),
-					achievements: achievementsApi.get().then(response => response.body)
-				}
 			}
 		},
 		methods: {
 			has(achievement) {
-				return this.user.Achievements.some(e => e.ID == achievement.ID);
+				return currentUser(this.$store.state).Achievements.some(e => e.ID == achievement.ID);
+			}
+		},
+		vuex: {
+			getters: {
+				achievementList,
+				currentUser
 			}
 		}
 	}
