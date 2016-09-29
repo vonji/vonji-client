@@ -1,11 +1,7 @@
 <template>
-	<div> <!-- single root level so the component is not a fragment -->
-		<div
-			v-for="alert in alerts"
-			@click="alertDismiss($index)"
-			class="alert alert-{{alert.type}}"
-		>
-			{{alert.message}}
+	<div>
+		<div v-for="alert in alerts" @click="alertDismiss($index)" class="alert alert-{{alert.type}}">
+			{{ alert.message }}
 		</div>
 	</div>
 </template>
@@ -14,9 +10,6 @@
 	import { alertDismiss } from '../vuex/actions'
 
 	export default {
-		date() {
-			return {}
-		},
 		vuex: {
 			getters: {
 				alerts: (state) => state.alerts
@@ -27,3 +20,12 @@
 		}
 	}
 </script>
+
+<style>
+	.alert {
+		position: fixed;
+		right: 5px;
+		min-width: 20%;
+		text-align: center;
+	}
+</style>
