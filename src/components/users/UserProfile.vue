@@ -127,11 +127,6 @@
 					responsesApi.update(response)
 						.then(() => {
 							this.user.Tags = this.user.Tags.concat(request.Tags);
-							this.user.VCoins -= response.Value;
-							usersApi.update(this.user);
-						})
-						.then(() => {
-							response.User.VCoins += response.Value;
 							usersApi.update(this.user);
 						})
 						.then(() => {
@@ -145,15 +140,11 @@
 							});
 						})
 						.then(() => {
-							achievementAward({ dispatch }, this.achievementList[4], this.request.User)
+							achievementAward({ dispatch }, this.$store.state.achievementList[4], request.User)//TODO use getter for achievementList
 						})
 						.then(() => {
-							this.request.Status = 'graded';
+							request.Status = 'graded';
 							requestsApi.update(request);
-						})
-						.catch(error => {
-							console.log(error);
-							response.Rating = 0;
 						})
 				},
 				getters: {
