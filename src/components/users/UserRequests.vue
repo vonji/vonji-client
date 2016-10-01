@@ -4,7 +4,7 @@
 		<tr v-for="request in requests | byCreation">
 			<td>{{ request.CreatedAt | fromNow }}</td>
 			<td><a v-link="'/requests/view/' + request.ID">{{ request.Title }}</a></td>
-			<td v-if="request | acceptedResponse" is="request-grade-box" @grade="gradeResponse" :data="request | acceptedResponse"></td>
+			<td v-if="request.Status === 'accepted'" is="request-grade-box" @grade="gradeResponse" :data="request | acceptedResponse"></td>
 			<td>{{ request.Views }} vues {{ request.Responses.length}} réponses</td>
 			<td>
 				<a @click.prevent="editRequest(request)" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
