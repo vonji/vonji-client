@@ -116,9 +116,9 @@
 	import moment from 'moment';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
-	import { requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
-	import { achievementList, isLogged } from '../../vuex/getters';
-	import { achievementAward } from '../../vuex/actions';
+	import { requestsApi, responsesApi, transactionsApi, usersApi } from '../../utils/resources';
+	import { achievementList, isLogged, currentUser } from '../../vuex/getters';
+	import { achievementAward, userUpdate } from '../../vuex/actions';
 
 	export default {
 		data() {
@@ -188,6 +188,10 @@
 								Reason: 'Accepted response',
 								Source: '/requests/view/' + this.request.ID
 							})
+							.then(() => {
+								usersApi.get({ id: this.request.UserID }).then(res => { this.request.User = res.body; });
+								usersApi.get({ id: response.UserID }).then(res => { response.User = res.body });
+							});
 						}
 					})
 					.catch(error => {

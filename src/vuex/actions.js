@@ -43,7 +43,7 @@ export const achievementListUpdate = ({ dispatch }, achievements) => {
 	dispatch(A.ACHIEVEMENT_LIST_UPDATE, achievements);
 };
 
-export const achievementAward = (({ dispatch }, achievement, user) => {
+export const achievementAward = ({ dispatch }, achievement, user) => {
 	if (user.Achievements.some(e => e.ID == achievement.ID))
 		return;
 	user.Achievements.push(achievement);
@@ -58,8 +58,12 @@ export const achievementAward = (({ dispatch }, achievement, user) => {
 				Reason: 'Achievement get: ' + achievement.Name,
 				Source: '/achievements'
 			});
-		}).then(() => {
+		})
+		.then(() => {
+			usersApi.get({ id: localStorage.userID })//todo use state
+				.then(result => { user = result.body });
+		})
+		.then(() => {
 			dispatch(A.ALERT, 'info', 'Achievement get: ' + achievement.Name);
 			dispatch(A.USER_UPDATE, user);
 		});
-});

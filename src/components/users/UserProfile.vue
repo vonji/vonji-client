@@ -74,7 +74,7 @@
 	import UserRequestEdit from './UserRequestEdit.vue';
 	import { usersApi, requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
 	import { achievementAward } from '../../vuex/actions';
-	import { achievementList } from '../../vuex/getters';
+	import { achievementList, userUpdate } from '../../vuex/actions';
 
 	export default {
 		data() {
@@ -126,8 +126,15 @@
 					response.Rating = grade;
 					responsesApi.update(response)
 						.then(() => {
+							request.Status = 'graded';
+							requestsApi.update(request);
+						})
+						.then(() => {
 							this.user.Tags = this.user.Tags.concat(request.Tags);
 							usersApi.update(this.user);
+						})
+						.then(() => {
+							achievementAward({ dispatch }, this.$store.state.achievementList[4], this.user)//TODO use getter for achievementList
 						})
 						.then(() => {
 							transactionsApi.save({
@@ -137,14 +144,13 @@
 								Amount: response.Value,
 								Reason: 'Request fullfiled',
 								Source: '/requests/view/' + request.ID
+							})
+							.then(() => {
+								usersApi.get({ id: this.user.ID }).then(res => {
+									this.user = res.body;
+									userUpdate({ dispatch }, this.user);
+								})
 							});
-						})
-						.then(() => {
-							achievementAward({ dispatch }, this.$store.state.achievementList[4], request.User)//TODO use getter for achievementList
-						})
-						.then(() => {
-							request.Status = 'graded';
-							requestsApi.update(request);
 						})
 				},
 				getters: {
