@@ -55,6 +55,11 @@ export const tagsApi = Vue.resource('tags{/id}');
 export const transactionsApi = Vue.resource('transactions{/id}');
 export const achievementsApi = Vue.resource('achievements{/id}');
 
+let notificationsApi = Vue.resource('notifications{/id}');
+notificationsApi.getFor = userID => Vue.http.get('notifications/where' + encodeURI(JSON.stringify({ UserID: Number(userID) })));
+
+export { notificationsApi };
+
 let usersApi = Vue.resource('users{/id}');
 usersApi.getByEmail = email => Vue.http.get('users/where/' + encodeURI(JSON.stringify({ Email: email })));
 usersApi.getHistoric = id => {

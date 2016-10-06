@@ -6,6 +6,7 @@
 			<li><a v-link="'/users/list'">Membres</a></li>
 			<li><a v-link="'/achievements'">Badges</a></li>
 			<li v-if="isLogged"><a v-link="'/requests/add'">Nouvelle requête</a></li>
+			<li><a href="#"><span is="notification"></span></a></li>
 		</ul>
 		<login-form v-if="isGuest" class="nav navbar-nav navbar-right"></login-form>
 		<ul v-else class="nav navbar-nav navbar-right">
@@ -20,15 +21,18 @@
 	import LoginForm from './LoginForm.vue';
 	import LogoutForm from './LogoutForm.vue';
 	import BsNavbar from '../bootstrap/BsNavbar.vue';
+	import Notification from './Notification.vue';
 
 	import { usersApi } from '../../utils/resources';
 	import { isLogged, isGuest, currentUser } from '../../vuex/getters'
+
 
 	export default {
 		components: {
 			BsNavbar,
 			LoginForm,
-			LogoutForm
+			LogoutForm,
+			Notification,
 		},
 		vuex: {
 			getters: {

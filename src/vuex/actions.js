@@ -67,3 +67,8 @@ export const achievementAward = ({ dispatch }, achievement, user) => {
 			dispatch(A.ALERT, 'info', 'Achievement get: ' + achievement.Name);
 			dispatch(A.USER_UPDATE, user);
 		});
+};
+
+export const notificationsUpdate = ({ dispatch}, notifications) => {
+	dispatch(A.NOTIFICATION_UPDATE, notifications);
+};

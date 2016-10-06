@@ -9,7 +9,8 @@ const state = {
 	achievementList: [],
 	alerts: [],
 	user: {},
-	userID: localStorage.userID
+	userID: localStorage.userID,
+	notifications: []
 };
 
 const mutations = {
@@ -39,6 +40,9 @@ const mutations = {
 	},
 	[A.ACHIEVEMENT_LIST_UPDATE] (state, achievementList) {
 		state.achievementList = achievementList;
+	},
+	[A.NOTIFICATION_UPDATE] (state, notifications) {
+		state.notifications = notifications;
 	}
 };
 

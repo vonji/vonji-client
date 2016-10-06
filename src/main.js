@@ -22,7 +22,7 @@ import TagList from './components/tags/TagList.vue';
 import AchievementList from './components/AchievementList.vue';
 
 import * as actions from './vuex/actions';
-import { achievementsApi, usersApi } from './utils/resources';
+import { achievementsApi, usersApi, notificationsApi } from './utils/resources';
 
 global.jQuery = require('jquery');
 require('bootstrap-loader');
@@ -73,6 +73,8 @@ router.map({
 	}
 });
 
+//TODO use mixin to allow easier access to store.state from components
+
 router.afterEach(transition => {
 	let store = transition.to.router.app.$store;
 
@@ -83,6 +85,9 @@ router.afterEach(transition => {
 	}
 	achievementsApi.get().then(response => {
 		actions.achievementListUpdate(store, response.body);
+	});
+	notificationsApi.getFor(localStorage.userID).then(response => {
+		actions.notificationsUpdate(store, response.body);
 	})
 });
 

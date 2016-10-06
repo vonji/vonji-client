@@ -13,3 +13,7 @@ export function currentUser(state) {
 export function achievementList(state) {
 	return state.achievementList;
 }
+
+export function notifications(state) {
+	return state.notifications;
+}
