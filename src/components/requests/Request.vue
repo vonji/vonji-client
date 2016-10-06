@@ -194,6 +194,15 @@
 							});
 						}
 					})
+					.then(() => {
+						if (response.Accepted) {
+							notificationsApi.save({
+								UserID: response.UserID,
+								Title: 'Votre réponse à été acceptée',
+								Message: this.request.Title,
+							});
+						}
+					})
 					.catch(error => {
 						console.error(error);
 					})
