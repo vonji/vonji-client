@@ -75,6 +75,8 @@ router.map({
 
 //TODO use mixin to allow easier access to store.state from components
 
+let refreshId = 9;
+
 router.afterEach(transition => {
 	let store = transition.to.router.app.$store;
 
@@ -86,9 +88,12 @@ router.afterEach(transition => {
 	achievementsApi.get().then(response => {
 		actions.achievementListUpdate(store, response.body);
 	});
-	notificationsApi.getFor(localStorage.userID).then(response => {
-		actions.notificationsUpdate(store, response.body);
-	})
+	window.clearInterval(refreshId);//TODO refactor
+	refreshId = window.setInterval(() => {
+		notificationsApi.getFor(localStorage.userID).then(response => {
+			actions.notificationsUpdate(store, response.body);
+		})
+	}, 5000);
 });
 
 router.start(App, '#app');
