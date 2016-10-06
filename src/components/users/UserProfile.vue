@@ -166,10 +166,10 @@
 				return transactions.filter(e => e.Type === 'VCOIN')
 			},
 			pending(requests) {
-				return requests.filter(req => !req.Responses.some(res => res.Accepted));
+				return requests.filter(req => req.Status === 'pending');
 			},
 			accepted(requests) {
-				return requests.filter(req => req.Responses.some(res => res.Accepted && res.Rating === 0));
+				return requests.filter(req => req.Status === 'accepted');
 			}
 		},
 		components: {
