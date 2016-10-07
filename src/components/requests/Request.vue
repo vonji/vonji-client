@@ -112,11 +112,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-	import _ from 'lodash';
 	import moment from 'moment';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
-	import { requestsApi, responsesApi, transactionsApi, usersApi } from '../../utils/resources';
+	import { requestsApi, responsesApi, transactionsApi, notificationsApi, usersApi } from '../../utils/resources';
 	import { achievementList, isLogged, currentUser } from '../../vuex/getters';
 	import { achievementAward, userUpdate } from '../../vuex/actions';
 
