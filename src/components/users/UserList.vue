@@ -10,18 +10,19 @@
 		</div>
 		<div class="row v-user-view">
 			<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users | filter | since 1 timeFilter | byCreation">
-				<div class="media">
+				<div class="user-list-user media">
 					<div class="media-left">
 						<a v-link="'/users/profile/view/' + user.ID">
-							<img class="media-object" :src="user.Avatar" width="60" height="60" alt="Avatar">
+							<img class="media-object" :src="user.Avatar ? user.Avatar : 'http://placehold.it/60x60'" width="60" height="60" alt="Avatar">
 						</a>
 					</div>
 					<div class="media-body">
 						<div class="v-user-heading">
 							<div class="v-user-name"><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></div>
 							<div class="v-user-reput">
-								{{ user.VAction }} VActions
-								<!-- TODO cestmoche {{ user.VCoins }} VCoins -->
+								{{ user.VAction }} vActions
+								<br>
+								{{ user.VCoins }} vCoins
 							</div>
 						</div>
 						<p>{{ user.Motto }}</p>
@@ -93,5 +94,8 @@
 	}
 	.user-list-filter {
 		cursor: pointer;
+	}
+	.user-list-user {
+		min-height: 100px;
 	}
 </style>

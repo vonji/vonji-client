@@ -9,7 +9,7 @@
 	<div class="row">
 		<template v-for="tag in tags | search | sortByName">
 			<div class="tag-container col-md-2">
-				<a v-link="'/tags/edit/' + tag.ID"><span class="glyphicon glyphicon-pencil"></span></a><span class="tag">{{ tag.Name }}</span><span class="tag-meta">x {{ requests | withTag tag | length }}</span>
+				<a v-link="'/tags/edit/' + tag.ID"><span class="tag-list-edit glyphicon glyphicon-pencil"></span></a><span class="tag">{{ tag.Name }}</span><span class="tag-meta">x {{ requests | withTag tag | length }}</span>
 				<div class="tag-description">{{ tag.Description }}</div>
 				<div class="tag-meta">{{ requests | withTag tag | notCompleted | length }} requêtes en attentes</div>
 				<div class="tag-meta">{{ requests | withTag tag | since 1 'year' | completed | length }} requêtes complétées cette année</div>
@@ -64,6 +64,7 @@
 <style lang="scss">
 	.tag-container {
 		margin-bottom: 5px;
+		min-height: 72px!important;
 	}
 	.tag-meta {
 		font-size: 10px;
@@ -71,5 +72,8 @@
 	.tag-description {
 		color: gray;
 		font-size: 12px;
+	}
+	.tag-list-edit {
+		margin-right: 5px;
 	}
 </style>
