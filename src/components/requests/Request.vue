@@ -184,7 +184,7 @@
 								ToID: response.UserID,
 								Amount: 15,
 								Type: 'VACTION',
-								Reason: 'Accepted response',
+								Reason: 'Vous avez accepté une réponse',
 								Source: '/requests/view/' + this.request.ID
 							})
 							.then(() => {
