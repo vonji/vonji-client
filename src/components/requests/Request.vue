@@ -11,7 +11,7 @@
 					<div>
 						<div class="row">
 							<div class="col-md-2">
-								<button class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Supprimer
+								<button v-if="false" class="btn btn-danger btn-sm" @click="deleteRequest(request.ID)">Supprimer
 								</button>
 							</div>
 							<div class="col-md-10">
@@ -42,7 +42,7 @@
 												@click="toggleResponseAcceptance(response)">
 											Accepter
 										</button>
-										<button type="button" class="btn btn-sm btn-danger" @click="deleteResponse(response.ID)">
+										<button v-if="false" type="button" class="btn btn-sm btn-danger" @click="deleteResponse(response.ID)">
 											Supprimer
 										</button>
 									</div>

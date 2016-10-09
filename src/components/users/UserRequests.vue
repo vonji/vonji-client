@@ -8,7 +8,7 @@
 			<td>{{ request.Views }} vues {{ request.Responses.length}} réponses</td>
 			<td>
 				<a @click.prevent="editRequest(request)" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-				<a @click.prevent="deleteRequest(request)" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+				<a v-if="delete" @click.prevent="deleteRequest(request)" href="#"><span class="glyphicon glyphicon-trash"></span></a>
 			</td>
 		</tr>
 		</tbody>
