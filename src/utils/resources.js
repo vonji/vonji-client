@@ -54,6 +54,7 @@ export const commentsApi = Vue.resource('comments{/id}');
 export const tagsApi = Vue.resource('tags{/id}');
 export const transactionsApi = Vue.resource('transactions{/id}');
 export const achievementsApi = Vue.resource('achievements{/id}');
+export const adsApi = Vue.resource('ads{/id}');
 
 let notificationsApi = Vue.resource('notifications{/id}');
 notificationsApi.getFor = userID => Vue.http.get('notifications/where' + encodeURI(JSON.stringify({ UserID: Number(userID) })));

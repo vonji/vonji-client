@@ -8,6 +8,11 @@
 						<alerts></alerts>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<ad></ad>
+					</div>
+				</div>
 				<router-view></router-view>
 			</div>
 		</div>
@@ -19,6 +24,7 @@
 
 	import Topbar from './topbar/Topbar.vue'
 	import Alerts from './Alerts.vue'
+	import Ad from './ads/Ad.vue';
 
 	import * as actions from '../vuex/actions'
 
@@ -29,7 +35,8 @@
 		store: store,
 		components: {
 			Topbar,
-			Alerts
+			Alerts,
+			Ad
 		},
 		actions,
 	}
