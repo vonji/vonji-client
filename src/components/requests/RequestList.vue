@@ -26,7 +26,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 hidden-xs">
 				<request-near :requests="requests"></request-near>
 			</div>
 		</div>
