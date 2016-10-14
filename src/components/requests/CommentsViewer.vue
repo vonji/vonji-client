@@ -4,9 +4,9 @@
 			<comment :comment="comment"></comment>
 		</div>
 		<div class="row" v-if="isLogged">
-			<form @submit.prevent="submitComment">
-				<input type="text" title="commentInput" v-model="commentInput">
-				<button type="submit" class="btn btn-sm btn-default">Commenter</button>
+			<form @submit.prevent="submitComment" class="form-inline">
+				<input type="text" title="commentInput" v-model="commentInput" class="form-control">
+				<button type="submit" class="btn btn-default">Commenter</button>
 			</form>
 		</div>
 	</div>
