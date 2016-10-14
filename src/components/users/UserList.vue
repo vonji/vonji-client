@@ -20,7 +20,7 @@
 						<div class="v-user-heading">
 							<div class="v-user-name"><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></div>
 							<div class="v-user-reput">
-								{{ user.VAction }} vActions
+								{{ user.VActions }} vActions
 								<br>
 								{{ user.VCoins }} vCoins
 							</div>

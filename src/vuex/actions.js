@@ -47,7 +47,7 @@ export const achievementAward = ({ dispatch }, achievement, user) => {
 	if (user.Achievements.some(e => e.ID == achievement.ID))
 		return;
 	user.Achievements.push(achievement);
-	user.VAction += achievement.Award;
+	user.VActions += achievement.Award;
 	usersApi.update(user)
 		.then(() => {
 			transactionsApi.save({

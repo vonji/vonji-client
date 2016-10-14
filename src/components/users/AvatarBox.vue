@@ -4,7 +4,7 @@
 		<br>
 		<span class="avatar-box-stats">{{ user.VCoins }} vCoins</span>
 		<br>
-		<span class="avatar-box-stats">{{ user.VAction }} vActions</span>
+		<span class="avatar-box-stats">{{ user.VActions }} vActions</span>
 	</div>
 </template>
 
