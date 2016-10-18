@@ -1,20 +1,22 @@
 <template>
-	<bs-search-bar :input.sync="searchInput" placehold="Recherchez une compétence">
-		<slot slot="search">{{ searchResults.length }} compétences sur {{ tags.length }}</slot>
-		<slot>{{ tags.length }} compétences</slot>
-	</bs-search-bar>
-	<div class="row">
-		<h2></h2>
-	</div>
-	<div class="row">
-		<template v-for="tag in searchResults">
-			<div class="tag-container col-md-2">
-				<a v-link="'/tags/edit/' + tag.ID"><span class="tag-list-edit glyphicon glyphicon-pencil"></span></a><span class="tag">{{ tag.Name }}</span><span class="tag-meta">x {{ requests | withTag tag | length }}</span>
-				<div class="tag-description">{{ tag.Description }}</div>
-				<div class="tag-meta">{{ requests | withTag tag | notCompleted | length }} requêtes en attentes</div>
-				<div class="tag-meta">{{ requests | withTag tag | since 1 'year' | completed | length }} requêtes complétées cette année</div>
-			</div>
-		</template>
+	<div>
+		<bs-search-bar :input.sync="searchInput" placehold="Recherchez une compétence">
+			<slot slot="search">{{ searchResults.length }} compétences sur {{ tags.length }}</slot>
+			<slot>{{ tags.length }} compétences</slot>
+		</bs-search-bar>
+		<div class="row">
+			<h2></h2>
+		</div>
+		<div class="row">
+			<template v-for="tag in searchResults">
+				<div class="tag-container col-md-2">
+					<a v-link="'/tags/edit/' + tag.ID"><span class="tag-list-edit glyphicon glyphicon-pencil"></span></a><span class="tag">{{ tag.Name }}</span><span class="tag-meta">x {{ requests | withTag tag | length }}</span>
+					<div class="tag-description">{{ tag.Description }}</div>
+					<div class="tag-meta">{{ requests | withTag tag | notCompleted | length }} requêtes en attentes</div>
+					<div class="tag-meta">{{ requests | withTag tag | since 1 'year' | completed | length }} requêtes complétées cette année</div>
+				</div>
+			</template>
+		</div>
 	</div>
 </template>
 
