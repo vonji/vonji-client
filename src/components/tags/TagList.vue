@@ -1,13 +1,13 @@
 <template>
 	<bs-search-bar :input.sync="searchInput" placehold="Recherchez une compétence">
-		<slot slot="search">{{ tags | search | length }} compétences sur {{ tags.length }}</slot>
+		<slot slot="search">{{ searchResults.length }} compétences sur {{ tags.length }}</slot>
 		<slot>{{ tags.length }} compétences</slot>
 	</bs-search-bar>
 	<div class="row">
 		<h2></h2>
 	</div>
 	<div class="row">
-		<template v-for="tag in tags | search | sortByName">
+		<template v-for="tag in searchResults">
 			<div class="tag-container col-md-2">
 				<a v-link="'/tags/edit/' + tag.ID"><span class="tag-list-edit glyphicon glyphicon-pencil"></span></a><span class="tag">{{ tag.Name }}</span><span class="tag-meta">x {{ requests | withTag tag | length }}</span>
 				<div class="tag-description">{{ tag.Description }}</div>
@@ -38,13 +38,13 @@
 				}
 			}
 		},
+		computed: {
+			searchResults() {
+				return this.fuzzySearch(this.tags, ['Name'], this.searchInput).slice()
+						.sort((a, b) => a.Name.localeCompare(b.Name));
+			}
+		},
 		filters: {
-			search(tags) {
-				return this.fuzzySearch(tags, ['Name'], this.searchInput).slice();
-			},
-			sortByName(tags) {
-				return tags.sort((a, b) => a.Name.localeCompare(b.Name));
-			},
 			completed(requests) {
 				return requests.filter(req => req.Status === 'graded');
 			},

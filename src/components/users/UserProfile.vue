@@ -29,12 +29,12 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Services en attentes</h2>
-				<user-requests :requests="requests | pending" @edit="editRequest" @delete="deleteRequest"></user-requests>
+				<user-requests :requests="pendingRequests" @edit="editRequest" @delete="deleteRequest"></user-requests>
 			</div>
 			<div class="col-md-6">
 				<h2>Services à évaluer</h2>
 				<user-request-edit v-if="selectedRequest" :request="selectedRequest" @save="saveRequest"></user-request-edit>
-				<user-requests :requests="requests | accepted" @grade="gradeResponse" @edit="editRequest" @delete="deleteRequest"></user-requests>
+				<user-requests :requests="acceptedRequests" @grade="gradeResponse" @edit="editRequest" @delete="deleteRequest"></user-requests>
 			</div>
 		</div>
 		<div class="row">
@@ -42,7 +42,7 @@
 				<h2>vActions</h2>
 				<table class="table table-condensed table-striped">
 					<tbody>
-					<tr v-for="transaction in transactions | vActions | byCreation">
+					<tr v-for="transaction in vActionsTransactions">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
 						<td>{{ transaction.Amount > 0 ? '+' : '-' }}{{ transaction.Amount }}</td>
 						<td><a v-link="transaction.Source">{{ transaction.Reason }}</a></td>
@@ -54,7 +54,7 @@
 				<h2>vCoins</h2>
 				<table class="table table-condensed table-striped">
 					<tbody>
-					<tr v-for="transaction in transactions | vCoins | byCreation">
+					<tr v-for="transaction in vCoinsTransactions">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
 						<td>{{ getTransactionAmount(transaction) }}</td>
 						<td><a v-link="transaction.Source">{{ transaction.Reason }}</a></td>
@@ -92,6 +92,22 @@
 					requests: usersApi.getRequests(id),
 					transactions: usersApi.getHistoric(id)
 				}
+			}
+		},
+		computed: {
+			vActionsTransactions() {
+				let t = this.transactions.filter(e => e.Type === 'VACTION');
+				return this.sortByCreation(t);
+			},
+			vCoinsTransactions() {
+				let t = this.transactions.filter(e => e.Type === 'COIN');
+				return this.sortByCreation(t);
+			},
+			pendingRequests() {
+				return this.requests.filter(req => req.Status === 'pending');
+			},
+			acceptedRequests() {
+				return this.requests.filter(req => req.Status === 'accepted');
 			}
 		},
 		methods: {
@@ -156,20 +172,6 @@
 				getters: {
 					achievementList
 				}
-			}
-		},
-		filters: {
-			vActions(transactions) {
-				return transactions.filter(e => e.Type === 'VACTION')
-			},
-			vCoins(transactions) {
-				return transactions.filter(e => e.Type === 'VCOIN')
-			},
-			pending(requests) {
-				return requests.filter(req => req.Status === 'pending');
-			},
-			accepted(requests) {
-				return requests.filter(req => req.Status === 'accepted');
 			}
 		},
 		components: {

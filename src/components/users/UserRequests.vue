@@ -1,10 +1,10 @@
 <template>
 	<table class="table table-condensed table-striped">
 		<tbody>
-		<tr v-for="request in requests | byCreation">
+		<tr v-for="request in sortedRequests">
 			<td>{{ request.CreatedAt | fromNow }}</td>
 			<td><a v-link="'/requests/view/' + request.ID">{{ request.Title }}</a></td>
-			<td v-if="request.Status === 'accepted'" is="request-grade-box" @grade="gradeResponse" :data="request | acceptedResponse"></td>
+			<td v-if="request.Status === 'accepted'" is="request-grade-box" @grade="gradeResponse" :data="getAcceptedResponse(request)"></td>
 			<td>{{ request.Views }} vues {{ request.Responses.length}} réponses</td>
 			<td>
 				<a @click.prevent="editRequest(request)" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -23,7 +23,12 @@
 		props: {
 			requests: {
 				type: Array,
-				required: true,
+				required: true
+			}
+		},
+		computed: {
+			sortedRequests() {
+				return this.sortByCreation(this.requests);
 			}
 		},
 		methods: {
@@ -35,11 +40,9 @@
 			},
 			deleteRequest(request) {
 				this.$dispatch('delete', request);
-			}
-		},
-		filters: {
-			acceptedResponse(request) {
-				let res = request.Responses.filter(e => e.Accepted);
+			},
+			getAcceptedResponse(request) {
+				let res = request.Responses.filter(res => res.Accepted);
 				return !res || res[0];
 			}
 		},

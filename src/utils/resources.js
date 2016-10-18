@@ -3,6 +3,35 @@ import Resource from 'vue-resource'
 import moment from 'moment';
 import Fuse from 'fuse.js';
 
+Vue.mixin({
+	methods: {
+		fuzzySearch(objects, keys, pattern) {
+			if (pattern === undefined || pattern.trim().length === 0)
+				return objects;
+			return new Fuse(objects, { keys: keys, threshold: 0.3 }).search(pattern);
+		},
+		sortByCreation(objects) {
+			return objects.slice().sort((a, b) => {
+				if (moment(a.CreatedAt).isSame(b.CreatedAt, 'second'))
+					return 0;
+				return moment(a.CreatedAt).isBefore(b.CreatedAt, 'second') ? 1 : -1;
+			});
+		},
+		sortByUpdate(objects) {
+			return objects.slice().sort((a, b) => {
+				if (moment(a.UpdatedAt).isSame(b.UpdatedAt, 'second'))
+					return 0;
+				return moment(a.UpdatedAt).isBefore(b.UpdatedAt, 'second') ? 1 : -1;
+			});
+		},
+		since(objects, n, unit) {
+			if (unit === 'posix')
+				return objects;
+			return objects.filter(o => moment(o.CreatedAt).isAfter(moment().subtract(n, unit)));
+		}
+	}
+});
+
 Vue.filter('fromNow', (input, param) =>
 	moment(input).fromNow(param)
 );
@@ -34,16 +63,6 @@ Vue.filter('since', (objects, n, unit) =>
 Vue.filter('length', (array) =>
 	array.length
 );
-
-Vue.mixin({
-	methods: {
-		fuzzySearch(objects, keys, pattern) {
-			if (pattern === undefined || pattern.trim().length === 0)
-				return objects;
-			return new Fuse(objects, { keys: keys, threshold: 0.3 }).search(pattern);
-		}
-	}
-});
 
 Vue.use(Resource);
 

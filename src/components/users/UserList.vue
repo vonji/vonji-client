@@ -1,15 +1,15 @@
 <template>
 	<div>
 		<bs-search-bar :input.sync="searchInput" placehold="Recherchez un membre">
-			<slot slot="search">{{ users | filter | since 1 timeFilter | length }} membres sur {{ users.length }}</slot>
-			<slot>{{ users | filter | since 1 timeFilter | length }} membres sur {{ users.length }}</slot><!-- todo better -->
+			<slot slot="search">{{ filteredUsers.length }} membres sur {{ users.length }}</slot>
+			<slot>{{ filteredUsers.length }} membres sur {{ users.length }}</slot>
 		</bs-search-bar>
 		<loading v-if="users.length == 0"></loading>
 		<div class="row user-list-filters">
 			<a class="user-list-filter" @click.prevent="this.timeFilter = 'day'">aujourd'hui</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'week'">semaine</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'month'">mois</a> | <a class="user-list-filter" @click.prevent="this.timeFilter = 'posix'">tout les temps</a>
 		</div>
 		<div class="row v-user-view">
-			<div style="margin-bottom:1em;" class="col-md-3" v-for="user in users | filter | since 1 timeFilter | byCreation">
+			<div style="margin-bottom:1em;" class="col-md-3" v-for="user in filteredUsers">
 				<div class="user-list-user media">
 					<div class="media-left">
 						<a v-link="'/users/profile/view/' + user.ID">
@@ -51,18 +51,20 @@
 		route: {
 			data() {
 				return {
-					users: usersApi.get().then(users => users.body),
+					users: usersApi.get().then(users => users.body)
 				};
-			},
+			}
+		},
+		computed: {
+			filteredUsers() {
+				let filteredUsers = this.fuzzySearch(this.users, ['DisplayedName', 'Tags.Name'], this.searchInput);
+				filteredUsers = this.since(filteredUsers, 1, this.timeFilter);
+				return this.sortByCreation(filteredUsers);
+			}
 		},
 		components: {
 			BsSearchBar,
 			Loading
-		},
-		filters: {
-			filter(users) {
-				return this.fuzzySearch(users, ['DisplayedName', 'Tags.Name'], this.searchInput);
-			}
 		}
 	}
 </script>
