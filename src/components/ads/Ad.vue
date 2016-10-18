@@ -15,7 +15,7 @@
 				ad: {},
 			};
 		},
-		ready() {
+		mounted() {
 			adsApi.get().then(response => {
 
 				// current user might not be loaded yet

@@ -95,7 +95,7 @@
 				durationUnit: 'hour'
 			}
 		},
-		ready() {
+		mounted() {
 			if (this.request.Location === undefined || this.request.Location.trim().length === 0) {
 				navigator.geolocation.getCurrentPosition(position => {
 					let coords = position.coords;

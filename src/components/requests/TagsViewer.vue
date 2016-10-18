@@ -35,7 +35,7 @@
 				type: Boolean
 			}
 		},
-		ready() {
+		mounted() {
 			//require('awesomplete');//TODO use this to get consistent completion behaviour
 			if (this.editMode) {
 				this.loadTagList();
