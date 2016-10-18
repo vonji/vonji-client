@@ -62,7 +62,7 @@
 					<div class="form-group">
 						<select v-model="request.FrequencyUnit" class="form-control">
 							<option value="day">jour</option>
-							<option value="week" selected>semaine</option>
+							<option value="week">semaine</option>
 							<option value="month">mois</option>
 						</select>
 					</div>
