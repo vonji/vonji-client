@@ -1,9 +1,9 @@
 <template>
 	<form @submit.prevent="save">
 		<div class="form-group">
-			<label for="#{{ request.ID }}-request-title">Titre de la requête</label>
+			<label :for="'#' + request.ID + '-request-title'">Titre de la requête</label>
 			<input
-				type="text" id="{{ request.ID }}-request-title"
+				type="text" :id="request.ID + '-request-title'"
 				v-model="request.Title"
 				class="form-control"
 				placeholder="Title of your request..."
@@ -15,9 +15,9 @@
 			<input type="text" v-model="request.Location" required id="request-location-input" class="form-control">
 		</div>
 		<div class="form-group">
-			<label for="#{{ request.ID }}-request-content">Description de la tâche</label>
+			<label :for="'#' + request.ID + '-request-content'">Description de la tâche</label>
 			<textarea
-				id="{{ request.ID }}-request-content"
+				:id="request.ID + '-request-content'"
 				rows="10"
 				v-model="request.Content"
 				class="form-control"

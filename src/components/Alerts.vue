@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-for="alert in alerts" @click="alertDismiss($index)" class="alert alert-{{alert.type}}">
+		<div v-for="alert in alerts" @click="alertDismiss($index)" :class="'alert alert-' + alert.type">
 			{{ alert.message }}
 		</div>
 	</div>

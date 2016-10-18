@@ -38,7 +38,7 @@
 								<div v-if="isLogged">
 									<div class="btn-group-vertical">
 										<button type="button"
-												class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}"
+												:class="'btn btn-sm btn-' + response.Accepted ? 'success' : 'default'"
 												@click="toggleResponseAcceptance(response)">
 											Accepter
 										</button>
@@ -49,7 +49,7 @@
 								</div>
 								<div v-else>
 									<button v-if="response.Accepted" type="button"
-											class="btn btn-sm btn-{{ response.Accepted ? 'success' : 'default' }}">
+											:class="'btn btn-sm btn-' response.Accepted ? 'success' : 'default'">
 										Acceptée
 									</button>
 								</div>

@@ -1,5 +1,5 @@
 <template lang="html">
-	<div class="v-usercard {{ primary ? 'v-uc-primary' : ''}}">
+	<div :class="'v-usercard' + primary ? 'v-uc-primary' : ''">
 		<div class="v-uc-heading">
 			<slot></slot>
 		</div>

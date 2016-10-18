@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a href="{{ ad.Url }}"><img :src="ad.ImageUrl" alt="{{ ad.AltText }}"></a>
+		<a :href="ad.Url"><img :src="ad.ImageUrl" :alt="ad.AltText"></a>
 	</div>
 </template>
 

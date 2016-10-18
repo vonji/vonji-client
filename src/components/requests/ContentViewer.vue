@@ -1,5 +1,5 @@
 <template lang="html">
-	<div id="v-content-{{ content.ID }}" class="v-content-viewer">
+	<div :id="'v-content-' + content.ID" class="v-content-viewer">
 		<form v-if="isWriteMode" @submit.prevent="save">
 			<div class="form-group">
 				<textarea
