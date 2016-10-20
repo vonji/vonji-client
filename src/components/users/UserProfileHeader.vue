@@ -2,8 +2,8 @@
 	<div class="row">
 		<nav>
 			<ul class="nav nav-tabs">
-				<li role="presentation"><a v-link="'/users/profile/view/' + user.ID">Profil</a></li>
-				<li role="presentation"><a v-link="'/users/profile/edit/' + user.ID">Modifier</a></li>
+				<li role="presentation"><router-link to="/users/profile/view/' + user.ID">Profil</router-link></li>
+				<li role="presentation"><router-link to="/users/profile/edit/' + user.ID">Modifier</router-link></li>
 			</ul>
 		</nav>
 	</div>

@@ -10,7 +10,7 @@
 			<button type="submit" :class="'btn' + isDisabled ? 'btn-default' : 'btn-primary'" :disabled="isDisabled">
 				Connexion
 			</button>
-			<a class="btn btn-primary" v-link="'/users/add'">S'inscrire</a>
+			<router-link to="/users/add" class="btn btn-primary">S'inscrire</router-link>
 		</form>
 	</div>
 </template>

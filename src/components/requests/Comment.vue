@@ -1,6 +1,6 @@
 <template>
 	<div>
-		{{ comment.Content }} - <a v-link="'/users/profile/view/' + comment.User.ID">{{ comment.User.DisplayedName }}</a> {{ comment.UpdatedAt | fromNow }}
+		{{ comment.Content }} - <router-link to="/users/profile/view/' + comment.User.ID">{{ comment.User.DisplayedName }}</router-link> {{ comment.UpdatedAt | fromNow }}
 	</div>
 </template>
 

@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<a>partager</a>
-					<a v-if="isLogged" v-link="editLink">ameliorer ce poste</a>
+					<router-link v-if="isLogged" to="editLink">ameliorer ce poste</router-link>
 				</div>
 				<div class="col-md-8">
 					<div class="v-content-usercards">

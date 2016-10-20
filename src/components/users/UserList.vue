@@ -12,13 +12,13 @@
 			<div style="margin-bottom:1em;" class="col-md-3" v-for="user in filteredUsers">
 				<div class="user-list-user media">
 					<div class="media-left">
-						<a v-link="'/users/profile/view/' + user.ID">
+						<router-link to="/users/profile/view/' + user.ID">
 							<img class="media-object" :src="user.Avatar ? user.Avatar : 'http://placehold.it/60x60'" width="60" height="60" alt="Avatar">
-						</a>
+						</router-link>
 					</div>
 					<div class="media-body">
 						<div class="v-user-heading">
-							<div class="v-user-name"><a v-link="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</a></div>
+							<div class="v-user-name"><router-link to="/users/profile/view/' + user.ID">{{ user.DisplayedName }}</router-link></div>
 							<div class="v-user-reput">
 								{{ user.VActions }} vActions
 								<br>

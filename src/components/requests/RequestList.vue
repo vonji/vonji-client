@@ -11,14 +11,14 @@
 					<div class="row request-row">
 						<div class="col-sm-5">
 							<div class="row request-title">
-								<a v-link="'requests/view/' + request.ID" class="request-title">{{ request.Title }}</a>
+								<router-link to="requests/view/' + request.ID" class="request-title">{{ request.Title }}</router-link>
 							</div>
 							<div class="row">
 								<span v-for="tag in request.Tags" class="tag">{{ tag.Name }}</span>
 							</div>
 						</div>
 						<div class="col-sm-4 request-date">
-							postée {{ request.UpdatedAt | fromNow }} par <a v-link="'/users/profile/view/' + request.User.ID"> {{ request.User.DisplayedName }} </a>
+							postée {{ request.UpdatedAt | fromNow }} par <router-link to="/users/profile/view/' + request.User.ID"> {{ request.User.DisplayedName }} </router-link>
 						</div>
 						<div class="col-sm-3">
 							<user-card :user="request.User" :primary="true"></user-card>
@@ -34,7 +34,7 @@
 </template>
 
 <div class="row">
-	<div class="col-md-12"><a v-link="'requests/add'">Nouvelle requête</a></div>
+	<div class="col-md-12"><router-link to="requests/add">Nouvelle requête</router-link></div>
 </div>
 
 <script type="text/ecmascript-6">
