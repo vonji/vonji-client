@@ -26,7 +26,7 @@
 							</div>
 						</div>
 						<p>{{ user.Motto }}</p>
-						<div class="v-user-date">membre depuis {{ user.CreatedAt | fromNow true }}</div>
+						<div class="v-user-date">membre depuis {{ user.CreatedAt | fromNow(true) }}</div>
 					</div>
 				</div>
 			</div>

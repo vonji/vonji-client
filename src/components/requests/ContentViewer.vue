@@ -27,10 +27,10 @@
 				<div class="col-md-8">
 					<div class="v-content-usercards">
 						<user-card :user="content.User" :primary="true">
-							<a>posté {{ content.CreatedAt | format 'ddd D [at] LT' }}</a>
+							<a>posté {{ content.CreatedAt | format('ddd D [at] LT') }}</a>
 						</user-card>
 						<user-card v-if="content.LastEditor" :user="content.LastEditor">
-							<a>édité {{ content.UpdatedAt | format 'ddd D [at] LT' }}</a>
+							<a>édité {{ content.UpdatedAt | format('ddd D [at] LT') }}</a>
 						</user-card>
 					</div>
 				</div>
