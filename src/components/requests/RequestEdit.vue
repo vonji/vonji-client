@@ -20,7 +20,7 @@
 			'on-save': function (request) {
 				requestsApi.update({ id: this.request.ID }, request)
 					.then(() => {
-						this.$router.go('/requests/view/' + this.request.ID);
+						this.$router.push('/requests/view/' + this.request.ID);
 					});
 			}
 		},

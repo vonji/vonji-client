@@ -113,7 +113,7 @@
 		methods: {
 			editRequest(request) {
 				if (request.Status === 'pending') {
-					this.$router.go('/requests/edit/' + request.ID);
+					this.$router.push('/requests/edit/' + request.ID);
 					return;
 				}
 				this.selectedRequest = this.selectedRequest ? null : request;

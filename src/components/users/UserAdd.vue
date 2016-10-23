@@ -51,7 +51,7 @@
 						.then(user => { login({ dispatch }, user.Email, user.Password); console.log(user); return user })
 						.then(user => { userUpdate({ dispatch }, user); console.log(user); return user })
 						.then(user => { alert({ dispatch }, 'info', 'Achievement get: ' + user.Achievements[0].Name + '! Vous avez etes credité de 200 vCoins'); console.log(user); return user })
-						.then(() => this.$router.go('/'));
+						.then(() => this.$router.push('/'));
 				}
 			}
 		}

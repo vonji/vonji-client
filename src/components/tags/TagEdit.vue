@@ -30,7 +30,7 @@
 		},
 		methods: {
 			save() {
-				tagsApi.update(this.tag).then(() => this.$router.go('/tags/list'));
+				tagsApi.update(this.tag).then(() => this.$router.push('/tags/list'));
 			}
 		}
 	}

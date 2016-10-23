@@ -20,7 +20,7 @@
 			'on-save': function (request) {
 				request.UserID = Number(localStorage.userID);
 				requestsApi.save(request)
-					.then(response => this.$router.go('/requests/view/' + response.body.ID))
+					.then(response => this.$router.push('/requests/view/' + response.body.ID))
 					.catch(console.error);
 			}
 		}

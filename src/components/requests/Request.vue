@@ -225,7 +225,7 @@
 					});
 			},
 			deleteRequest(id) {
-				requestsApi.delete({ id }).then(() => this.$router.go('/requests'));
+				requestsApi.delete({ id }).then(() => this.$router.push('/requests'));
 			},
 			deleteResponse(id) {
 				responsesApi.delete({ id }).then(() => this.request.Responses = this.request.Responses.filter(r => r.ID !== id));
