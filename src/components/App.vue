@@ -1,20 +1,18 @@
 <template>
 	<div>
-		<div>
-			<topbar></topbar>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<alerts></alerts>
-					</div>
+		<topbar></topbar>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<alerts></alerts>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<ad></ad>
-					</div>
-				</div>
-				<router-view></router-view>
 			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<ad></ad>
+				</div>
+			</div>
+			<router-view></router-view>
 		</div>
 	</div>
 </template>
@@ -32,12 +30,11 @@
 
 	export default {
 		name: 'App',
-		store: store,
 		components: {
 			Topbar,
 			Alerts,
 			Ad
 		},
-		actions,
+		actions
 	}
 </script>

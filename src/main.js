@@ -3,6 +3,8 @@ import App from './components/App.vue';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import store from './vuex/store';
+
 import moment from 'moment';
 import 'moment/locale/fr';
 
@@ -31,50 +33,32 @@ moment().locale('fr');
 
 Vue.use(VueRouter);
 
-const router = new VueRouter();
+const router = new VueRouter({
+	routes: [
+		{ path: '/', component: RequestList },
+		{ path: '/users/add', component: UserAdd },
+		{ path: '/users/list', component: UserList },
+		{ path: '/users/profile/view/:id', component: UserProfile },
+		{ path: '/users/profile/edit/:id', component: UserProfileEdit },
+		{ path: '/requests', component: RequestList },
+		{ path: '/requests/add/', component: RequestAdd },
+		{ path: '/requests/edit/:id', component: RequestEdit },
+		{ path: '/requests/view/:id', component: Request },
+		{ path: '/tags/list', component: TagList },
+		{ path: 'tags/edit/:id', component: TagEdit },
+		{ path: '/achievements', component: AchievementList },
+	]
+});
 
-//TODO subrouter
-router.map({
-	'/': {
-		component: RequestList
-	},
-	'/users/add': {
-		component: UserAdd
-	},
-	'/users/list': {
-		component: UserList
-	},
-	'/users/profile/view/:id': {
-		component: UserProfile
-	},
-	'/users/profile/edit/:id': {
-		component: UserProfileEdit
-	},
-	'/requests': {
-		component: RequestList
-	},
-	'/requests/add/': {
-		component: RequestAdd
-	},
-	'/requests/edit/:id': {
-		component: RequestEdit
-	},
-	'/requests/view/:id': {
-		component: Request
-	},
-	'/tags/list': {
-		component: TagList
-	},
-	'tags/edit/:id': {
-		component: TagEdit
-	},
-	'/achievements': {
-		component: AchievementList
-	}
+let app = new Vue({
+	el: '#app',
+	...App,
+	router,
+	store
 });
 
 //TODO use mixin to allow easier access to store.state from components
-
+/*
 let refreshId = 9;
 
 router.afterEach(transition => {
@@ -95,8 +79,7 @@ router.afterEach(transition => {
 		})
 	}, 5000);
 });
-
-router.start(App, '#app');
+*/
 
 /* TODO: this is probably a bad idea */
 String.prototype.empty = function() {

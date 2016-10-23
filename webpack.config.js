@@ -29,4 +29,9 @@ module.exports = {
       scss: 'vue-style!css!sass',
     },
   },
-}
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.js'
+    }
+  }
+};
