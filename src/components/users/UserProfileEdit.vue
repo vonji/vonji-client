@@ -73,7 +73,7 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import AvatarBox from './AvatarBox.vue';
 	import UserProfileHeader from './UserProfileHeader.vue';
 	import { usersApi } from '../../utils/resources';

@@ -3,7 +3,7 @@
 		<tbody>
 		<tr v-for="request in sortedRequests">
 			<td>{{ request.CreatedAt | fromNow }}</td>
-			<td><router-link to="/requests/view/' + request.ID">{{ request.Title }}</router-link></td>
+			<td><router-link :to="'/requests/view/' + request.ID">{{ request.Title }}</router-link></td>
 			<td v-if="request.Status === 'accepted'" is="request-grade-box" @grade="gradeResponse" :data="getAcceptedResponse(request)"></td>
 			<td>{{ request.Views }} vues {{ request.Responses.length}} réponses</td>
 			<td>

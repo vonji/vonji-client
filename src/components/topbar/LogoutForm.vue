@@ -5,14 +5,11 @@
 </template>
 
 <script>
-import * as actions from '../../vuex/actions';
+	import * as actions from '../../vuex/actions';
 
-export default {
-	data() {
-		return {};
-	},
-	vuex: {
-		actions
+	export default {
+		vuex: {
+			actions
+		}
 	}
-}
 </script>

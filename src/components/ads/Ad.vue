@@ -12,10 +12,10 @@
 		data() {
 			return {
 				ads: [],
-				ad: {},
+				ad: {}
 			};
 		},
-		mounted() {
+		created() {
 			adsApi.get().then(response => {
 
 				// current user might not be loaded yet

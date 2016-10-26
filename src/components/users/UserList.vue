@@ -18,7 +18,7 @@
 					</div>
 					<div class="media-body">
 						<div class="v-user-heading">
-							<div class="v-user-name"><router-link to="/users/profile/view/' + user.ID">{{ user.DisplayedName }}</router-link></div>
+							<div class="v-user-name"><router-link :to="'/users/profile/view/' + user.ID">{{ user.DisplayedName }}</router-link></div>
 							<div class="v-user-reput">
 								{{ user.VActions }} vActions
 								<br>
@@ -34,7 +34,7 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import BsSearchBar from '../bootstrap/BsSearchBar.vue';
 	import Loading from '../Loading.vue';
 	import { usersApi } from '../../utils/resources';

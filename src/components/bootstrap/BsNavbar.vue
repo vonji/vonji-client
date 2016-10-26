@@ -8,7 +8,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<router-link to="link" class="navbar-brand">{{ brandName }}</router-link>
+				<router-link :to="link" class="navbar-brand">{{ brandName }}</router-link>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-navbar-collapse">

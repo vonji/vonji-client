@@ -17,7 +17,7 @@
 							<div class="col-md-10">
 								<content-viewer
 									:content="request"
-									:edit-Link="`/requests/edit/${request.ID}`"
+									:edit-link="'/requests/edit/' + request.ID"
 									@on-content-edit="requestContentChanged"
 								></content-viewer>
 							</div>
@@ -38,7 +38,7 @@
 								<div v-if="isLogged">
 									<div class="btn-group-vertical">
 										<button type="button"
-												:class="'btn btn-sm btn-' + response.Accepted ? 'success' : 'default'"
+												:class="'btn btn-sm btn-' + (response.Accepted ? 'success' : 'default')"
 												@click="toggleResponseAcceptance(response)">
 											Accepter
 										</button>
@@ -49,7 +49,7 @@
 								</div>
 								<div v-else>
 									<button v-if="response.Accepted" type="button"
-											:class="'btn btn-sm btn-' response.Accepted ? 'success' : 'default'">
+											:class="'btn btn-sm btn-' + (response.Accepted ? 'success' : 'default')">
 										Acceptée
 									</button>
 								</div>
@@ -154,7 +154,7 @@
 					Content: content
 				}))
 					.then(() => requestsApi.get({ id }))
-					.then(newRequest => this.request = newRequest.body);
+					.then(newRequest => { this.request = newRequest.body });
 			},
 			responseContentChanged(id, content) {
 				const oldResponse = this.request.Responses.find(r => r.ID === id);
@@ -162,7 +162,7 @@
 					Content: content
 				}))
 					.then(() => responsesApi.get({ id }))
-					.then(newResponse => oldResponse.Content = newResponse.body.Content);
+					.then(newResponse => { oldResponse.Content = newResponse.body.Content });
 			},
 			toggleResponseAcceptance(response) {
 				response.Accepted = !response.Accepted;
@@ -228,7 +228,7 @@
 				requestsApi.delete({ id }).then(() => this.$router.push('/requests'));
 			},
 			deleteResponse(id) {
-				responsesApi.delete({ id }).then(() => this.request.Responses = this.request.Responses.filter(r => r.ID !== id));
+				responsesApi.delete({ id }).then(() => { this.request.Responses = this.request.Responses.filter(r => r.ID !== id) });
 			},
 		},
 		vuex: {

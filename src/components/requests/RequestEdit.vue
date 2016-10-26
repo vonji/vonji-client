@@ -6,7 +6,7 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import { requestsApi } from '../../utils/resources';
 	import RequestEditPartial from './RequestEditPartial.vue';
 

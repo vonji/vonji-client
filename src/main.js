@@ -37,15 +37,15 @@ const router = new VueRouter({
 	routes: [
 		{ path: '/', component: RequestList },
 		{ path: '/users/add', component: UserAdd },
-		{ path: '/users/list', component: UserList },
+		{ path: '/users/list', component: UserList },//TODO change path to /users
 		{ path: '/users/profile/view/:id', component: UserProfile },
 		{ path: '/users/profile/edit/:id', component: UserProfileEdit },
 		{ path: '/requests', component: RequestList },
 		{ path: '/requests/add/', component: RequestAdd },
 		{ path: '/requests/edit/:id', component: RequestEdit },
 		{ path: '/requests/view/:id', component: Request },
-		{ path: '/tags/list', component: TagList },
-		{ path: 'tags/edit/:id', component: TagEdit },
+		{ path: '/tags/list', component: TagList },//TODO change path to /tags
+		{ path: '/tags/edit/:id', component: TagEdit },
 		{ path: '/achievements', component: AchievementList },
 	]
 });

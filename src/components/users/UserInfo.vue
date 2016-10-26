@@ -8,9 +8,6 @@
 
 <script>
 	export default {
-		data() {
-			return {}
-		},
 		props: ['user', 'content-date']
 	}
 </script>

@@ -45,7 +45,7 @@
 					<tr v-for="transaction in vActionsTransactions">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
 						<td>{{ transaction.Amount > 0 ? '+' : '-' }}{{ transaction.Amount }}</td>
-						<td><router-link to="transaction.Source">{{ transaction.Reason }}</router-link></td>
+						<td><router-link :to="transaction.Source">{{ transaction.Reason }}</router-link></td>
 					</tr>
 					</tbody>
 				</table>
@@ -57,7 +57,7 @@
 					<tr v-for="transaction in vCoinsTransactions">
 						<td>{{ transaction.CreatedAt | fromNow }}</td>
 						<td>{{ getTransactionAmount(transaction) }}</td>
-						<td><router-link to="transaction.Source">{{ transaction.Reason }}</router-link></td>
+						<td><router-link :to="transaction.Source">{{ transaction.Reason }}</router-link></td>
 					</tr>
 					</tbody>
 				</table>
@@ -66,7 +66,7 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 	import moment from 'moment';
 	import AvatarBox from './AvatarBox.vue';
 	import UserProfileHeader from './UserProfileHeader.vue';
@@ -119,11 +119,7 @@
 				this.selectedRequest = this.selectedRequest ? null : request;
 			},
 			saveRequest(request) {
-				requestsApi.update(request)
-					.then(() => {
-						this.selectedRequest = null;
-					})
-				;
+				requestsApi.update(request).then(() => { this.selectedRequest = null; });
 			},
 			deleteRequest(request) {
 				requestsApi.delete({ id: request.ID }).then(() => {
@@ -150,7 +146,7 @@
 							usersApi.update(this.user);
 						})
 						.then(() => {
-							achievementAward({ dispatch }, this.$store.state.achievementList[4], this.user)//TODO use getter for achievementList
+							achievementAward({ dispatch }, this.$store.state.achievementList[4], this.user);//TODO use getter for achievementList
 						})
 						.then(() => {
 							transactionsApi.save({
