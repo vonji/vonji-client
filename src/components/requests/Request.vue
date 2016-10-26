@@ -128,13 +128,6 @@
 				newResponse: {}
 			};
 		},
-		route: {
-			data({ to: { params: { id } } }) {
-				return {
-					request: requestsApi.get({ id }).then(response => response.body)
-				};
-			}
-		},
 		computed: {
 			sortedResponses() {
 				return this.request.Responses.sort((a, b) => {
@@ -149,6 +142,9 @@
 			}
 		},
 		methods: {
+			fetchData() {
+				requestsApi.get({ id: this.$route.params.id }).then(response => { this.request = response.body })
+			},
 			requestContentChanged(id, content) {
 				requestsApi.update({ id }, _.assign({}, this.request, {
 					Content: content

@@ -24,9 +24,9 @@
 					});
 			}
 		},
-		route: {
-			data({ to: { params: { id } } }) {
-				return requestsApi.get({ id })
+		methods: {
+			fetchData() {
+				return requestsApi.get({ id: this.$route.params.id })
 					.then(fetchedRequest => ({ request: fetchedRequest.body }))
 					.catch(console.error);
 			}

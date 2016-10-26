@@ -32,12 +32,10 @@
 				searchInput: ''
 			}
 		},
-		route: {
-			data() {
-				return {
-					tags: tagsApi.get().then(response => response.body),
-					requests: requestsApi.get().then(response => response.body)
-				}
+		methods: {
+			fetchData() {
+				tagsApi.get().then(response => { this.tags = response.body });
+				requestsApi.get().then(response => { this.requests = response.body });
 			}
 		},
 		computed: {

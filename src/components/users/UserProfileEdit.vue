@@ -86,9 +86,9 @@
 				user: {}
 			};
 		},
-		route: {
-			data({ to: { params: { id } } }) {
-				return usersApi.get({ id }).then(user => ({ user: user.body }));
+		methods: {
+			fetchData() {
+				usersApi.get({ id: this.$route.params.id }).then(response => { this.user = response.body });
 			}
 		},
 		vuex: {

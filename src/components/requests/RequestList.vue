@@ -48,12 +48,10 @@
 				searchInput: ""
 			};
 		},
-		route: {
-			data() {
-				return {
-					requests: requestsApi.get().then(response => response.body)
-				}
-			}
+		methods: {
+			fetchData() {
+				requestsApi.get().then(response => { this.requests = response.body });
+			},
 		},
 		computed: {
 			filteredRequests() {

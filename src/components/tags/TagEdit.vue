@@ -21,14 +21,10 @@
 				tag: {}
 			}
 		},
-		route: {
-			data({ to: { params: { id } } }) {
-				return {
-					tag: tagsApi.get({ id: id }).then(response => response.body)
-				}
-			}
-		},
 		methods: {
+			fetchData() {
+				tagsApi.get({ id: this.$route.params.id }).then(response => { this.tag = response.body });
+			},
 			save() {
 				tagsApi.update(this.tag).then(() => this.$router.push('/tags/list'));
 			}

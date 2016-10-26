@@ -50,6 +50,21 @@ const router = new VueRouter({
 	]
 });
 
+Vue.mixin({
+	created() {
+		if (this.fetchData) {
+			this.fetchData();
+		}
+	},
+	watch: {
+		'$route': function() {
+			if (this.fetchData) {
+				this.fetchData();
+			}
+		}
+	},
+});
+
 let app = new Vue({
 	el: '#app',
 	...App,

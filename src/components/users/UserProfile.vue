@@ -85,15 +85,6 @@
 				selectedRequest: null
 			}
 		},
-		route: {
-			data({ to: { params: { id } } }) {
-				return {
-					user: usersApi.get({ id }).then(response => response.body),
-					requests: usersApi.getRequests(id),
-					transactions: usersApi.getHistoric(id)
-				}
-			}
-		},
 		computed: {
 			vActionsTransactions() {
 				let t = this.transactions.filter(e => e.Type === 'VACTION');
@@ -111,6 +102,13 @@
 			}
 		},
 		methods: {
+			fetchData() {
+				let id = this.$route.params.id;
+
+				usersApi.get({ id }).then(response => { this.user = response.body });
+				usersApi.getRequests(id).then(requests => { this.requests = requests });
+				usersApi.getHistoric(id).then(transactions => { this.transactions = transactions });
+			},
 			editRequest(request) {
 				if (request.Status === 'pending') {
 					this.$router.push('/requests/edit/' + request.ID);

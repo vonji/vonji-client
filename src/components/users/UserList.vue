@@ -48,11 +48,9 @@
 				searchInput: ''
 			};
 		},
-		route: {
-			data() {
-				return {
-					users: usersApi.get().then(users => users.body)
-				};
+		methods: {
+			fetchData() {
+				usersApi.get().then(response => { this.users = response.body });
 			}
 		},
 		computed: {

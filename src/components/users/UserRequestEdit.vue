@@ -19,11 +19,9 @@
 				required: true
 			}
 		},
-		data() {
-			return {
-				response: this.request.Responses.find(e => e.Accepted),
-				min: this.request.Responses.find(e => e.Accepted).Value
-			}
+		updated() {
+			this.response = this.request.Responses.find(e => e.Accepted);
+			this.min = this.request.Responses.find(e => e.Accepted).Value;
 		},
 		methods: {
 			save() {
