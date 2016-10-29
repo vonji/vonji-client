@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<bs-search-bar v-model="searchInput" placehold="Recherchez une compétence">
-			<slot slot="search">{{ searchResults.length }} compétences sur {{ tags.length }}</slot>
-			<slot>{{ tags.length }} compétences</slot>
+			<div slot="search">{{ searchResults.length }} compétences sur {{ tags.length }}</div>
+			<div>{{ tags.length }} compétences</div>
 		</bs-search-bar>
 		<div class="row">
 			<h2></h2>

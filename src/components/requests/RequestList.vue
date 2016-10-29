@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<bs-search-bar v-model="searchInput" placeholder="Recherchez une requête">
-			<slot slot="search">{{ searchResults.length }} résultats sur {{ filteredRequests.length }}</slot>
-			<slot>{{ filteredRequests.length }} requêtes</slot>
+			<div slot="search">{{ searchResults.length }} résultats sur {{ filteredRequests.length }}</div>
+			<div>{{ filteredRequests.length }} requêtes</div>
 		</bs-search-bar>
 		<div class="row">
 			<div class="col-md-9">

@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<bs-search-bar v-model="searchInput" placehold="Recherchez un membre">
-			<slot slot="search">{{ filteredUsers.length }} membres sur {{ users.length }}</slot>
-			<slot>{{ filteredUsers.length }} membres sur {{ users.length }}</slot>
+			<div slot="search">{{ filteredUsers.length }} membres sur {{ users.length }}</div>
+			<div>{{ filteredUsers.length }} membres sur {{ users.length }}</div>
 		</bs-search-bar>
 		<loading v-if="users.length == 0"></loading>
 		<div class="row user-list-filters">
