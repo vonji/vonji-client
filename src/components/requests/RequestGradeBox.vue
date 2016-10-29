@@ -28,7 +28,7 @@
 				this.grade = n;
 			},
 			dispatchGrade() {
-				this.$dispatch('grade', this.grade, this.data);
+				this.$emit('grade', this.grade, this.data);
 			}
 		}
 	}

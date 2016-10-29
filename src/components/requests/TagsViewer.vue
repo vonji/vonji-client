@@ -15,7 +15,7 @@
 	</div>
 </template>
 
-<script type="text/babel">
+<script type="text/ecmascript-6">
 //todo editmode=>writemode
 	import { tagsApi } from '../../utils/resources';
 
@@ -50,9 +50,7 @@
 				this.parent.Tags.splice(index, index + 1);
 			},
 			loadTagList() {
-				tagsApi.get().then(result => {
-					this.$set('tagsList', result.body);
-				});
+				tagsApi.get().then(result => { this.tagsList = result.body });
 			}
 		},
 		watch: {

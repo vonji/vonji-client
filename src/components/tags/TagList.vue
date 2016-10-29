@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<bs-search-bar :input.sync="searchInput" placehold="Recherchez une compétence">
+		<bs-search-bar v-model="searchInput" placehold="Recherchez une compétence">
 			<slot slot="search">{{ searchResults.length }} compétences sur {{ tags.length }}</slot>
 			<slot>{{ tags.length }} compétences</slot>
 		</bs-search-bar>

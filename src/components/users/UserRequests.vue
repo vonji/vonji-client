@@ -33,13 +33,13 @@
 		},
 		methods: {
 			gradeResponse(grade, response) {
-				this.$dispatch('grade', response, grade);
+				this.$emit('grade', response, grade);
 			},
 			editRequest(request) {
-				this.$dispatch('edit', request);
+				this.$emit('edit', request);
 			},
 			deleteRequest(request) {
-				this.$dispatch('delete', request);
+				this.$emit('delete', request);
 			},
 			getAcceptedResponse(request) {
 				let res = request.Responses.filter(res => res.Accepted);

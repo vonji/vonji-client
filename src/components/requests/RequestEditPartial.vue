@@ -121,7 +121,7 @@
 		methods: {
 			save() {
 				this.request.Frequency = Number(this.request.Frequency);
-				this.$dispatch('on-save', this.request);
+				this.$emit('save', this.request);
 			}
 		},
 		components: {

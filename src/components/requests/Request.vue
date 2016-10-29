@@ -18,7 +18,7 @@
 								<content-viewer
 									:content="request"
 									:edit-link="'/requests/edit/' + request.ID"
-									@on-content-edit="requestContentChanged"
+									@content-edit="requestContentChanged"
 								></content-viewer>
 							</div>
 						</div>
@@ -58,7 +58,7 @@
 								<content-viewer
 									:content="response"
 									:edit-link="`/responses/edit/${response.ID}`"
-									@on-content-edit="responseContentChanged"
+									@content-edit="responseContentChanged"
 								></content-viewer>
 							</div>
 						</div>

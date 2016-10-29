@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<bs-search-bar :input.sync="searchInput" placehold="Recherchez un membre">
+		<bs-search-bar v-model="searchInput" placehold="Recherchez un membre">
 			<slot slot="search">{{ filteredUsers.length }} membres sur {{ users.length }}</slot>
 			<slot>{{ filteredUsers.length }} membres sur {{ users.length }}</slot>
 		</bs-search-bar>

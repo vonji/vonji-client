@@ -26,7 +26,7 @@
 		methods: {
 			save() {
 				this.response.Value = Number(this.response.Value);
-				this.$dispatch('save', this.request, this.response);
+				this.$emit('save', this.request, this.response);
 			}
 		},
 		components: {

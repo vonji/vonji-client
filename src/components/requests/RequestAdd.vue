@@ -1,7 +1,7 @@
 <template>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<request-edit-partial></request-edit-partial>
+			<request-edit-partial @save="onSave"></request-edit-partial>
 		</div>
 	</div>
 </template>
@@ -16,12 +16,10 @@
 			RequestEditPartial,
 			TagsViewer
 		},
-		events: {
-			'on-save': function (request) {
+		methods: {
+			onSave(request) {
 				request.UserID = Number(localStorage.userID);
-				requestsApi.save(request)
-					.then(response => this.$router.push('/requests/view/' + response.body.ID))
-					.catch(console.error);
+				requestsApi.save(request).then(response => this.$router.push('/requests/view/' + response.body.ID));
 			}
 		}
 	}

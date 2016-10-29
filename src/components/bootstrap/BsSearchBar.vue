@@ -1,10 +1,10 @@
 <template>
 	<div class="row">
 		<div class="col-md-5">
-			<bs-search-input :model.sync="input" :placeholder="placeholder"></bs-search-input>
+			<bs-search-input v-bind:value="value" v-on:input="onInput" :placeholder="placeholder"></bs-search-input>
 		</div>
 		<div class="col-md-5 search-bar-results">
-			<div v-if="input">
+			<div v-if="value">
 				<h4><slot name="search"></slot></h4>
 			</div>
 			<div v-else>
@@ -19,7 +19,7 @@
 
 	export default {
 		props: {
-			input: {
+			value: {
 				type: String,
 				required: true
 			},
@@ -27,6 +27,11 @@
 				type: String,
 				required: false,
 				default: ''
+			}
+		},
+		methods: {
+			onInput(value) {
+				this.$emit('input', value)
 			}
 		},
 		components: {

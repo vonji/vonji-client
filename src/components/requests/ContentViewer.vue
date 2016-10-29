@@ -65,7 +65,7 @@
 				this.mode = 'read';
 			},
 			save() {
-				this.$dispatch('on-content-edit', this.content.ID, this.newContent);//should be on save?
+				this.$emit('content-edit', this.content.ID, this.newContent);
 				this.mode = 'read';
 			}
 		},
