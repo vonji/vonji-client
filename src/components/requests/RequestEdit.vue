@@ -18,9 +18,7 @@
 		},
 		methods: {
 			fetchData() {
-				return requestsApi.get({ id: this.$route.params.id })
-					.then(fetchedRequest => ({ request: fetchedRequest.body }))
-					.catch(console.error);
+				requestsApi.get({ id: this.$route.params.id }).then(response => { this.request = response.body });
 			},
 			onSave(request) {
 				requestsApi.update({ id: this.request.ID }, request).then(() => { this.$router.push('/requests/view/' + this.request.ID) });
