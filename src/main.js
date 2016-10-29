@@ -69,32 +69,42 @@ let app = new Vue({
 	el: '#app',
 	...App,
 	router,
-	store
+	store,
+	methods: {
+		fetchData() {
+			fetchUser();
+			fetchAchievements();
+			autoFetchNotifications();
+		}
+	}
 });
 
 //TODO use mixin to allow easier access to store.state from components
-/*
-let refreshId = 9;
 
-router.afterEach(transition => {
-	let store = transition.to.router.app.$store;
-
+function fetchUser() {
 	if (localStorage.userID) {
 		usersApi.get({ id: localStorage.userID }).then(response => {
 			actions.userUpdate(store, response.body);
 		});
 	}
+}
+
+function fetchAchievements() {
 	achievementsApi.get().then(response => {
 		actions.achievementListUpdate(store, response.body);
 	});
+}
+
+let refreshId = 9;
+function autoFetchNotifications() {
+
 	window.clearInterval(refreshId);//TODO refactor
 	refreshId = window.setInterval(() => {
 		notificationsApi.getFor(localStorage.userID).then(response => {
 			actions.notificationsUpdate(store, response.body);
 		})
 	}, 5000);
-});
-*/
+}
 
 /* TODO: this is probably a bad idea */
 String.prototype.empty = function() {
