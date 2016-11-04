@@ -14,7 +14,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-	import { currentUser } from '../../vuex/getters';
+	import { mapGetters } from 'vuex';
 
 	export default {
 		props: {
@@ -25,8 +25,9 @@
 		},
 		computed: {
 			nearRequests() {
-				return this.requests.filter(e => e.Location === currentUser(this.$store.state).Location);
-			}
+				return this.requests.filter(e => e.Location === this.currentUser.Location);
+			},
+			...mapGetters(['currentUser'])
 		},
 		methods: {
 			comments(request) {
@@ -36,9 +37,6 @@
 
 				return res;
 			}
-		},
-		getters: {
-			currentUser
 		}
 	}
 </script>

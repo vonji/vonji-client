@@ -16,8 +16,6 @@
 </template>
 
 <script>
-	import { login } from '../../vuex/actions';
-
 	export default {
 		data() {
 			return {
@@ -30,11 +28,9 @@
 				return this.email === '' || this.password === '';
 			}
 		},
-		vuex: {
-			actions: {
-				submit({ dispatch }, e) {
-					login({ dispatch }, this.email, this.password);
-				}
+		methods: {
+			submit() {
+				this.$store.dispatch('login', { email: this.email, passoword: this.password });
 			}
 		}
 	}

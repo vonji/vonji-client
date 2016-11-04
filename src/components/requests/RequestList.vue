@@ -39,7 +39,7 @@
 	import RequestNear from './RequestNear.vue';
 	import UserCard from '../users/UserCard.vue';
 	import { requestsApi } from '../../utils/resources';
-	import { currentUser } from '../../vuex/getters';
+	import { mapGetters } from 'vuex';
 
 	export default {
 		data() {
@@ -57,15 +57,13 @@
 			filteredRequests() {
 				return this.requests
 					.filter(req => req.Status === 'pending')
-					.filter(req => req.UserID !== currentUser(this.$store.state).ID);
+					.filter(req => req.UserID !== this.currentUser.ID);
 			},
 			searchResults() {
 				let reqs = this.fuzzySearch(this.filteredRequests, ['Title', 'Tags.Name'], this.searchInput);
 				return this.sortByUpdate(reqs);
-			}
-		},
-		getters: {
-			currentUser
+			},
+			...mapGetters(['currentUser'])
 		},
 		components: {
 			BsSearchBar,

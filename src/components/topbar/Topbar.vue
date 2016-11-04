@@ -22,24 +22,19 @@
 	import LogoutForm from './LogoutForm.vue';
 	import BsNavbar from '../bootstrap/BsNavbar.vue';
 	import Notification from './Notification.vue';
-
 	import { usersApi } from '../../utils/resources';
-	import { isLogged, isGuest, currentUser } from '../../vuex/getters'
+	import { mapGetters } from 'vuex';
 
 	export default {
+		computed: {
+			...mapGetters(['isLogged', 'isGuest', 'currentUser'])
+		},
 		components: {
 			BsNavbar,
 			LoginForm,
 			LogoutForm,
 			Notification,
 		},
-		vuex: {
-			getters: {
-				isGuest,
-				isLogged,
-				currentUser
-			}
-		}
 	}
 </script>
 

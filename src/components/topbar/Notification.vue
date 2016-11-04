@@ -20,9 +20,9 @@
 </template>
 
 <script type="text/ecmascript-6">
+	import { mapGetters } from 'vuex';
 	import { notificationsApi } from '../../utils/resources';
-	import { currentUser } from '../../vuex/getters';
-	import { notificationsUpdate } from '../../vuex/actions';
+	import * as M from '../../vuex/mutationTypes';
 	import moment from 'moment';
 
 	export default {
@@ -35,30 +35,26 @@
 			},
 			notifications() {
 				return this.$store.state.notifications
-					.filter(e => e.UserID === currentUser(this.$store.state).ID)
+					.filter(e => e.UserID === this.currentUser.ID)
 					.sort((a, b) => {
 						if (moment(a.CreatedAt).isSame(b.CreatedAt, 'second'))
 							return 0;
 						return moment(a.CreatedAt).isBefore(b.CreatedAt, 'second') ? 1 : -1;
 					});
-			}
-		},
-		vuex: {
-			actions: {
-				markRead({ dispatch }) {
-					let n = this.notifications;
-
-					n.forEach(notification => {
-						if (!notification.Read) {
-							notification.Read = true;
-							notificationsApi.update({ id: notification.ID }, notification);
-						}
-					});
-					notificationsUpdate({ dispatch }, n.map(e => { e.Read = true; return e; }))
-				}
 			},
-			getters: {
-				currentUser
+			...mapGetters(['currentUser'])
+		},
+		methods: {
+			markRead() {
+				let n = this.notifications;
+
+				n.forEach(notification => {
+					if (!notification.Read) {
+						notification.Read = true;
+						notificationsApi.update({ id: notification.ID }, notification);
+					}
+				});
+				this.$store.commit(M.NOTIFICATION_UPDATE, n.map(e => { e.Read = true; return e; }));
 			}
 		}
 	}

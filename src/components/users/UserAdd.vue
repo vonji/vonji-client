@@ -28,7 +28,7 @@
 
 <script type="text/ecmascript-6">
 	import { usersApi } from '../../utils/resources';
-	import { alert, login, userUpdate } from '../../vuex/actions';
+	import * as M from '../../vuex/mutationTypes';
 
 	export default {
 		data() {
@@ -39,21 +39,17 @@
 				}
 			};
 		},
-		vuex: {
-			actions: {
-				submit({ dispatch }, e) {
-					this.user.Achievements = [this.$store.state.achievementList[0]];
-					usersApi.save(this.user)
-						.then((result) => {
-							localStorage.userID = result.body.ID;
-							return result.body;
-						})
-						.then(user => { login({ dispatch }, user.Email, user.Password); console.log(user); return user })
-						.then(user => { userUpdate({ dispatch }, user); console.log(user); return user })
-						.then(user => { alert({ dispatch }, 'info', 'Achievement get: ' + user.Achievements[0].Name + '! Vous avez etes credité de 200 vCoins'); console.log(user); return user })
-						.then(() => this.$router.push('/'));
-				}
+		methods: {
+			submit() {
+				this.user.Achievements = [this.$store.state.achievementList[0]];//todo wtf?
+				usersApi.save(this.user)
+					.then((result) => { localStorage.userID = result.body.ID; return result.body; })
+					.then(user => { this.$store.dispatch('login', { email: user.Email, password: user.Password }); return user })
+					.then(user => { this.$store.dispatch('userUpdate', user); return user })
+					.then(user => { this.$store.commit(M.ALERT, { type: 'info', message: 'Achievement get: ' + user.Achievements[0].Name + '! Vous avez etes credité de 200 vCoins' }); return user })
+					.then(() => this.$router.push('/'));
 			}
+
 		}
 	}
 </script>

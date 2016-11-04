@@ -23,7 +23,7 @@ import TagList from './components/tags/TagList.vue';
 
 import AchievementList from './components/AchievementList.vue';
 
-import * as actions from './vuex/actions';
+import * as M from './vuex/mutationTypes';
 import { achievementsApi, usersApi, notificationsApi } from './utils/resources';
 
 global.jQuery = require('jquery');
@@ -72,36 +72,33 @@ let app = new Vue({
 	store,
 	methods: {
 		fetchData() {
-			fetchUser();
-			fetchAchievements();
-			autoFetchNotifications();
+			fetchUser(this.$store);
+			fetchAchievements(this.$store);
+			autoFetchNotifications(this.$store);
 		}
 	}
 });
 
-//TODO use mixin to allow easier access to store.state from components
-
-function fetchUser() {
+function fetchUser(store) {
 	if (localStorage.userID) {
 		usersApi.get({ id: localStorage.userID }).then(response => {
-			actions.userUpdate(store, response.body);
+			store.commit(M.USER_UPDATE, response.body);
 		});
 	}
 }
 
-function fetchAchievements() {
+function fetchAchievements(store) {
 	achievementsApi.get().then(response => {
-		actions.achievementListUpdate(store, response.body);
+		store.commit(M.ACHIEVEMENT_LIST_UPDATE, response.body);
 	});
 }
 
 let refreshId = 9;
 function autoFetchNotifications() {
-
 	window.clearInterval(refreshId);//TODO refactor
 	refreshId = window.setInterval(() => {
 		notificationsApi.getFor(localStorage.userID).then(response => {
-			actions.notificationsUpdate(store, response.body);
+			store.commit(M.NOTIFICATION_UPDATE, response.body);
 		})
 	}, 5000);
 }

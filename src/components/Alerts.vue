@@ -6,17 +6,16 @@
 	</div>
 </template>
 
-<script type="text/babel">
-	import { alertDismiss } from '../vuex/actions'
+<script type="text/ecmascript-6">
+	import { mapMutations } from 'vuex'
+	import * as M from '../vuex/mutationTypes';
 
 	export default {
-		vuex: {
-			getters: {
-				alerts: (state) => state.alerts
-			},
-			actions: {
-				alertDismiss
-			}
+		computed: {
+			alerts() { return this.$store.state.alerts; }
+		},
+		methods: {
+			...mapMutations([M.ALERT_DISMISS])
 		}
 	}
 </script>

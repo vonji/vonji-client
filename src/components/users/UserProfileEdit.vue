@@ -77,8 +77,8 @@
 	import AvatarBox from './AvatarBox.vue';
 	import UserProfileHeader from './UserProfileHeader.vue';
 	import { usersApi } from '../../utils/resources';
-	import { achievementAward, alert } from '../../vuex/actions';
-	import { achievementList } from "../../vuex/getters";
+	import * as M from '../../vuex/mutationTypes';
+	import { mapGetters } from 'vuex';
 
 	export default {
 		data() {
@@ -86,32 +86,28 @@
 				user: {}
 			};
 		},
+		computed: {
+			...mapGetters(['achievementList'])
+		},
 		methods: {
 			fetchData() {
 				usersApi.get({ id: this.$route.params.id }).then(response => { this.user = response.body });
-			}
-		},
-		vuex: {
-			actions: {
-				save({ dispatch }) {
-					usersApi.update(this.user)
-						.then(() => {
-							let user = this.user;
-							if (user.FacebookLink && user.TwitterLink && user.LinkedInLink)
-								achievementAward({ dispatch }, this.achievementList[2], user);
-							if (!user.RealName.empty() && !user.Description.empty() && !user.Motto.empty() && !user.FacebookLink.empty() && !user.TwitterLink.empty() && !user.LinkedInLink.empty() && !user.Phone.empty() && !user.Birthday.empty() && !user.Location.empty() && !user.Gender.empty()) {
-								achievementAward({ dispatch }, this.achievementList[3], user);
-							}
-						})
-						.then(() => alert({ dispatch }, 'info', 'Profile updated'))
-						.catch(response => {
-							alert({ dispatch }, 'danger', 'Could not save profile');
-							console.error(response);
-						});
-				}
 			},
-			getters: {
-				achievementList
+			save() {
+				usersApi.update(this.user)
+					.then(() => {
+						let user = this.user;
+						if (user.FacebookLink && user.TwitterLink && user.LinkedInLink)
+							this.$store.dispatch('achievementAward', { achievement: this.achievementList[2], user: user });
+						if (!user.RealName.empty() && !user.Description.empty() && !user.Motto.empty() && !user.FacebookLink.empty() && !user.TwitterLink.empty() && !user.LinkedInLink.empty() && !user.Phone.empty() && !user.Birthday.empty() && !user.Location.empty() && !user.Gender.empty()) {
+							this.$store.dispatch('achievementAward', { achievement: this.achievementList[3], user: user });
+						}
+					})
+					.then(() => this.$store.commit(M.ALERT, { type: 'info', message: 'Profile updated' }))
+					.catch(response => {
+						this.$store.commit(M.ALERT, { type: 'danger', message: 'Could not save profile' });
+						console.error(response);
+					});
 			}
 		},
 		components: {

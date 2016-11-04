@@ -112,12 +112,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-	import moment from 'moment';
 	import BsPageHeader from '../bootstrap/BsPageHeader.vue';
 	import ContentViewer from './ContentViewer.vue';
 	import { requestsApi, responsesApi, transactionsApi, notificationsApi, usersApi } from '../../utils/resources';
-	import { achievementList, isLogged, currentUser } from '../../vuex/getters';
-	import { achievementAward, userUpdate } from '../../vuex/actions';
+	import { mapGetters } from 'vuex';
+	import moment from 'moment';
 
 	export default {
 		data() {
@@ -139,7 +138,8 @@
 						return 0;
 					return moment(a.UpdatedAt).isBefore(b.UpdatedAt, 'second') ? -1 : 1;
 				});
-			}
+			},
+			...mapGetters(['isLogged'])
 		},
 		methods: {
 			fetchData() {
@@ -225,17 +225,11 @@
 			},
 			deleteResponse(id) {
 				responsesApi.delete({ id }).then(() => { this.request.Responses = this.request.Responses.filter(r => r.ID !== id) });
-			},
-		},
-		vuex: {
-			getters: {
-				isLogged,
-				achievementList
 			}
 		},
 		components: {
 			BsPageHeader,
-			ContentViewer,
+			ContentViewer
 		}
 	}
 </script>

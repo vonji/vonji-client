@@ -18,23 +18,21 @@
 </template>
 
 <script type="text/ecmascript-6">
-	import store from './../vuex/store';
-
 	import Topbar from './topbar/Topbar.vue'
 	import Alerts from './Alerts.vue'
 	import Ad from './ads/Ad.vue';
 
-	import * as actions from '../vuex/actions'
-
-	import { achievementsApi, usersApi } from '../utils/resources';
-
 	export default {
 		name: 'App',
+		data() {
+			return {
+				test: {}
+			};
+		},
 		components: {
 			Topbar,
 			Alerts,
 			Ad
-		},
-		actions
+		}
 	}
 </script>

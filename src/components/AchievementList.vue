@@ -10,8 +10,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-	import { achievementList, currentUser } from '../vuex/getters';
 	import { achievementsApi, usersApi } from '../utils/resources';
+	import { mapGetters } from 'vuex';
 
 	export default {
 		data() {
@@ -21,14 +21,11 @@
 		},
 		methods: {
 			has(achievement) {
-				return currentUser(this.$store.state).Achievements.some(e => e.ID == achievement.ID);
+				return this.currentUser.Achievements.some(e => e.ID == achievement.ID);
 			}
 		},
-		vuex: {
-			getters: {
-				achievementList,
-				currentUser
-			}
+		computed: {
+			...mapGetters(['currentUser'])
 		}
 	}
 </script>

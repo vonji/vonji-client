@@ -73,8 +73,7 @@
 	import UserRequests from './UserRequests.vue';
 	import UserRequestEdit from './UserRequestEdit.vue';
 	import { usersApi, requestsApi, responsesApi, transactionsApi } from '../../utils/resources';
-	import { achievementAward } from '../../vuex/actions';
-	import { achievementList, userUpdate } from '../../vuex/actions';
+	import { mapGetters } from 'vuex';
 
 	export default {
 		data() {
@@ -99,7 +98,8 @@
 			},
 			acceptedRequests() {
 				return this.requests.filter(req => req.Status === 'accepted');
-			}
+			},
+			...mapGetters(['achievementList'])
 		},
 		methods: {
 			fetchData() {
@@ -127,45 +127,38 @@
 			getTransactionAmount(transaction) {
 				let res = transaction.FromID === this.user.ID ? transaction.Amount * -1 : transaction.Amount;
 				return res > 0 ? '+' + res : res;
-			}
-		},
-		vuex: {
-			actions: {
-				gradeResponse({ dispatch }, response, grade) {
-					let request = this.requests.find(e => e.ID == response.RequestID);
-					response.Rating = grade;
-					responsesApi.update(response)
-						.then(() => {
-							request.Status = 'graded';
-							requestsApi.update(request);
+			},
+			gradeResponse({ dispatch }, response, grade) {
+				let request = this.requests.find(e => e.ID == response.RequestID);
+				response.Rating = grade;
+				responsesApi.update(response)
+					.then(() => {
+						request.Status = 'graded';
+						requestsApi.update(request);
+					})
+					.then(() => {
+						this.user.Tags = this.user.Tags.concat(request.Tags);
+						usersApi.update(this.user);
+					})
+					.then(() => {
+						this.$store.dispatch('achievementAward', { achievement: this.$store.state.achievementList[4], user: this.user });//TODO use getter for achievementList
+					})
+					.then(() => {
+						transactionsApi.save({
+							FromID: request.UserID,
+							ToID: response.UserID,
+							Type: 'VCOIN',
+							Amount: response.Value,
+							Reason: 'Request fullfiled',
+							Source: '/requests/view/' + request.ID
 						})
 						.then(() => {
-							this.user.Tags = this.user.Tags.concat(request.Tags);
-							usersApi.update(this.user);
-						})
-						.then(() => {
-							achievementAward({ dispatch }, this.$store.state.achievementList[4], this.user);//TODO use getter for achievementList
-						})
-						.then(() => {
-							transactionsApi.save({
-								FromID: request.UserID,
-								ToID: response.UserID,
-								Type: 'VCOIN',
-								Amount: response.Value,
-								Reason: 'Request fullfiled',
-								Source: '/requests/view/' + request.ID
+							usersApi.get({ id: this.user.ID }).then(res => {
+								this.user = res.body;
+								userUpdate({ dispatch }, this.user);
 							})
-							.then(() => {
-								usersApi.get({ id: this.user.ID }).then(res => {
-									this.user = res.body;
-									userUpdate({ dispatch }, this.user);
-								})
-							});
-						})
-				},
-				getters: {
-					achievementList
-				}
+						});
+					})
 			}
 		},
 		components: {

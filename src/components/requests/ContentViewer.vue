@@ -46,7 +46,7 @@
 	import CommentsViewer from './CommentsViewer.vue';
 	import TagsViewer from './TagsViewer.vue';
 	import UserCard from '../users/UserCard.vue';
-	import { isLogged } from '../../vuex/getters';
+	import { mapGetters } from 'vuex';
 
 	export default {
 		data() {
@@ -72,7 +72,8 @@
 		computed: {
 			isWriteMode() {
 				return this.mode === 'write';
-			}
+			},
+			...mapGetters(['isLogged'])
 		},
 		props: {
 			content: {
@@ -88,11 +89,6 @@
 			UserCard,
 			CommentsViewer,
 			TagsViewer
-		},
-		vuex: {
-			getters: {
-				isLogged
-			}
 		}
 	}
 </script>

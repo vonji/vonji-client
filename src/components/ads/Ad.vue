@@ -35,11 +35,6 @@
 				fixMe();
 			});
 		},
-		vuex: {
-			getters: {
-				currentUser
-			}
-		},
 		methods: {
 			rand(max) {
 				return Math.floor(Math.random() * max);

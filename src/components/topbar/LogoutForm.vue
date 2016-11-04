@@ -5,11 +5,12 @@
 </template>
 
 <script>
-	import * as actions from '../../vuex/actions';
+	import { mapMutations } from 'vuex';
+	import * as M from '../../vuex/mutationTypes';
 
 	export default {
-		vuex: {
-			actions
+		methods: {
+			...mapMutations([M.LOGOUT])
 		}
 	}
 </script>

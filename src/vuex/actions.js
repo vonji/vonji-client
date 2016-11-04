@@ -1,58 +1,43 @@
 import { usersApi, transactionsApi } from '../utils/resources';
-import * as A from './actionTypes';
+import * as M from './mutationTypes';
 
-export const login = ({ dispatch }, email, password) => {
-	usersApi.getByEmail(email)
+//payload: { email, password }
+export const login = ({ commit }, payload) => {
+	usersApi.getByEmail(payload.email)
 		.then(result => result.body)
 		.then(user => {
-			if (user.Password === password) {
-				dispatch(A.LOGIN_SUCCESS, user);
-				dispatch(A.ALERT, 'info', 'Logged in');
+			if (user.Password === payload.email) {
+				commit(M.LOGIN_SUCCESS, user);
+				commit(M.ALERT, 'info', 'Logged in');
 			}
 			else {
-				dispatch(A.LOGIN_FAILURE);//delete?
-				dispatch(A.ALERT, 'danger', 'Login failure');
+				commit(M.LOGIN_FAILURE);//delete?
+				commit(M.ALERT, 'danger', 'Login failure');
 			}
 		})
 		.catch(error => {
 			console.error(error);
-			dispatch(A.ALERT, 'danger', 'Login failure');
-			dispatch(A.LOGIN_FAILURE);
+			commit(M.ALERT, 'danger', 'Login failure');
+			commit(M.LOGIN_FAILURE);
 		})
 };
 
-export const logout = ({ dispatch }) => {
-	dispatch(A.LOGOUT);
-	dispatch(A.ALERT, 'info', 'Logged out');
+export const logout = ({ commit }) => {
+	commit(M.LOGOUT);
+	commit(M.ALERT, 'info', 'Logged out');
 };
 
-export const alert = ({ dispatch }, type, message) => {
-	dispatch(A.ALERT, type, message);
-};
-
-export const alertDismiss = ({ dispatch }, index) => {
-	dispatch(A.ALERT_DISMISS, index);
-};
-
-
-export const userUpdate = ({ dispatch }, user) => {
-	dispatch(A.USER_UPDATE, user);
-};
-
-export const achievementListUpdate = ({ dispatch }, achievements) => {
-	dispatch(A.ACHIEVEMENT_LIST_UPDATE, achievements);
-};
-
-export const achievementAward = ({ dispatch }, achievement, user) => {
-	if (user.Achievements.some(e => e.ID == achievement.ID))
+//payload: { achievement, user }
+export const achievementAward = ({ commit }, payload) => {
+	if (payload.user.Achievements.some(e => e.ID == payload.achievement.ID))
 		return;
-	user.Achievements.push(achievement);
-	user.VActions += achievement.Award;
-	usersApi.update(user)
+	payload.user.Achievements.push(payload.achievement);
+	payload.user.VActions += payload.achievement.Award;
+	usersApi.update(payload.user)
 		.then(() => {
 			transactionsApi.save({
 				FromId: 1,
-				ToId: user.ID,
+				ToId: payload.user.ID,
 				Type: 'VACTION',
 				Amount: achievement.Award,
 				Reason: 'Achievement get: ' + achievement.Name,
@@ -60,15 +45,11 @@ export const achievementAward = ({ dispatch }, achievement, user) => {
 			});
 		})
 		.then(() => {
-			usersApi.get({ id: localStorage.userID })//todo use state
-				.then(result => { user = result.body });
+			usersApi.get({ id: localStorage.userID })//TODO use state
+				.then(result => { payload.user = result.body });
 		})
 		.then(() => {
-			dispatch(A.ALERT, 'info', 'Achievement get: ' + achievement.Name);
-			dispatch(A.USER_UPDATE, user);
+			commit(M.ALERT, 'info', 'Achievement get: ' + payload.achievement.Name);
+			commit(M.USER_UPDATE, payload.user);
 		});
-};
-
-export const notificationsUpdate = ({ dispatch}, notifications) => {
-	dispatch(A.NOTIFICATION_UPDATE, notifications);
 };

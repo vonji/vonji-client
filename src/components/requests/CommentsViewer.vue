@@ -13,8 +13,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+	import { mapGetters } from 'vuex';
 	import { commentsApi } from '../../utils/resources';
-	import { isLogged } from '../../vuex/getters';
 	import Comment from './Comment.vue'
 
 	export default {
@@ -32,13 +32,11 @@
 		components: {
 			Comment
 		},
-		vuex: {
-			getters: {
-				isLogged
-			}
+		computed: {
+			...mapGetters(['isLogged'])
 		},
 		methods: {
-			type() {
+			type() {//TODO to computed
 				return this.content.Responses !== undefined ? 'request' : 'response';//TODO better
 			},
 			submitComment() {
