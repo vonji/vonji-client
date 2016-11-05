@@ -7,7 +7,7 @@
 			<div class="form-group">
 				<input v-model="password" type="password" class="form-control" placeholder="Password"/>
 			</div>
-			<button type="submit" :class="'btn' + isDisabled ? 'btn-default' : 'btn-primary'" :disabled="isDisabled">
+			<button type="submit" :class="'btn ' + (isDisabled ? 'btn-default' : 'btn-primary')" :disabled="isDisabled">
 				Connexion
 			</button>
 			<router-link to="/users/add" class="btn btn-primary">S'inscrire</router-link>
