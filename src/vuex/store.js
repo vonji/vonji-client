@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import * as actions from './actions';
 import * as getters from './getters';
 import { mutations } from './mutations';
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
 		userID: localStorage.userID,
 		notifications: []
 	},
+	actions,
 	getters,
 	mutations
 });
